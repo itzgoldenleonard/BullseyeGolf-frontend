@@ -1,7 +1,33 @@
 <script lang="ts">
     export let database;
+
+    import { show_submit_screen } from './stores';
+
+    function handle_click() {
+        show_submit_screen.set(true);
+    }
 </script>
 
+
+<div class="image-container">
+    {#if database.img == 'None'}
+    <picture>
+        <source type="image/avif" srcset="/default-header/large.avif" />
+        <source type="image/webp" srcset="/default-header/large.webp" />
+        <img src="/default-header/large.jpg" srcset="/default-header/large.png" alt="" class="header-image"/>
+    </picture>
+    
+    {:else}
+    
+    <img src={database.img} alt="" class="header-image">
+    {/if}
+
+    <div class="image-shade">
+        <h1 class="main-heading">
+            Nærmest hullet <br/> Hul {database.hole}
+        </h1>
+    </div>
+</div>
 
 <div class="header">
     <img class="logo" src="/logo-temp.svg" alt="">
@@ -10,17 +36,6 @@
     </svg>
 </div>
 
-<div class="image-container">
-    <div class="image-shade">
-        <h1 class="main-heading">
-            Nærmest hullet
-        </h1>
-        <h1 class="hole-heading">
-            Hul {database.hole}
-        </h1>
-    </div>
-    <img src={database.img == 'None' ? "/default-header-large.jpg" : database.img} alt="" class="header-image">
-</div>
 
 <div class="scores-grid">
     {#if database.scores.length == 0}
@@ -103,14 +118,30 @@
     {/if}
 </div>
 
-<button class="submit-button individual-score">
+<button class="submit-button individual-score" on:click={handle_click}>
     Indsend notering
 </button>
 
 
 <style>
+    .submit-button {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .scores-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-rows: repeat(5, 1fr);
+        position: absolute;
+        top: 30vh;
+    }
+
     .info-button {
         height: 80%;
+        color: #d3dae3;
+        position: absolute;
+        right: 0.1rem;
     }
 
     .logo {
@@ -118,11 +149,43 @@
     }
 
     .header {
-        height: 40px;
+        height: 2rem;
         background-color: #404552;
+        opacity: 0.95;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        align-items: center;
     }
 
     .header-image {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-container {
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 30vh;
+    }
+    
+    .image-shade {
+        background-image: linear-gradient(-75deg, #00000000 35%, 40%, rgba(0, 0, 0, 0.712));
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 30vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .main-heading {
+        color: #d3dae3;
+        margin-left: 1rem;
     }
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import axios from 'axios'
     import { page } from '$app/stores';
+	import { show_submit_screen } from './stores';
 	import Scoreboard from './_Scoreboard.svelte';
 
 	function sleep(ms) { //only used for testing purposes (my computer is too fast 😢)
@@ -13,7 +14,7 @@
 	async function fetch() {
 		try {
 			const response = await axios.get(api_url);
-			await sleep(500); //this is just so that I can see what the loading screen looks like
+			//await sleep(500); //this is just so that I can see what the loading screen looks like
 			//console.log(response.data)
 			return(response.data);
 		} catch (error) {
@@ -21,6 +22,19 @@
 		}
 	}
 	
+	var submission_name: string;
+	var submission_score: number = 0;
+
+	async function add_score() {
+		try {
+			const response = await axios.post(api_url, {'name': submission_name, 'score': submission_score});
+			//console.log(response.data)
+			show_submit_screen.set(false)
+			return(response.data);
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
 	var database = fetch()
 </script>
 
@@ -30,6 +44,32 @@
 {:then database} 
 
 <Scoreboard database={database}/>
+
+{#if $show_submit_screen == true}
+	<div>
+		<h3>
+			Indsend notering
+		</h3>
+
+		<p>
+			Navn:
+		</p>
+
+		<input bind:value={submission_name}/>
+
+		<p>
+			Distance:
+		</p>
+
+		<label>
+			<input type=number bind:value={submission_score} min=0 max=10>
+			<input type=range bind:value={submission_score} min=0.01 max=10 step=0.01>
+			<p>m</p>
+		</label>
+
+		<button on:click={add_score}>Indsend</button>
+	</div>
+{/if}
 
 {:catch error}
 <p>
