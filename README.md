@@ -1,7 +1,6 @@
 # GolfPin (frontend)
 
-GolfPin is a digital scoreboard for the golf contest/minigame called "nærmest hullet"/"nearest pin". This is the repo for the frontend (both the admin panel and the user part), a web app built with sveltekit. Currently the project is in early alpha. 
-
+GolfPin is a digital scoreboard for the golf contest/minigame called "nærmest hullet"/"nearest pin". This is the repo for the frontend (both the admin panel and the user part), a web app built with sveltekit. Currently the project is in early alpha.
 
 ## Features
 
@@ -21,7 +20,7 @@ See the [installation guide](not-yet-made) in the docs
 
 ## Support
 
-Once the project enters public beta a support chatroom will be made on matrix 
+Once the project enters public beta a support chatroom will be made on matrix
 
 ## License
 

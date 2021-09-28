@@ -1,191 +1,167 @@
 <script lang="ts">
-    export let database;
+	export let database;
 
-    import { show_submit_screen } from './stores';
+	import { show_submit_screen, show_info_screen } from './stores';
 
-    function handle_click() {
-        show_submit_screen.set(true);
-    }
+	function handle_submit() {
+		show_submit_screen.set(true);
+	}
+
+	function handle_info() {
+		show_info_screen.set(true);
+	}
 </script>
 
+<head>
+	<link rel="stylesheet" type="text/css" href="/global.css" />
+	<link href="https://fonts.googleapis.com/css?family=Noto Sans" rel="stylesheet" />
+</head>
 
-<div class="image-container">
-    {#if database.img == 'None'}
-    <picture>
-        <source type="image/avif" srcset="/default-header/large.avif" />
-        <source type="image/webp" srcset="/default-header/large.webp" />
-        <img src="/default-header/large.jpg" srcset="/default-header/large.png" alt="" class="header-image"/>
-    </picture>
-    
-    {:else}
-    
-    <img src={database.img} alt="" class="header-image">
-    {/if}
+<div id="L_container">
+	<header>
+		<img class="logo" src="/logo-temp.svg" alt="" />
 
-    <div class="image-shade">
-        <h1 class="main-heading">
-            Nærmest hullet <br/> Hul {database.hole}
-        </h1>
-    </div>
+		<svg class="info-button" viewBox="0 0 24 24" on:click={handle_info}>
+			<path
+				fill="currentColor"
+				d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+			/>
+		</svg>
+	</header>
+
+	{#if database.show_title}
+	<div id="L_title" class="image-shade">
+		<h1 class="main-heading">
+			Nærmest hullet <br /> Hul {database.hole}
+		</h1>
+	</div>
+	{/if}
+	
+	{#if database.img == 'None'}
+		<picture class="header-image">
+			<source type="image/avif" srcset="/default-header/large.avif" />
+			<source type="image/webp" srcset="/default-header/large.webp" />
+			<img
+				src="/default-header/large.jpg"
+				srcset="/default-header/large.png"
+				alt=""
+				class="header-image"
+			/>
+		</picture>
+	{:else}
+		<img src={database.img} alt="" class="header-image" />
+	{/if}
+
+	<main id="L_scores">
+		{#if database.scores.length == 0}
+			<h2 class="no-scores-title">
+				Der er ingen noteringer endnu <br />
+				Vær den første til indsende en
+			</h2>
+		{/if}
+
+		{#if database.scores.length >= 1}
+			<div class="score">
+				<p class="number">1.</p>
+				<p class="name">
+					{database.scores[0]['name']}
+				</p>
+				<p class="meters">
+					{database.scores[0]['score']}m
+				</p>
+			</div>
+		{/if}
+
+		{#if database.scores.length >= 2}
+			<div class="score">
+				<p class="number">2.</p>
+				<p class="name">
+					{database.scores[1]['name']}
+				</p>
+				<p class="meters">
+					{database.scores[1]['score']}m
+				</p>
+			</div>
+		{/if}
+
+		{#if database.scores.length >= 3}
+			<div class="score">
+				<p class="number">3.</p>
+				<p class="name">
+					{database.scores[2]['name']}
+				</p>
+				<p class="meters">
+					{database.scores[2]['score']}m
+				</p>
+			</div>
+		{/if}
+
+		{#if database.scores.length >= 4}
+			<div class="score">
+				<p class="number">4.</p>
+				<p class="name">
+					{database.scores[3]['name']}
+				</p>
+				<p class="meters">
+					{database.scores[3]['score']}m
+				</p>
+			</div>
+		{/if}
+
+		{#if database.scores.length >= 5}
+			<div class="score">
+				<p class="number">5.</p>
+				<p class="name">
+					{database.scores[4]['name']}
+				</p>
+				<p class="meters">
+					{database.scores[4]['score']}m
+				</p>
+			</div>
+		{/if}
+
+		<main id="L_button" class="score submit-button" on:click={handle_submit}>
+			<p>Indsend notering</p>
+		</main>
+	</main>
+
+	
 </div>
-
-<div class="header">
-    <img class="logo" src="/logo-temp.svg" alt="">
-    <svg class="info-button" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
-    </svg>
-</div>
-
-
-<div class="scores-grid">
-    {#if database.scores.length == 0}
-        <h2 class="no-scores-title">
-            Der er ingen noteringer endnu
-        </h2>
-        <h2 class="no-scores-title">
-            Vær den første til indsende en
-        </h2>
-    {/if}
-
-    {#if database.scores.length >= 1}
-    <div class="individual-score 1-place">
-        <p>
-            1.
-        </p>
-        <p>
-            {database.scores[0]['name']}
-        </p>
-        <p>
-            {database.scores[0]['score']}
-        </p>
-    </div>
-    {/if}
-
-    {#if database.scores.length >= 2}
-    <div class="individual-score 2-place">
-        <p>
-            2.
-        </p>
-        <p>
-            {database.scores[1]['name']}
-        </p>
-        <p>
-            {database.scores[1]['score']}
-        </p>
-    </div>
-    {/if}
-
-    {#if database.scores.length >= 3}
-    <div class="individual-score 3-place">
-        <p>
-            3.
-        </p>
-        <p>
-            {database.scores[2]['name']}
-        </p>
-        <p>
-            {database.scores[2]['score']}
-        </p>
-    </div>
-    {/if}
-
-    {#if database.scores.length >= 4}
-    <div class="individual-score 4-place">
-        <p>
-            4.
-        </p>
-        <p>
-            {database.scores[3]['name']}
-        </p>
-        <p>
-            {database.scores[3]['score']}
-        </p>
-    </div>
-    {/if}
-
-    {#if database.scores.length >= 5}
-    <div class="individual-score 4-place">
-        <p>
-            5.
-        </p>
-        <p>
-            {database.scores[4]['name']}
-        </p>
-        <p>
-            {database.scores[4]['score']}
-        </p>
-    </div>
-    {/if}
-</div>
-
-<button class="submit-button individual-score" on:click={handle_click}>
-    Indsend notering
-</button>
-
 
 <style>
-    .submit-button {
-        position: fixed;
-        bottom: 0;
-    }
+	#L_container {
+		display: grid;
+		height: 100vh;
+		width: 100vw;
+		grid-template-columns: 100%;
+		grid-template-rows: 5.5vh 27.5vh 67vh;
+		grid-template-areas:
+			'header'
+			'title'
+			'scores';
+	}
 
-    .scores-grid {
-        display: grid;
-        gap: 1rem;
-        grid-template-rows: repeat(5, 1fr);
-        position: absolute;
-        top: 30vh;
-    }
+	header {
+		grid-area: header;
 
-    .info-button {
-        height: 80%;
-        color: #d3dae3;
-        position: absolute;
-        right: 0.1rem;
-    }
+		display: grid;
+		grid-template-columns: calc(5.5vh * 2.5) 1fr 5.5vh;
+	}
 
-    .logo {
-        height: 100%;
-    }
+	#L_title {
+		grid-area: title;
+	}
 
-    .header {
-        height: 2rem;
-        background-color: #404552;
-        opacity: 0.95;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-    }
+	#L_scores {
+		grid-area: scores;
+	}
 
-    .header-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+	.header-image {
+		grid-row: 1 / 2;
+		grid-column: 1;
+	}
 
-    .image-container {
-        width: 100vw;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 30vh;
-    }
-    
-    .image-shade {
-        background-image: linear-gradient(-75deg, #00000000 35%, 40%, rgba(0, 0, 0, 0.712));
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 30vh;
-        display: flex;
-        align-items: center;
-    }
-
-    .main-heading {
-        color: #d3dae3;
-        margin-left: 1rem;
-    }
+	.info-button {
+		grid-column: 3;
+	}
 </style>
