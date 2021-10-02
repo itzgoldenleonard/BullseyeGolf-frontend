@@ -58,9 +58,8 @@
 	<Scoreboard {database} />
 
 	{#if $show_submit_screen}
-		<div class="darken" on:click={close_submit} transition:fade="{{ duration: 150}}"></div>
-		<div class="submit-bg">
-			<div class="submit-container" in:fly="{{ y: 50, duration: 150 }}" out:fade="{{ duration: 150 }}">
+		<div class="submit-bg" on:click={close_submit} transition:fade={{ duration: 150 }}>
+			<div class="submit-container" in:fly={{ y: 50, duration: 150 }} on:click|stopPropagation>
 				<h3>Indsend notering</h3>
 
 				<p>Navn:</p>

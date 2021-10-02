@@ -30,13 +30,13 @@
 	</header>
 
 	{#if database.show_title}
-	<div id="L_title" class="image-shade">
-		<h1 class="main-heading">
-			Nærmest hullet <br /> Hul {database.hole}
-		</h1>
-	</div>
+		<div id="L_title" class="image-shade">
+			<h1 class="main-heading">
+				Nærmest hullet <br /> Hul {database.hole}
+			</h1>
+		</div>
 	{/if}
-	
+
 	{#if database.img == 'None'}
 		<picture class="header-image">
 			<source type="image/avif" srcset="/default-header/large.avif" />
@@ -124,8 +124,6 @@
 			<p>Indsend notering</p>
 		</main>
 	</main>
-
-	
 </div>
 
 <style>
