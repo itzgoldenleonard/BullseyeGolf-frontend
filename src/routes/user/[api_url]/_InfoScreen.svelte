@@ -1,39 +1,44 @@
 <script lang="ts">
-	import { VERSION_NUMBER } from './stores';
+	import { VERSION_NUMBER, show_info_screen } from './stores';
+	import { fade, fly } from 'svelte/transition';
+
+	function close_info() {
+		show_info_screen.set(false);
+	}
 </script>
 
-<div class="info-background">
-	<!-- I need a close button here -->
-
-	<h1>You are using GolfPin version:</h1>
+<div class="modal-bg" on:click={close_info} transition:fade={{ duration: 150 }}>
+<div class="modal-container" on:click|stopPropagation in:fly={{ y: 50, duration: 150 }}>
+	<h1>Du bruger GolfPin version:</h1>
 	<h2>
 		{$VERSION_NUMBER}
 	</h2>
 
 	<p>
-		It is still early in development, so if you notice any problems or have any feature suggestions
-		feel free to leave them here
+		Programmet er stadig under udvikling, så hvis du opdager nogle problemer eller har ideer 
+		til nye funktioner ville det blive værdsat hvis du laver en 'issue' på denne bug tracker
 	</p>
-	<a href="https://github.com/itzgoldenleonard/GolfPin-frontend/issues">
+	<a href="https://github.com/itzgoldenleonard/GolfPin-frontend/issues" target="_blank">
 		<button class="filled-button">
 			<img alt="github logo" src="/github-small.svg" />
-			<p>Issue tracker</p>
+			<p>Bug tracker</p>
 		</button></a
 	>
 
 	<p>
-		GolfPin is free software licensed under the AGPL version 3. You can view the source code here:
+		GolfPin gratis/libre software og bruger AGPL-v3 licensen. Du kan se kildekoden her:
 	</p>
-	<a href="https://github.com/itzgoldenleonard/GolfPin-frontend">
+	<a href="https://github.com/itzgoldenleonard/GolfPin-frontend" target="_blank">
 		<button class="no-fill-button">
 			<img alt="github logo" src="/github-small.svg" />
 			<p>Frontend source code</p>
 		</button>
 	</a>
-	<a href="https://github.com/itzgoldenleonard/GolfPin-server">
+	<a href="https://github.com/itzgoldenleonard/GolfPin-server" target="_blank">
 		<button class="no-fill-button">
 			<img alt="github logo" src="/github-small.svg" />
 			<p>Backend source code</p>
 		</button>
 	</a>
+</div>
 </div>

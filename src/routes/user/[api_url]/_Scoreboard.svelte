@@ -19,7 +19,9 @@
 
 <div id="L_container">
 	<header>
+		<a href="./">
 		<img class="logo" src="/logo-temp.svg" alt="" />
+		</a>
 
 		<svg class="info-button" viewBox="0 0 24 24" on:click={handle_info}>
 			<path
@@ -61,7 +63,7 @@
 		{/if}
 
 		{#if database.scores.length >= 1}
-			<div class="score">
+			<div class="score score-1">
 				<p class="number">1.</p>
 				<p class="name">
 					{database.scores[0]['name']}
@@ -73,7 +75,7 @@
 		{/if}
 
 		{#if database.scores.length >= 2}
-			<div class="score">
+			<div class="score score-2">
 				<p class="number">2.</p>
 				<p class="name">
 					{database.scores[1]['name']}
@@ -85,7 +87,7 @@
 		{/if}
 
 		{#if database.scores.length >= 3}
-			<div class="score">
+			<div class="score score-3">
 				<p class="number">3.</p>
 				<p class="name">
 					{database.scores[2]['name']}
@@ -97,7 +99,7 @@
 		{/if}
 
 		{#if database.scores.length >= 4}
-			<div class="score">
+			<div class="score score-4">
 				<p class="number">4.</p>
 				<p class="name">
 					{database.scores[3]['name']}
@@ -109,7 +111,7 @@
 		{/if}
 
 		{#if database.scores.length >= 5}
-			<div class="score">
+			<div class="score score-4">
 				<p class="number">5.</p>
 				<p class="name">
 					{database.scores[4]['name']}
