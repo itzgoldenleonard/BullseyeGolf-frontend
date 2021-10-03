@@ -9,6 +9,12 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: var(--window-bg-color);
+	color: var(--text-color);
+	font-family: 'Noto Sans';
+}
+
+p {
+	margin: 0;
 }
 
 .logo {
@@ -173,4 +179,33 @@ header {
 	font-family: 'Noto sans';
 	font-weight: 700;
 	color: var(--text-color);
+}
+
+.hole-card-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 2em;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.hole-card-body {
+	background-color: var(--view-bg-color);
+	color: var(--text-color);
+	aspect-ratio: 1/1;
+	border-radius: 1em;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 5px, rgba(0, 0, 0, 0.2) 3px 5px 5px 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hole-card-body > p {
+	font-weight: 700;
+	font-size: 3em;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
 }
