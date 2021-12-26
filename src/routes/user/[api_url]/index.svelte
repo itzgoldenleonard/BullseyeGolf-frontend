@@ -4,7 +4,7 @@
 	import HoleCard from './_HoleCard.svelte';
 
 	var api_url: string;
-	api_url = `http://${$page.params.api_url}/user/ALL`;
+	api_url = `https://${$page.params.api_url}/user/ALL`;
 
 	async function fetch() {
 		try {

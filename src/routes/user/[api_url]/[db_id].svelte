@@ -12,7 +12,7 @@
 	}
 
 	var api_url: string;
-	api_url = `http://${$page.params.api_url}/user/${$page.params.db_id}`;
+	api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}`;
 
 	async function fetch() {
 		try {
@@ -81,7 +81,7 @@
 					<div style="display: grid; grid-template-columns: repeat(2, 1fr)">
 						<label>
 							<input type="number" bind:value={submission_meters} min="0" max="10" step="1" required class="input-field number-input"/>
-							m 
+							m
 						</label>
 					
 						<label>
