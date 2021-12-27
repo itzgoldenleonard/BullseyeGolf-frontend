@@ -9,7 +9,7 @@ const config = {
 
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
         adapter: cloudflare({
 			// any esbuild options
 		})
