@@ -1,10 +1,10 @@
 <script lang="ts">
 	import axios from 'axios';
 	import { page } from '$app/stores';
-	import HoleCard from './_HoleCard.svelte';
+	import TournamentCard from './_TournamentCard.svelte';
 
 	var api_url: string;
-	api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}`;
+	api_url = `https://${$page.params.api_url}/user/ALL`;
 
 	async function fetch() {
 		try {
@@ -34,9 +34,9 @@
 	</p>
 {:then database} 
 
-	<div class="hole-card-grid">
-		{#each database.holes as db}
-			<HoleCard hole={db.hole_number} db_id={$page.params.db_id}/>
+	<div class="tournament-card-grid">
+		{#each database as db}
+			<TournamentCard name={db.tournament_name} db_id={db.db_id}/>
 		{/each}
 	</div>
 
