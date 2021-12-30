@@ -233,3 +233,9 @@ a {
 	font-size: 2em;
 	text-align: center;
 }
+
+.tournament-list-element {
+    background: var(--view-bg-color);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}

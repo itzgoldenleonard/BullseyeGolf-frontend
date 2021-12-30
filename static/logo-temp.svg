@@ -8,7 +8,7 @@
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="logo-temp.svg"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +27,9 @@
      inkscape:cx="139.47096"
      inkscape:cy="102.12397"
      inkscape:window-width="2560"
-     inkscape:window-height="1018"
+     inkscape:window-height="1056"
      inkscape:window-x="0"
-     inkscape:window-y="38"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -39,22 +39,28 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffdd55;stroke-width:1.51181"
+       style="fill:#ffdd55;stroke-width:1.29306"
        id="rect1365"
-       width="377.26788"
+       width="275.98792"
        height="138.41595"
        x="10.127997"
        y="11.393997" />
     <text
        xml:space="preserve"
-       style="font-size:96px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto"
-       x="37.979988"
-       y="120.26997"
-       id="text2491"><tspan
+       style="font-size:65.4671px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.681948;letter-spacing:2.38px"
+       x="10.240026"
+       y="64.497787"
+       id="text2491"
+       transform="scale(1.0311761,0.96976646)"><tspan
          sodipodi:role="line"
          id="tspan2489"
-         x="37.979988"
-         y="120.26997"
-         style="fill:#474747;fill-opacity:1">GolfPin</tspan></text>
+         x="10.240026"
+         y="64.497787"
+         style="fill:#474747;fill-opacity:1;stroke-width:0.681948">Bullseye</tspan><tspan
+         sodipodi:role="line"
+         x="10.240026"
+         y="146.3316"
+         style="fill:#474747;fill-opacity:1;stroke-width:0.681948"
+         id="tspan139">Golf</tspan></text>
   </g>
 </svg>
