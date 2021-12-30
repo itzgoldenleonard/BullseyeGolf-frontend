@@ -4,7 +4,7 @@
 	import TournamentCard from './_TournamentCard.svelte';
 
 	var api_url: string;
-	api_url = `https://${$page.params.api_url}/user/ALL`;
+	api_url = `https://${$page.params.api_url}/user/`;
 
 	async function fetch() {
 		try {

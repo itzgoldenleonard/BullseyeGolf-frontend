@@ -18,8 +18,14 @@
 		try {
 			const response = await axios.get(api_url);
 			//await sleep(500); //this is just so that I can see what the loading screen looks like
-			//console.log(response.data)
+            //console.log(response.data)
             //This is where I remove that empty score if it's there
+            for (var i in response.data.scores) {
+                if (response.data.scores[i].player_name == "") {
+                    response.data.scores.splice(i, 1)
+                }
+            }
+
 			return response.data;
 		} catch (error) {
 			throw new Error(error);
