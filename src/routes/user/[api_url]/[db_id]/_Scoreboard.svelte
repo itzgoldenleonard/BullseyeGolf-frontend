@@ -31,15 +31,15 @@
 		</svg>
 	</header>
 
-	{#if database.show_title}
+    {#if database.hole_text == ""}
 		<div id="L_title" class="image-shade">
 			<h1 class="main-heading">
-				Nærmest hullet <br /> Hul {database.hole}
+				Nærmest hullet <br /> Hul {database.hole_number}
 			</h1>
 		</div>
 	{/if}
 
-	{#if database.img == 'None'}
+	{#if database.hole_image == ''}
 		<picture class="header-image">
 			<source type="image/avif" srcset="/default-header/large.avif" />
 			<source type="image/webp" srcset="/default-header/large.webp" />
@@ -51,7 +51,7 @@
 			/>
 		</picture>
 	{:else}
-		<img src={database.img} alt="" class="header-image" />
+		<img src={database.hole_image} alt="" class="header-image" />
 	{/if}
 
 	<main id="L_scores">
@@ -66,10 +66,10 @@
 			<div class="score score-1">
 				<p class="number">1.</p>
 				<p class="name">
-					{database.scores[0]['name']}
+					{database.scores[0]['player_name']}
 				</p>
 				<p class="meters">
-					{database.scores[0]['score']}m
+					{database.scores[0]['player_score']}m
 				</p>
 			</div>
 		{/if}
@@ -78,10 +78,10 @@
 			<div class="score score-2">
 				<p class="number">2.</p>
 				<p class="name">
-					{database.scores[1]['name']}
+					{database.scores[1]['player_name']}
 				</p>
 				<p class="meters">
-					{database.scores[1]['score']}m
+					{database.scores[1]['player_score']}m
 				</p>
 			</div>
 		{/if}
@@ -90,10 +90,10 @@
 			<div class="score score-3">
 				<p class="number">3.</p>
 				<p class="name">
-					{database.scores[2]['name']}
+					{database.scores[2]['player_name']}
 				</p>
 				<p class="meters">
-					{database.scores[2]['score']}m
+					{database.scores[2]['player_score']}m
 				</p>
 			</div>
 		{/if}
@@ -102,10 +102,10 @@
 			<div class="score score-4">
 				<p class="number">4.</p>
 				<p class="name">
-					{database.scores[3]['name']}
+					{database.scores[3]['player_name']}
 				</p>
 				<p class="meters">
-					{database.scores[3]['score']}m
+					{database.scores[3]['player_score']}m
 				</p>
 			</div>
 		{/if}
@@ -114,10 +114,10 @@
 			<div class="score score-4">
 				<p class="number">5.</p>
 				<p class="name">
-					{database.scores[4]['name']}
+					{database.scores[4]['player_name']}
 				</p>
 				<p class="meters">
-					{database.scores[4]['score']}m
+					{database.scores[4]['player_score']}m
 				</p>
 			</div>
 		{/if}

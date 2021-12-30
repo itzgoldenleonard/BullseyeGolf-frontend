@@ -4,7 +4,7 @@
     export var db_id: string;
 </script>
 
-<a href="./{$page.params.api_url}/{db_id}">
+<a href="./{db_id}/{hole}">
     <div class="hole-card-body">
         <p>
             Hul <br/>
