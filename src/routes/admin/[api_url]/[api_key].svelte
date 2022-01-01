@@ -17,14 +17,26 @@
 
     var tournamentList = get_tournamentList();
     var current_tournament = "None";
+    var db_id: string;
 
     async function pick_tournament(event) {
-        var db_id: string = event.detail.db_id;
+        db_id = event.detail.db_id;
 
         try {
             var request_url: string = api_url + `user/${db_id}`;
             const response = await axios.get(request_url);
             current_tournament = response.data;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    async function submit_tournament() {
+        try {
+            var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
+            const response = await axios.post(request_url, current_tournament);
+            tournamentList = get_tournamentList();
+            return response.data();
         } catch (error) {
             throw new Error(error);
         }
@@ -62,7 +74,30 @@
         {#if current_tournament == 'None'}
             Vælg en turnering
         {:else}
-            {current_tournament.tournament_name}
+            <form on:submit|preventDefault={submit_tournament}>
+                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                    Turneringens navn: 
+                    <input type="text" bind:value={current_tournament.tournament_name} maxlength="40" required/>
+                </label>
+
+                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                    Turnering sponsor: 
+                    <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" required/>
+                </label>
+
+                <br/>
+
+                {#each current_tournament.holes as hole}
+                    <b>Hul {hole.hole_number}:</b> <br/>
+                    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                        Hul sponsor: 
+                        <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
+                    </label>
+
+                {/each}
+
+                <input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button">
+            </form>
         {/if}
     </main>
 
