@@ -209,3 +209,33 @@ header {
 a {
 	text-decoration: none;
 }
+
+.tournament-card-grid {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	grid-gap: 1em;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+.tournament-card-body {
+	background-color: var(--view-bg-color);
+	color: var(--text-color);
+	border-radius: 1em;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 5px, rgba(0, 0, 0, 0.2) 3px 5px 5px 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tournament-card-body > p {
+	font-weight: 700;
+	font-size: 2em;
+	text-align: center;
+}
+
+.tournament-list-element {
+    background: var(--view-bg-color);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}

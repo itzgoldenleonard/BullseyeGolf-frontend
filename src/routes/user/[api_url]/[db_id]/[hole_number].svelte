@@ -12,13 +12,20 @@
 	}
 
 	var api_url: string;
-	api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}`;
+    api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}/${$page.params.hole_number}`;
 
 	async function fetch() {
 		try {
 			const response = await axios.get(api_url);
 			//await sleep(500); //this is just so that I can see what the loading screen looks like
-			//console.log(response.data)
+            //console.log(response.data)
+            //This is where I remove that empty score if it's there
+            for (var i in response.data.scores) {
+                if (response.data.scores[i].player_name == "") {
+                    response.data.scores.splice(i, 1)
+                }
+            }
+
 			return response.data;
 		} catch (error) {
 			throw new Error(error);
@@ -34,8 +41,8 @@
 
 		try {
 			const response = await axios.post(api_url, {
-				name: submission_name,
-				score: submission_score
+				player_name: submission_name,
+				player_score: submission_score
 			});
 			//console.log(response.data)
 			show_submit_screen.set(false);
