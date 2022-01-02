@@ -2,6 +2,7 @@
 	import axios from 'axios';
 	import { page } from '$app/stores';
     import TournamentListElement from './_TournamentListElement.svelte';
+    import CheckBox from './_CheckBox.svelte';
 
     var api_url: string = `https://${$page.params.api_url}/`;
 
@@ -18,6 +19,7 @@
     var tournamentList = get_tournamentList();
     var current_tournament = "None";
     var db_id: string;
+    var inactive_holes = [];
 
     async function pick_tournament(event) {
         db_id = event.detail.db_id;
@@ -26,6 +28,7 @@
             var request_url: string = api_url + `user/${db_id}`;
             const response = await axios.get(request_url);
             current_tournament = response.data;
+            inactive_holes = await mark_active_holes();
         } catch (error) {
             throw new Error(error);
         }
@@ -36,11 +39,47 @@
             var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
             const response = await axios.post(request_url, current_tournament);
             tournamentList = get_tournamentList();
-            return response.data();
+            return response.data;
         } catch (error) {
             throw new Error(error);
         }
     }
+    
+    async function mark_active_holes() {
+        var holes = await current_tournament.holes;
+        var checklist = [];
+
+        for (let i = -1; i < 18; i++) {
+            checklist.push({"hole_number": i+1,
+			"hole_text": "",
+			"game_mode": "",
+			"hole_sponsor": "",
+			"hole_image": "",
+			"scores": []});
+        }
+
+        for (let element of holes) {
+            checklist[element.hole_number] = false;
+        }
+
+        return checklist;
+    }
+
+    function move_hole(event) {
+        if (event.detail.checked) {
+            for (let i in current_tournament.holes) {
+                if (current_tournament.holes[i].hole_number == event.detail.hole_number) {
+                    inactive_holes[event.detail.hole_number] = current_tournament.holes.splice(i, 1)[0];
+                    current_tournament.holes[0].game_mode = '';
+                }
+            }
+        } else {
+            current_tournament.holes.push(inactive_holes[event.detail.hole_number]);
+            inactive_holes[event.detail.hole_number] = false;
+            current_tournament.holes[0].game_mode = '';
+        }
+    }
+    
 </script>
 
 
@@ -67,7 +106,10 @@
         {#if current_tournament == 'None'}
             Vælg en turnering
         {:else}
-            {current_tournament.tournament_name}
+            {#each inactive_holes as boolean, i}
+                <CheckBox hole_number={i} checked={!boolean} on:check={move_hole}/>
+            {/each}
+
         {/if}
     </div>
     <main class="admin-panel">
@@ -100,7 +142,6 @@
             </form>
         {/if}
     </main>
-
 </div>
 
 
