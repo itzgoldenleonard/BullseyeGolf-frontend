@@ -79,7 +79,37 @@
             current_tournament.holes[0].game_mode = '';
         }
     }
+
+    async function generate_new_tournament() {
+        db_id = `${Math.floor(Math.random()*1000000)}`;
+
+        current_tournament = {"tournament_name": "",
+            "t_start": Date.now(),
+            "t_end": Date.now() + 86400,
+            "tournament_image": "",
+            "tournament_sponsor": "",
+            "holes": []
+        };
+
+        inactive_holes = await mark_active_holes();
+    }
+
+
+    async function delete_tournament() {
+        try {
+            var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
+            const response = await axios.delete(request_url);
+            tournamentList = get_tournamentList();
+            current_tournament = 'None';
+            return response.data;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
     
+    var datetimetest;
+    $: datetimeconvtest = new Date(datetimetest);
+    $: propertime = Math.floor(datetimeconvtest.getTime()/1000);
 </script>
 
 
@@ -87,7 +117,7 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-
+{@debug propertime}
 <div id="page-container">
     <nav class="admin-panel">
         {#await tournamentList}
@@ -97,6 +127,10 @@
             {#each tournamentList as tournament}
                 <TournamentListElement on:pick={pick_tournament} content={tournament}/>
             {/each}
+
+            <button on:click={generate_new_tournament}>
+                +
+            </button>
 
         {:catch error}
             {error}
@@ -127,6 +161,11 @@
                     <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" required/>
                 </label>
 
+                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                    Start tidspunkt: 
+                    <input type="datetime-local" bind:value={datetimetest} required/>
+                </label>
+
                 <br/>
 
                 {#each current_tournament.holes as hole}
@@ -140,6 +179,10 @@
 
                 <input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button">
             </form>
+
+            <button on:click={delete_tournament}>
+                Slet turnering
+            </button>
         {/if}
     </main>
 </div>
