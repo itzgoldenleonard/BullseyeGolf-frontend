@@ -28,6 +28,8 @@
             var request_url: string = api_url + `user/${db_id}`;
             const response = await axios.get(request_url);
             current_tournament = response.data;
+            t_start = toISOts(current_tournament.t_start);
+            t_end = toISOts(current_tournament.t_end);
             inactive_holes = await mark_active_holes();
         } catch (error) {
             throw new Error(error);
@@ -37,6 +39,8 @@
     async function submit_tournament() {
         try {
             var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
+            current_tournament.t_start = toUNIXts(t_start);
+            current_tournament.t_end = toUNIXts(t_end);
             const response = await axios.post(request_url, current_tournament);
             tournamentList = get_tournamentList();
             return response.data;
@@ -84,8 +88,8 @@
         db_id = `${Math.floor(Math.random()*1000000)}`;
 
         current_tournament = {"tournament_name": "",
-            "t_start": Date.now(),
-            "t_end": Date.now() + 86400,
+            "t_start": Math.floor(Date.now()/1000),
+            "t_end": Math.floor(Date.now()/1000) + 86400,
             "tournament_image": "",
             "tournament_sponsor": "",
             "holes": []
@@ -107,9 +111,21 @@
         }
     }
     
-    var datetimetest;
-    $: datetimeconvtest = new Date(datetimetest);
-    $: propertime = Math.floor(datetimeconvtest.getTime()/1000);
+
+    function toISOts(timestamp) {
+        var date = new Date(timestamp*1000);
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}T${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+    }
+
+    function toUNIXts(timestamp) {
+        var date = new Date(timestamp);
+        return Math.floor(date.getTime()/1000);
+    }
+
+    var t_start;
+    var t_end;
+
 </script>
 
 
@@ -117,7 +133,7 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-{@debug propertime}
+{@debug current_tournament}
 <div id="page-container">
     <nav class="admin-panel">
         {#await tournamentList}
@@ -163,7 +179,12 @@
 
                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                     Start tidspunkt: 
-                    <input type="datetime-local" bind:value={datetimetest} required/>
+                    <input type="datetime-local" bind:value={t_start} required/>
+                </label>
+
+                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                    Slut tidspunkt: 
+                    <input type="datetime-local" bind:value={t_end} required/>
                 </label>
 
                 <br/>
