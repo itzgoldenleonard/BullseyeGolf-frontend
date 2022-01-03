@@ -133,7 +133,6 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-{@debug current_tournament}
 <div id="page-container">
     <nav class="admin-panel">
         {#await tournamentList}
