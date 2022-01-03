@@ -157,7 +157,9 @@
             Vælg en turnering
         {:else}
             {#each inactive_holes as boolean, i}
-                <CheckBox hole_number={i} checked={!boolean} on:check={move_hole}/>
+                {#if i != 0}
+                    <CheckBox hole_number={i} checked={!boolean} on:check={move_hole}/>
+                {/if}
             {/each}
 
         {/if}
@@ -187,6 +189,11 @@
                     <input type="datetime-local" bind:value={t_end} required/>
                 </label>
 
+                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                    Turnering billede: 
+                    <input type="url" bind:value={current_tournament.tournament_image} placeholder="https://imgur.com/download/xxxxx/xxxxx"/>
+                </label>
+
                 <br/>
 
                 {#each current_tournament.holes as hole}
@@ -194,6 +201,10 @@
                     <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                         Hul sponsor: 
                         <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
+                    </label>
+                    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                        Hul billede: 
+                        <input type="url" bind:value={hole.hole_image} placeholder="https://imgur.com/download/xxxxx/xxxxx"/>
                     </label>
 
                 {/each}
