@@ -28,6 +28,8 @@
             var request_url: string = api_url + `user/${db_id}`;
             const response = await axios.get(request_url);
             current_tournament = response.data;
+            t_start = toISOts(current_tournament.t_start);
+            t_end = toISOts(current_tournament.t_end);
             inactive_holes = await mark_active_holes();
         } catch (error) {
             throw new Error(error);
@@ -37,6 +39,8 @@
     async function submit_tournament() {
         try {
             var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
+            current_tournament.t_start = toUNIXts(t_start);
+            current_tournament.t_end = toUNIXts(t_end);
             const response = await axios.post(request_url, current_tournament);
             tournamentList = get_tournamentList();
             return response.data;
@@ -79,14 +83,74 @@
             current_tournament.holes[0].game_mode = '';
         }
     }
+
+    async function generate_new_tournament() {
+        db_id = `${Math.floor(Math.random()*1000000)}`;
+
+        current_tournament = {"tournament_name": "",
+            "t_start": Math.floor(Date.now()/1000),
+            "t_end": Math.floor(Date.now()/1000) + 86400,
+            "tournament_image": "",
+            "tournament_sponsor": "",
+            "holes": []
+        };
+
+        inactive_holes = await mark_active_holes();
+    }
+
+
+    async function delete_tournament() {
+        try {
+            var request_url: string = api_url + `admin/${$page.params.api_key}/${db_id}`;
+            const response = await axios.delete(request_url);
+            tournamentList = get_tournamentList();
+            current_tournament = 'None';
+            return response.data;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
     
+
+    function toISOts(timestamp) {
+        var date = new Date(timestamp*1000);
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}T${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+    }
+
+    function toUNIXts(timestamp) {
+        var date = new Date(timestamp);
+        return Math.floor(date.getTime()/1000);
+    }
+
+    var t_start;
+    var t_end;
+
+    const change_image =(event)=> {
+        var image = event.target.files[0];
+        var target_id = event.target.id;
+
+        var reader = new FileReader();
+        reader.readAsDataURL (image);
+        reader.onload = event => {
+            if (event.total > 1049000) {
+                alert("billedet skal være mindre end 1MB")
+                return
+            } else {
+                if (target_id == 'tournament-image-picker') {
+                    current_tournament.tournament_image = event.target.result;
+                } else {
+                    current_tournament.holes[target_id].hole_image = event.target.result;
+                }
+            }
+        };
+    }
 </script>
 
 
 <head>
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
-
 
 <div id="page-container">
     <nav class="admin-panel">
@@ -98,6 +162,10 @@
                 <TournamentListElement on:pick={pick_tournament} content={tournament}/>
             {/each}
 
+            <button on:click={generate_new_tournament}>
+                +
+            </button>
+
         {:catch error}
             {error}
         {/await}
@@ -107,7 +175,9 @@
             Vælg en turnering
         {:else}
             {#each inactive_holes as boolean, i}
-                <CheckBox hole_number={i} checked={!boolean} on:check={move_hole}/>
+                {#if i != 0}
+                    <CheckBox hole_number={i} checked={!boolean} on:check={move_hole}/>
+                {/if}
             {/each}
 
         {/if}
@@ -117,6 +187,7 @@
             Vælg en turnering
         {:else}
             <form on:submit|preventDefault={submit_tournament}>
+                <h1> Turnering </h1>
                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                     Turneringens navn: 
                     <input type="text" bind:value={current_tournament.tournament_name} maxlength="40" required/>
@@ -127,19 +198,51 @@
                     <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" required/>
                 </label>
 
-                <br/>
+                <label style="display: grid; grid-template-columns: auto 1fr auto 1fr; grid-gap: 1rem;">
+                    Tidspunkt: 
+                    <input type="datetime-local" bind:value={t_start} required/>
+                    -
+                    <input type="datetime-local" bind:value={t_end} required/>
+                </label>
 
-                {#each current_tournament.holes as hole}
-                    <b>Hul {hole.hole_number}:</b> <br/>
-                    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                        Hul sponsor: 
-                        <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
-                    </label>
+                <img on:click={()=>{document.getElementById("tournament-image-picker").click();}} class=tournament-image alt="turnering billede" src={current_tournament.tournament_image ? current_tournament.tournament_image : "/default-header/medium.avif"}/>
+                <input style="display:none" id="tournament-image-picker" type="file" accept="image/*" on:change={(event)=>change_image(event)}>
+
+                <h1> Huller </h1>
+
+                {#each current_tournament.holes as hole, i}
+                    <details>
+                        <summary><b>Hul {hole.hole_number}:</b> </summary>
+                        <div class="hole-card">
+                            <img class="hole-image" on:click={()=>{document.getElementById(i).click();}} alt={`Hul ${hole.hole_number} billede`} src={hole.hole_image ? hole.hole_image: "/default-header/medium.avif"}/>
+                            <input style="display:none" id={i} type="file" accept="image/*" on:change={(event)=>change_image(event)}>
+
+                            <div class="hole-form">
+                                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                                    Hul sponsor: 
+                                    <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
+                                </label>
+
+                                {#each hole.scores as score, i}
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; grid-gap: 0.5rem; width: 100%;">
+                                        <p>{score.player_name}</p>
+                                        <p>{score.player_score}</p>
+                                        <button style="color: red;" on:click={() => hole.scores.splice(i, 1)}>x</button>
+                                    </div>
+                                {/each}
+
+                            </div>
+                        </div>
+                    </details>
 
                 {/each}
 
                 <input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button">
             </form>
+
+            <button on:click={delete_tournament}>
+                Slet turnering
+            </button>
         {/if}
     </main>
 </div>
@@ -149,7 +252,7 @@
 <style>
     #page-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 2fr;
+        grid-template-columns: auto auto 1fr;
         grid-template-rows: 100vh;
         grid-gap: 10px
     }
@@ -159,5 +262,29 @@
         border-style: solid;
         border-width: 0.2rem;
         border-radius: 1rem;
+    }
+
+    .tournament-image {
+        width: 50%;
+        padding: 1rem;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+    }
+
+    .hole-image {
+        width: 40%;
+        padding: 0.25rem;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+    }
+
+    .hole-form {
+        position: absolute;
+        left: 45%;
+        top: 0;
+    }
+
+    .hole-card {
+        position: relative;
     }
 </style>
