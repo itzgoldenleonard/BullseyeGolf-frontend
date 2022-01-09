@@ -222,6 +222,15 @@
                                     Hul sponsor: 
                                     <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
                                 </label>
+
+                                {#each hole.scores as score, i}
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; grid-gap: 0.5rem; width: 100%;">
+                                        <p>{score.player_name}</p>
+                                        <p>{score.player_score}</p>
+                                        <button style="color: red;" on:click={() => hole.scores.splice(i, 1)}>x</button>
+                                    </div>
+                                {/each}
+
                             </div>
                         </div>
                     </details>
