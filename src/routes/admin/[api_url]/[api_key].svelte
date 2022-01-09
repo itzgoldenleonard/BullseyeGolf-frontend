@@ -126,6 +126,25 @@
     var t_start;
     var t_end;
 
+    const change_image =(event)=> {
+        var image = event.target.files[0];
+        var target_id = event.target.id;
+
+        var reader = new FileReader();
+        reader.readAsDataURL (image);
+        reader.onload = event => {
+            if (event.total > 1049000) {
+                alert("billedet skal være mindre end 1MB")
+                return
+            } else {
+                if (target_id == 'tournament-image-picker') {
+                    current_tournament.tournament_image = event.target.result;
+                } else {
+                    current_tournament.holes[target_id].hole_image = event.target.result;
+                }
+            }
+        };
+    }
 </script>
 
 
@@ -168,6 +187,7 @@
             Vælg en turnering
         {:else}
             <form on:submit|preventDefault={submit_tournament}>
+                <h1> Turnering </h1>
                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                     Turneringens navn: 
                     <input type="text" bind:value={current_tournament.tournament_name} maxlength="40" required/>
@@ -178,33 +198,33 @@
                     <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" required/>
                 </label>
 
-                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                    Start tidspunkt: 
+                <label style="display: grid; grid-template-columns: auto 1fr auto 1fr; grid-gap: 1rem;">
+                    Tidspunkt: 
                     <input type="datetime-local" bind:value={t_start} required/>
-                </label>
-
-                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                    Slut tidspunkt: 
+                    -
                     <input type="datetime-local" bind:value={t_end} required/>
                 </label>
 
-                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                    Turnering billede: 
-                    <input type="url" bind:value={current_tournament.tournament_image} placeholder="https://imgur.com/download/xxxxx/xxxxx"/>
-                </label>
+                <img on:click={()=>{document.getElementById("tournament-image-picker").click();}} class=tournament-image alt="turnering billede" src={current_tournament.tournament_image ? current_tournament.tournament_image : "/default-header/medium.avif"}/>
+                <input style="display:none" id="tournament-image-picker" type="file" accept="image/*" on:change={(event)=>change_image(event)}>
 
-                <br/>
+                <h1> Huller </h1>
 
-                {#each current_tournament.holes as hole}
-                    <b>Hul {hole.hole_number}:</b> <br/>
-                    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                        Hul sponsor: 
-                        <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
-                    </label>
-                    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-                        Hul billede: 
-                        <input type="url" bind:value={hole.hole_image} placeholder="https://imgur.com/download/xxxxx/xxxxx"/>
-                    </label>
+                {#each current_tournament.holes as hole, i}
+                    <details>
+                        <summary><b>Hul {hole.hole_number}:</b> </summary>
+                        <div class="hole-card">
+                            <img class="hole-image" on:click={()=>{document.getElementById(i).click();}} alt={`Hul ${hole.hole_number} billede`} src={hole.hole_image ? hole.hole_image: "/default-header/medium.avif"}/>
+                            <input style="display:none" id={i} type="file" accept="image/*" on:change={(event)=>change_image(event)}>
+
+                            <div class="hole-form">
+                                <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+                                    Hul sponsor: 
+                                    <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
+                                </label>
+                            </div>
+                        </div>
+                    </details>
 
                 {/each}
 
@@ -223,7 +243,7 @@
 <style>
     #page-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 2fr;
+        grid-template-columns: auto auto 1fr;
         grid-template-rows: 100vh;
         grid-gap: 10px
     }
@@ -233,5 +253,29 @@
         border-style: solid;
         border-width: 0.2rem;
         border-radius: 1rem;
+    }
+
+    .tournament-image {
+        width: 50%;
+        padding: 1rem;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+    }
+
+    .hole-image {
+        width: 40%;
+        padding: 0.25rem;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+    }
+
+    .hole-form {
+        position: absolute;
+        left: 45%;
+        top: 0;
+    }
+
+    .hole-card {
+        position: relative;
     }
 </style>
