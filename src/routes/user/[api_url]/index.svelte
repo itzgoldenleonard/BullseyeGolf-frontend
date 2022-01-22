@@ -25,7 +25,7 @@
 </head>
 
 <h1 class="generic-title" style="text-align: center;">
-	Vælg et hul her:
+	Vælg en turnering her:
 </h1>
 
 {#await database}
