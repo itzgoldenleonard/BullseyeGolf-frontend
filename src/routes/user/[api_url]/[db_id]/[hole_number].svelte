@@ -38,6 +38,13 @@
 
 	async function add_score() {
 		var submission_score: number = submission_meters + (submission_centimeters * 0.01);
+        var db = await database;
+
+        if (db.scores[0].player_score < submission_score) {
+            if (! confirm("Denne score er ikke første plads.\nVil du indsende den alligevel?")) {
+                return;
+            }
+        }
 
 		try {
 			const response = await axios.post(api_url, {
