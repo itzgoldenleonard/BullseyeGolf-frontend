@@ -24,8 +24,14 @@
     var form_changed: boolean = false;
 
     async function pick_tournament(event) {
+        if (form_changed) {
+            if (! confirm("Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet")) {
+                return;
+            }
+            form_changed = false;
+        }
+
         db_id = event.detail.db_id;
-        unload_function();
 
         try {
             var request_url: string = api_url + `user/${db_id}`;
@@ -104,6 +110,11 @@
         inactive_holes = await mark_active_holes();
     }
 
+    async function duplicate_tournament() {
+        db_id = `${Math.floor(Math.random()*1000000)}`;
+        current_tournament.tournament_name += " (kopi)";
+        submit_tournament();
+    }
 
     async function delete_tournament() {
         try {
@@ -111,6 +122,7 @@
             const response = await axios.delete(request_url);
             tournamentList = get_tournamentList();
             current_tournament = 'None';
+            form_changed = false;
             return response.data;
         } catch (error) {
             throw new Error(error);
@@ -170,7 +182,6 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-{@debug form_changed}
 <svelte:window on:beforeunload={unload_function}/>
 <div id="page-container">
     <nav class="admin-panel">
@@ -263,6 +274,10 @@
 
             <button on:click={delete_tournament}>
                 Slet turnering
+            </button>
+
+            <button on:click={duplicate_tournament}>
+                Dupliker turnering
             </button>
         {/if}
     </main>
