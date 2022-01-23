@@ -36,7 +36,9 @@
 
 	<div class="tournament-card-grid">
 		{#each database as db}
-			<TournamentCard name={db.tournament_name} db_id={db.db_id}/>
+            {#if db.active}
+                <TournamentCard name={db.tournament_name} db_id={db.db_id}/>
+            {/if}
 		{/each}
 	</div>
 
