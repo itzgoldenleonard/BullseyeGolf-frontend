@@ -189,9 +189,24 @@
             <p>loading...</p>
         {:then tournamentList}
 
+            {@debug tournamentList}
+
             {#each tournamentList as tournament}
-                <TournamentListElement on:pick={pick_tournament} content={tournament}/>
+                {#if tournament.active}
+                    <TournamentListElement on:pick={pick_tournament} content={tournament}/>
+                {/if}
             {/each}
+
+            <details>
+                <summary>Inaktive turneringer</summary>
+                {#each tournamentList as tournament}
+                    {#if ! tournament.active}
+                        <TournamentListElement on:pick={pick_tournament} content={tournament}/>
+                    {/if}
+                {/each}
+            </details>
+
+
 
             <button on:click={generate_new_tournament}>
                 +
