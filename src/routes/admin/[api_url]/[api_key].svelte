@@ -21,8 +21,11 @@
     var db_id: string;
     var inactive_holes = [];
 
+    var form_changed: boolean = false;
+
     async function pick_tournament(event) {
         db_id = event.detail.db_id;
+        unload_function();
 
         try {
             var request_url: string = api_url + `user/${db_id}`;
@@ -43,6 +46,7 @@
             current_tournament.t_end = toUNIXts(t_end);
             const response = await axios.post(request_url, current_tournament);
             tournamentList = get_tournamentList();
+            form_changed = false;
             return response.data;
         } catch (error) {
             throw new Error(error);
@@ -75,12 +79,14 @@
                 if (current_tournament.holes[i].hole_number == event.detail.hole_number) {
                     inactive_holes[event.detail.hole_number] = current_tournament.holes.splice(i, 1)[0];
                     current_tournament.holes[0].game_mode = '';
+                    form_changed = true;
                 }
             }
         } else {
             current_tournament.holes.push(inactive_holes[event.detail.hole_number]);
             inactive_holes[event.detail.hole_number] = false;
             current_tournament.holes[0].game_mode = '';
+            form_changed = true;
         }
     }
 
@@ -142,8 +148,20 @@
                 } else {
                     current_tournament.holes[target_id].hole_image = event.target.result;
                 }
+                form_changed = true;
             }
         };
+    }
+
+    function unload_function() {
+        // Cancel the event as stated by the standard.
+        if (form_changed == true) {
+            event.preventDefault();
+        }
+        // Chrome requires returnValue to be set.
+        event.returnValue = '';
+        // more compatibility
+        return '...';
     }
 </script>
 
@@ -152,6 +170,8 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
+{@debug form_changed}
+<svelte:window on:beforeunload={unload_function}/>
 <div id="page-container">
     <nav class="admin-panel">
         {#await tournamentList}
@@ -182,6 +202,7 @@
 
         {/if}
     </div>
+
     <main class="admin-panel">
         {#if current_tournament == 'None'}
             Vælg en turnering
@@ -190,19 +211,19 @@
                 <h1> Turnering </h1>
                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                     Turneringens navn: 
-                    <input type="text" bind:value={current_tournament.tournament_name} maxlength="40" required/>
+                    <input type="text" bind:value={current_tournament.tournament_name} maxlength="40" on:change={() => form_changed = true} required/>
                 </label>
 
                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                     Turnering sponsor: 
-                    <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" required/>
+                    <input type="text" bind:value={current_tournament.tournament_sponsor} maxlength="40" on:change={() => form_changed = true} required/>
                 </label>
 
                 <label style="display: grid; grid-template-columns: auto 1fr auto 1fr; grid-gap: 1rem;">
                     Tidspunkt: 
-                    <input type="datetime-local" bind:value={t_start} required/>
+                    <input type="datetime-local" bind:value={t_start} on:change={() => form_changed = true} required/>
                     -
-                    <input type="datetime-local" bind:value={t_end} required/>
+                    <input type="datetime-local" bind:value={t_end} on:change={() => form_changed = true} required/>
                 </label>
 
                 <img on:click={()=>{document.getElementById("tournament-image-picker").click();}} class=tournament-image alt="turnering billede" src={current_tournament.tournament_image ? current_tournament.tournament_image : "/default-header/medium.avif"}/>
@@ -220,7 +241,7 @@
                             <div class="hole-form">
                                 <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
                                     Hul sponsor: 
-                                    <input type="text" bind:value={hole.hole_sponsor} maxlength="40"/>
+                                    <input type="text" bind:value={hole.hole_sponsor} on:change={() => form_changed = true} maxlength="40"/>
                                 </label>
 
                                 {#each hole.scores as score, i}
