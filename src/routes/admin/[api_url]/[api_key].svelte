@@ -198,14 +198,22 @@
             {/each}
 
             <details>
-                <summary>Inaktive turneringer</summary>
+                <summary>Fremtidige turneringer</summary>
                 {#each tournamentList as tournament}
-                    {#if ! tournament.active}
+                    {#if ! tournament.active && Math.floor(Date.now()/1000) < tournament.t_start}
                         <TournamentListElement on:pick={pick_tournament} content={tournament}/>
                     {/if}
                 {/each}
             </details>
 
+            <details>
+                <summary>Afsluttede turneringer</summary>
+                {#each tournamentList as tournament}
+                    {#if ! tournament.active && tournament.t_end < Math.floor(Date.now()/1000) }
+                        <TournamentListElement on:pick={pick_tournament} content={tournament}/>
+                    {/if}
+                {/each}
+            </details>
 
 
             <button on:click={generate_new_tournament}>
