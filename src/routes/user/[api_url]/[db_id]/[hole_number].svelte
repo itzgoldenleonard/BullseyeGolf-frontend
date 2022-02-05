@@ -12,19 +12,19 @@
 	}
 
 	var api_url: string;
-    api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}/${$page.params.hole_number}`;
+	api_url = `https://${$page.params.api_url}/user/${$page.params.db_id}/${$page.params.hole_number}`;
 
 	async function fetch() {
 		try {
 			const response = await axios.get(api_url);
 			//await sleep(500); //this is just so that I can see what the loading screen looks like
-            //console.log(response.data)
-            //This is where I remove that empty score if it's there
-            for (var i in response.data.scores) {
-                if (response.data.scores[i].player_name == "") {
-                    response.data.scores.splice(i, 1)
-                }
-            }
+			//console.log(response.data)
+			//This is where I remove that empty score if it's there
+			for (var i in response.data.scores) {
+				if (response.data.scores[i].player_name == '') {
+					response.data.scores.splice(i, 1);
+				}
+			}
 
 			return response.data;
 		} catch (error) {
@@ -37,14 +37,14 @@
 	var submission_centimeters: number;
 
 	async function add_score() {
-		var submission_score: number = submission_meters + (submission_centimeters * 0.01);
-        var db = await database;
+		var submission_score: number = submission_meters + submission_centimeters * 0.01;
+		var db = await database;
 
-        if (db.scores[0].player_score < submission_score) {
-            if (! confirm("Denne score er ikke første plads.\nVil du indsende den alligevel?")) {
-                return;
-            }
-        }
+		if (db.scores[0].player_score < submission_score) {
+			if (!confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) {
+				return;
+			}
+		}
 
 		try {
 			const response = await axios.post(api_url, {
@@ -55,7 +55,7 @@
 			show_submit_screen.set(false);
 			database = fetch();
 			submission_score = 0;
-			submission_name = "";
+			submission_name = '';
 			submission_meters = 0;
 			submission_centimeters = 0;
 			return response.data;
@@ -87,26 +87,44 @@
 				<form on:submit|preventDefault={add_score}>
 					<label style="display: grid; grid-template-columns: auto 1fr;">
 						Navn:
-						<input type="text" bind:value={submission_name} maxlength="40" required/>
+						<input type="text" bind:value={submission_name} maxlength="40" required />
 					</label>
-					
+
 					<p>Distance:</p>
-					
+
 					<div style="display: grid; grid-template-columns: repeat(2, 1fr)">
 						<label>
-							<input type="number" bind:value={submission_meters} min="0" max="10" step="1" required class="input-field number-input"/>
+							<input
+								type="number"
+								bind:value={submission_meters}
+								min="0"
+								max="10"
+								step="1"
+								required
+								class="input-field number-input"
+							/>
 							m
 						</label>
-					
+
 						<label>
-							<input type="number" bind:value={submission_centimeters} min="0" max="99" step="1" class="input-field number-input">
+							<input
+								type="number"
+								bind:value={submission_centimeters}
+								min="0"
+								max="99"
+								step="1"
+								class="input-field number-input"
+							/>
 							cm
 						</label>
 					</div>
 
-					<input type="submit" value="Indsend" class="small-hilighted-button submit-screen-button">
+					<input
+						type="submit"
+						value="Indsend"
+						class="small-hilighted-button submit-screen-button"
+					/>
 				</form>
-
 			</div>
 		</div>
 	{:else if $show_info_screen}

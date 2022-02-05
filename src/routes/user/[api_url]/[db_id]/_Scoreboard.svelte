@@ -20,7 +20,7 @@
 <div id="L_container">
 	<header>
 		<a href="./">
-		<img class="logo" src="/logo-temp.svg" alt="" />
+			<img class="logo" src="/logo-temp.svg" alt="" />
 		</a>
 
 		<svg class="info-button" viewBox="0 0 24 24" on:click={handle_info}>
@@ -31,7 +31,7 @@
 		</svg>
 	</header>
 
-    {#if database.hole_text == ""}
+	{#if database.hole_text == ''}
 		<div id="L_title" class="image-shade">
 			<h1 class="main-heading">
 				Nærmest hullet <br /> Hul {database.hole_number}
