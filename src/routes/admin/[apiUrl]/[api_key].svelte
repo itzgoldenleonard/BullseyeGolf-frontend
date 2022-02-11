@@ -4,7 +4,7 @@
 	import TournamentListElement from './_TournamentListElement.svelte';
 	import CheckBox from './_CheckBox.svelte';
 
-	var api_url: string = `https://${$page.params.api_url}/`;
+	var api_url: string = `https://${$page.params.apiUrl}/`;
 
 	async function get_tournamentList() {
 		try {

@@ -1,10 +1,9 @@
 <script lang="ts">
 	//import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
-	export var content;
+	export var content: ShortTournament;
 
 	const dispatch = createEventDispatcher();
-
 	function handleClick() {
 		dispatch('pick', {
 			db_id: content.db_id
