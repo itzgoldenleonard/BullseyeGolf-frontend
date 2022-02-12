@@ -12,13 +12,8 @@
     });
 
     afterUpdate(() => {
-        let copyTournament = $activeTournament
-        copyTournament.t_start = toUNIXTs(tStart);
-        copyTournament.t_end = toUNIXTs(tEnd);
-        activeTournament.set(copyTournament) 
-        /* I should really only update the two properties that need to be updated
-        but I don't know how to do that
-        */
+        $activeTournament.t_start = toUNIXTs(tStart)
+        $activeTournament.t_end = toUNIXTs(tEnd)
     })
 </script>
 

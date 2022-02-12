@@ -8,9 +8,6 @@
     export let baseUserUrl: string;
     export let baseAdminUrl: string;
 
-    let tStart: string;
-    let tEnd: string;
-
     async function submit(): Promise<void> {
         await postTournament(baseAdminUrl, $activeTournament);
         updateTournamentList(baseUserUrl);
