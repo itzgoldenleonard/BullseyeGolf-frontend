@@ -1,7 +1,7 @@
 <script lang="ts">
 	//import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
-	export var content: ShortTournament;
+	export let content: ShortTournament;
 
 	const dispatch = createEventDispatcher();
 	function handleClick() {

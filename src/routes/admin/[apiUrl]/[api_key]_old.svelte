@@ -1,8 +1,8 @@
 <script lang="ts">
 	import axios from 'axios';
 	import { page } from '$app/stores';
-	import TournamentListElement from './_TournamentListElement.svelte';
-	import CheckBox from './_CheckBox.svelte';
+	import TournamentListElement from './components/TournamentListElement.svelte';
+	import CheckBox from './components/CheckBox.svelte';
 
 	var api_url: string = `https://${$page.params.apiUrl}/`;
 
