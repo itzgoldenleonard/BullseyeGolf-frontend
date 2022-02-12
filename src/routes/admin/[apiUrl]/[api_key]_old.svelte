@@ -35,7 +35,7 @@
 			form_changed = false;
 		}
 
-		db_id = event.detail.db_id;
+		db_id = event.detail;
 
 		try {
 			var request_url: string = api_url + `user/${db_id}`;
@@ -200,7 +200,7 @@
 
 			{#each tournamentList as tournament}
 				{#if tournament.active}
-					<TournamentListElement on:pick={pick_tournament} content={tournament} />
+					<TournamentListElement on:pick={pick_tournament} {tournament} />
 				{/if}
 			{/each}
 
@@ -208,7 +208,7 @@
 				<summary>Fremtidige turneringer</summary>
 				{#each tournamentList as tournament}
 					{#if !tournament.active && Math.floor(Date.now() / 1000) < tournament.t_start}
-						<TournamentListElement on:pick={pick_tournament} content={tournament} />
+						<TournamentListElement on:pick={pick_tournament} {tournament} />
 					{/if}
 				{/each}
 			</details>
@@ -217,7 +217,7 @@
 				<summary>Afsluttede turneringer</summary>
 				{#each tournamentList as tournament}
 					{#if !tournament.active && tournament.t_end < Math.floor(Date.now() / 1000)}
-						<TournamentListElement on:pick={pick_tournament} content={tournament} />
+						<TournamentListElement on:pick={pick_tournament} {tournament} />
 					{/if}
 				{/each}
 			</details>

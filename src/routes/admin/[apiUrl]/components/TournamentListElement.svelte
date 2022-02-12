@@ -4,9 +4,7 @@
 	export let tournament: ShortTournament;
 
 	const dispatch = createEventDispatcher();
-	function onClick(): void {
-		dispatch('pick', tournament.db_id);
-	}
+	function onClick(): void { dispatch('pick', tournament.db_id); }
 </script>
 
 <div class="tournament-list-element" on:click={onClick} id={tournament.db_id}>

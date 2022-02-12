@@ -19,3 +19,17 @@ export async function getTournament(baseUrl: string, db_id: string): Promise<Tou
         throw new Error(error);
     }
 }
+
+export async function createTournament(): Promise<Tournament> {
+    return
+}
+
+export async function postTournament(baseUrl: string, tournament: Tournament): Promise<void> {
+    try {
+        const request_url: string = `${baseUrl}/${tournament.db_id}`;
+        const response = await axios.post(request_url, tournament);
+        console.log(response);
+    } catch (error) {
+        throw new Error(error);
+    }
+}

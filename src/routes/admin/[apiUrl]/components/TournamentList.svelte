@@ -1,3 +1,9 @@
+<script lang="ts" context="module">
+    export function updateTournamentList(url: string): void {
+        tournamentList.set(getTournamentList(url));
+    }
+</script>
+
 <script lang="ts">
     // # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
@@ -7,10 +13,10 @@
     // # Exports
 	export let baseUserUrl: string;
 
-    tournamentList.set(getTournamentList(baseUserUrl));
+    updateTournamentList(baseUserUrl);
 
-    function onPick(event: { detail: string; }): void {
-        activeTournament.set(getTournament(baseUserUrl, event.detail))
+    async function onPick(event: { detail: string; }): Promise<void> {
+        activeTournament.set(await getTournament(baseUserUrl, event.detail))
     }
 </script>
 
