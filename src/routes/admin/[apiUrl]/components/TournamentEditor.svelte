@@ -1,13 +1,18 @@
 <script lang="ts">
     import { activeTournament } from "../persistence/stores";
     import { postTournament } from "../scripts/api"
+    import { toISOTs } from "../scripts/timeConversion";
+    import TimePicker from "./TimePicker.svelte";
     import { updateTournamentList } from "./TournamentList.svelte"
 
     export let baseUserUrl: string;
     export let baseAdminUrl: string;
 
+    let tStart: string;
+    let tEnd: string;
+
     async function submit(): Promise<void> {
-        postTournament(baseAdminUrl, $activeTournament);
+        await postTournament(baseAdminUrl, $activeTournament);
         updateTournamentList(baseUserUrl);
     }
 </script>
@@ -17,7 +22,7 @@
 {:else}
     <form on:submit|preventDefault={submit}>
         <h1>Turnering</h1>
-        <label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">Turneringens navn: 
+        <label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;">Turneringens navn: 
             <input
                 type="text"
                 name="tournament_name"
@@ -27,7 +32,7 @@
             />
         </label>
 
-        <label for="tournament_sponsor" style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">Turneringens sponsor: 
+        <label for="tournament_sponsor" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;">Turneringens sponsor: 
             <input
                 type="text"
                 name="tournament_sponsor"
@@ -37,6 +42,8 @@
             />
         </label>
         
+        <TimePicker/>
+
         <input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
     </form>
 {/if}
