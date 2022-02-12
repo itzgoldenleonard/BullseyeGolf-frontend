@@ -1,7 +1,7 @@
 <script lang="ts">
 	//import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
-	export var hole_number: int;
+	export var hole_number: number;
 	export var checked;
 
 	const dispatch = createEventDispatcher();

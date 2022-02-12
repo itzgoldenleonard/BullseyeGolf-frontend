@@ -1,16 +1,14 @@
 <script lang="ts">
 	//import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
-	export let content: ShortTournament;
+	export let tournament: ShortTournament;
 
 	const dispatch = createEventDispatcher();
-	function handleClick() {
-		dispatch('pick', {
-			db_id: content.db_id
-		});
+	function onClick(): void {
+		dispatch('pick', tournament.db_id);
 	}
 </script>
 
-<div class="tournament-list-element" on:click={handleClick} id={content.db_id}>
-	<h1>{content.tournament_name}</h1>
+<div class="tournament-list-element" on:click={onClick} id={tournament.db_id}>
+	<h1>{tournament.tournament_name}</h1>
 </div>
