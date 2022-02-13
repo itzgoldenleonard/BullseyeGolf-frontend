@@ -4,12 +4,19 @@
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from './ImagePicker.svelte';
 	import Hole from './Hole.svelte';
-	import { deleteActiveTournament, updateTournamentList } from '../scripts/misc';
+	import { deleteActiveTournament, generateID, updateTournamentList } from '../scripts/misc';
 
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
 
+    function duplciateActiveTournament(): void {
+        $activeTournament.db_id = generateID();
+        $activeTournament.tournament_name += ' (kopi)';
+        submit();
+    }
+
 	async function submit(): Promise<void> {
+        console.log('ran submit function')
 		await postTournament(baseAdminUrl, $activeTournament);
 		updateTournamentList(baseUserUrl);
 	}
@@ -56,8 +63,11 @@
         {/each}
 
 		<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
-        <button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
-            Slet turnering
-        </button>
 	</form>
+    <button on:click={duplciateActiveTournament}>
+        Dupliker turnering
+    </button>
+    <button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
+        Slet turnering
+    </button>
 {/if}

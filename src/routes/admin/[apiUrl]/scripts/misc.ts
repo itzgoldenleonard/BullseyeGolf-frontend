@@ -25,13 +25,13 @@ export async function createDefaultTournament(): Promise<Tournament> {
 	return tournament;
 }
 
-export function deleteActiveTournament(baseAdminUrl: string, baseUserUrl: string): void {
+export async function deleteActiveTournament(baseAdminUrl: string, baseUserUrl: string): Promise<void> {
 	let tournament: Tournament;
 	const unsubscribe = activeTournament.subscribe((value) => {
 		tournament = value;
 	});
 
-	deleteTournament(baseAdminUrl, tournament.db_id);
+	await deleteTournament(baseAdminUrl, tournament.db_id);
 
 	unsubscribe();
 
