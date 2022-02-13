@@ -1,12 +1,10 @@
 <script lang="ts">
+	import { generateID } from "../scripts/misc";
+
 	export let value: string;
 	export let alt: string;
 
-	function idGenerator(): string {
-		return String(Math.floor(Math.random() * 1000000));
-	}
-
-	let id = idGenerator();
+	let id = generateID();
 	/* TODO: I'm thinking that there's a smarter way to target the input field
     Maybe I have to use the two components' relative positions or something,
     I'd rather not generate random IDs*/

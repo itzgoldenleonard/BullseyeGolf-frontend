@@ -9,15 +9,21 @@
 	import TournamentListElement from './TournamentListElement.svelte';
 	import { tournamentList, activeTournament } from '../persistence/stores';
 	import { getTournamentList, getTournament } from '../scripts/api';
+	import { createDefaultTournament } from '../scripts/misc';
 
 	// # Exports
 	export let baseUserUrl: string;
 
 	updateTournamentList(baseUserUrl);
 
-	async function onPick(event: { detail: string }): Promise<void> {
+	async function pick(event: { detail: string }): Promise<void> {
 		activeTournament.set(null);
 		activeTournament.set(await getTournament(baseUserUrl, event.detail));
+	}
+
+	async function create(): Promise<void> {
+		activeTournament.set(null);
+		activeTournament.set(await createDefaultTournament());
 	}
 </script>
 
@@ -27,7 +33,7 @@
 	{:then tournamentList}
 		{#each tournamentList as tournament}
 			{#if tournament.active}
-				<TournamentListElement {tournament} on:pick={onPick} />
+				<TournamentListElement {tournament} on:pick={pick} />
 			{/if}
 		{/each}
 
@@ -35,7 +41,7 @@
 			<summary>Fremtidige turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if !tournament.active && Date.now() < tournament.t_start * 1000}
-					<TournamentListElement {tournament} on:pick={onPick} />
+					<TournamentListElement {tournament} on:pick={pick} />
 				{/if}
 			{/each}
 		</details>
@@ -44,12 +50,12 @@
 			<summary>Afsluttede turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if !tournament.active && tournament.t_end * 1000 < Date.now()}
-					<TournamentListElement {tournament} on:pick={onPick} />
+					<TournamentListElement {tournament} on:pick={pick} />
 				{/if}
 			{/each}
 		</details>
 
-		<button> + </button>
+		<button on:click={create}> + </button>
 	{:catch error}
 		{error}
 	{/await}

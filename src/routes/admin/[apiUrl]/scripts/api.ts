@@ -20,10 +20,6 @@ export async function getTournament(baseUrl: string, db_id: string): Promise<Tou
 	}
 }
 
-export async function createTournament(): Promise<Tournament> {
-	return;
-}
-
 export async function postTournament(baseUrl: string, tournament: Tournament): Promise<void> {
 	try {
 		const request_url: string = `${baseUrl}/${tournament.db_id}`;
