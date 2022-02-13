@@ -161,7 +161,7 @@
 		reader.readAsDataURL(image);
 		reader.onload = (event) => {
 			if (event.total > 1049000) {
-				alert('billedet skal være mindre end 1MB');
+				alert('Billedet skal være mindre end 1MB');
 				return;
 			} else {
 				if (target_id == 'tournament-image-picker') {

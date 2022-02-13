@@ -9,7 +9,7 @@
 
 <div id="page-container">
 	<TournamentList {baseUserUrl} />
-	<AdminPanel {baseUserUrl} {baseAdminUrl}/>
+	<AdminPanel {baseUserUrl} {baseAdminUrl} />
 </div>
 
 <style>
