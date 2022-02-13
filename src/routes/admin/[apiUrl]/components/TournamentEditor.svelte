@@ -4,7 +4,7 @@
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from './ImagePicker.svelte';
 	import Hole from './Hole.svelte';
-	import { updateTournamentList } from './TournamentList.svelte';
+	import { deleteActiveTournament, updateTournamentList } from '../scripts/misc';
 
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
@@ -56,5 +56,8 @@
         {/each}
 
 		<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
+        <button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
+            Slet turnering
+        </button>
 	</form>
 {/if}

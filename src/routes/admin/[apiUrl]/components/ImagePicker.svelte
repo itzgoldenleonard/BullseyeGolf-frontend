@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateID } from "../scripts/misc";
+	import { generateID } from '../scripts/misc';
 
 	export let value: string;
 	export let alt: string;

@@ -1,16 +1,10 @@
-<script lang="ts" context="module">
-	export function updateTournamentList(url: string): void {
-		tournamentList.set(getTournamentList(url));
-	}
-</script>
-
 <script lang="ts">
 	// # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
 	import { tournamentList, activeTournament } from '../persistence/stores';
-	import { getTournamentList, getTournament } from '../scripts/api';
+	import { getTournament } from '../scripts/api';
 	import { createDefaultTournament } from '../scripts/misc';
-
+	import { updateTournamentList } from '../scripts/misc'
 	// # Exports
 	export let baseUserUrl: string;
 
