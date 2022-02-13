@@ -3,6 +3,7 @@
 	import { postTournament } from '../scripts/api';
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from './ImagePicker.svelte';
+	import Hole from './Hole.svelte';
 	import { updateTournamentList } from './TournamentList.svelte';
 
 	export let baseUserUrl: string;
@@ -46,6 +47,13 @@
 		<TimePicker />
 
 		<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+    
+        <h1>
+            Huller
+        </h1>
+        {#each $activeTournament.holes as hole}
+            <Hole bind:hole/>
+        {/each}
 
 		<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
 	</form>

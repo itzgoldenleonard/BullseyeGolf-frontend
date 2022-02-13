@@ -35,7 +35,7 @@
 
 <style>
 	img {
-		max-width: 75%;
+		max-width: 50%;
 		max-height: 50%;
 	}
 </style>
