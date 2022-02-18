@@ -7,7 +7,7 @@ export function generateID(): string {
 }
 
 export function updateTournamentList(url: string): void {
-    tournamentList.set(getTournamentList(url));
+	tournamentList.set(getTournamentList(url));
 }
 
 export async function createDefaultTournament(): Promise<Tournament> {
@@ -25,7 +25,10 @@ export async function createDefaultTournament(): Promise<Tournament> {
 	return tournament;
 }
 
-export async function deleteActiveTournament(baseAdminUrl: string, baseUserUrl: string): Promise<void> {
+export async function deleteActiveTournament(
+	baseAdminUrl: string,
+	baseUserUrl: string
+): Promise<void> {
 	let tournament: Tournament;
 	const unsubscribe = activeTournament.subscribe((value) => {
 		tournament = value;
@@ -36,6 +39,6 @@ export async function deleteActiveTournament(baseAdminUrl: string, baseUserUrl: 
 	unsubscribe();
 
 	activeTournament.set(null);
-    
-    updateTournamentList(baseUserUrl)
+
+	updateTournamentList(baseUserUrl);
 }

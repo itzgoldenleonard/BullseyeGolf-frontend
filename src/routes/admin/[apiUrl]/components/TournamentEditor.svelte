@@ -9,65 +9,56 @@
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
 
-    function duplciateActiveTournament(): void {
-        $activeTournament.db_id = generateID();
-        $activeTournament.tournament_name += ' (kopi)';
-        submit();
-    }
+	function duplciateActiveTournament(): void {
+		$activeTournament.db_id = generateID();
+		$activeTournament.tournament_name += ' (kopi)';
+		submit();
+	}
 
 	async function submit(): Promise<void> {
-        console.log('ran submit function')
 		await postTournament(baseAdminUrl, $activeTournament);
 		updateTournamentList(baseUserUrl);
 	}
 </script>
 
-{#if $activeTournament === null}
-	<p>Vaelg en turnering</p>
-{:else}
-	<form on:submit|preventDefault={submit}>
-		<h1>Turnering</h1>
-		<label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Turneringens navn:
-			<input
-				type="text"
-				name="tournament_name"
-				bind:value={$activeTournament.tournament_name}
-				maxlength="40"
-				required
-			/>
-		</label>
+<form on:submit|preventDefault={submit}>
+	<h1>Turnering</h1>
+	<label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
+		>Turneringens navn:
+		<input
+			type="text"
+			name="tournament_name"
+			bind:value={$activeTournament.tournament_name}
+			maxlength="40"
+			required
+		/>
+	</label>
 
-		<label
-			for="tournament_sponsor"
-			style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Turneringens sponsor:
-			<input
-				type="text"
-				name="tournament_sponsor"
-				bind:value={$activeTournament.tournament_sponsor}
-				maxlength="40"
-				required
-			/>
-		</label>
+	<label
+		for="tournament_sponsor"
+		style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
+		>Turneringens sponsor:
+		<input
+			type="text"
+			name="tournament_sponsor"
+			bind:value={$activeTournament.tournament_sponsor}
+			maxlength="40"
+			required
+		/>
+	</label>
 
-		<TimePicker />
+	<TimePicker />
 
-		<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
-    
-        <h1>
-            Huller
-        </h1>
-        {#each $activeTournament.holes as hole}
-            <Hole bind:hole/>
-        {/each}
+	<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
 
-		<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
-	</form>
-    <button on:click={duplciateActiveTournament}>
-        Dupliker turnering
-    </button>
-    <button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
-        Slet turnering
-    </button>
-{/if}
+	<h1>Huller</h1>
+	{#each $activeTournament.holes as hole}
+		<Hole bind:hole />
+	{/each}
+
+	<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
+</form>
+<button on:click={duplciateActiveTournament}> Dupliker turnering </button>
+<button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
+	Slet turnering
+</button>

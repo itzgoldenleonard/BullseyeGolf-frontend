@@ -4,7 +4,7 @@
 	import { tournamentList, activeTournament } from '../persistence/stores';
 	import { getTournament } from '../scripts/api';
 	import { createDefaultTournament } from '../scripts/misc';
-	import { updateTournamentList } from '../scripts/misc'
+	import { updateTournamentList } from '../scripts/misc';
 	// # Exports
 	export let baseUserUrl: string;
 
