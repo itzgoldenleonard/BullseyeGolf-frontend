@@ -11,14 +11,26 @@
 	updateTournamentList(baseUserUrl);
 
 	async function pick(event: { detail: string }): Promise<void> {
-		if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return;
+		if (
+			$formChanged &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
 		formChanged.set(false);
 		activeTournament.set(null);
 		activeTournament.set(await getTournament(baseUserUrl, event.detail));
 	}
 
 	async function create(): Promise<void> {
-		if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return;
+		if (
+			$formChanged &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
 		formChanged.set(false);
 		activeTournament.set(null);
 		activeTournament.set(await createDefaultTournament());

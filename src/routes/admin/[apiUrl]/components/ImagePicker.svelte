@@ -9,7 +9,7 @@
     Maybe I have to use the two components' relative positions or something,
     I'd rather not generate random IDs*/
 
-	function updateImage(event): void {
+	function updateImage(event: any): void {
 		let image = event.target.files[0];
 
 		let reader = new FileReader();

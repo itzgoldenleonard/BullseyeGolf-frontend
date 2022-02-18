@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { formChanged } from '../persistence/stores';
 	import ImagePicker from './ImagePicker.svelte';
 
 	export let hole: Hole;
 
 	function removeScore(index: number): void {
-		hole.scores.splice(index, 1); // TODO: take a look at this boy again once I've slept on it
-		hole.hole_number = hole.hole_number;
+		hole.scores = hole.scores.filter((e, i) => i !== index); // TODO: take a look at this boy again once I've slept on it
+		formChanged.set(true);
 	}
 </script>
 

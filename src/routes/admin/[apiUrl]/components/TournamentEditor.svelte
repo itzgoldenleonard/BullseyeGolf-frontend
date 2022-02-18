@@ -35,9 +35,7 @@
 		/>
 	</label>
 
-	<label
-		for="tournament_sponsor"
-		style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
+	<label for="tournament_sponsor" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
 		>Turneringens sponsor:
 		<input
 			type="text"
@@ -60,6 +58,4 @@
 	<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
 </form>
 <button on:click={duplciateActiveTournament}> Dupliker turnering </button>
-<button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}>
-	Slet turnering
-</button>
+<button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
