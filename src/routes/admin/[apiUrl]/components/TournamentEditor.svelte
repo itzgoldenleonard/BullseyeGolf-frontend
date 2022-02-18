@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { activeTournament } from '../persistence/stores';
+	import { activeTournament, formChanged } from '../persistence/stores';
 	import { postTournament } from '../scripts/api';
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from './ImagePicker.svelte';
@@ -18,10 +18,11 @@
 	async function submit(): Promise<void> {
 		await postTournament(baseAdminUrl, $activeTournament);
 		updateTournamentList(baseUserUrl);
+		formChanged.set(false);
 	}
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
 	<h1>Turnering</h1>
 	<label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
 		>Turneringens navn:

@@ -1,7 +1,7 @@
 <script lang="ts">
 	// # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
-	import { tournamentList, activeTournament } from '../persistence/stores';
+	import { tournamentList, activeTournament, formChanged } from '../persistence/stores';
 	import { getTournament } from '../scripts/api';
 	import { createDefaultTournament } from '../scripts/misc';
 	import { updateTournamentList } from '../scripts/misc';
@@ -11,11 +11,15 @@
 	updateTournamentList(baseUserUrl);
 
 	async function pick(event: { detail: string }): Promise<void> {
+		if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return;
+		formChanged.set(false);
 		activeTournament.set(null);
 		activeTournament.set(await getTournament(baseUserUrl, event.detail));
 	}
 
 	async function create(): Promise<void> {
+		if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return;
+		formChanged.set(false);
 		activeTournament.set(null);
 		activeTournament.set(await createDefaultTournament());
 	}

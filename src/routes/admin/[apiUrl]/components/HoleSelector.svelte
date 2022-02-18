@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { activeTournament } from "../persistence/stores";
+    import { activeTournament, formChanged } from "../persistence/stores";
 
     let inactiveHoles: Hole[] = [];
     
@@ -24,6 +24,7 @@
     function checkHandler(event: any): void {
         let id: number = Number(event.target.id);
         let checked: boolean = event.target.checked;
+        formChanged.set(true);
         if (checked) check(id); else uncheck(id);
     }
     
@@ -46,11 +47,11 @@
 </script>
 
 <p>This is a hole selector</p>
+{@debug $activeTournament}
 
 {#each inactiveHoles as inactiveHole, i}
     <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
         Hul {i + 1}:
         <input type="checkbox" checked={!inactiveHole} on:change={checkHandler} id={String(i)}>
     </label>
-    <!---<CheckBox bind:checked={inactiveHole} id={i} on:check={checkHandler}/>-->
 {/each}

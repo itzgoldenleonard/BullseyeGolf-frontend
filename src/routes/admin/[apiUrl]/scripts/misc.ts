@@ -1,5 +1,5 @@
 import { deleteTournament, getTournamentList } from './api';
-import { activeTournament, tournamentList } from '../persistence/stores';
+import { activeTournament, formChanged, tournamentList } from '../persistence/stores';
 
 // Maybe this file name could be better
 export function generateID(): string {
@@ -39,6 +39,7 @@ export async function deleteActiveTournament(
 	unsubscribe();
 
 	activeTournament.set(null);
+	formChanged.set(false);
 
 	updateTournamentList(baseUserUrl);
 }
