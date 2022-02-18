@@ -24,24 +24,18 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-<h1 class="generic-title" style="text-align: center;">
-	Vælg en turnering her:
-</h1>
+<h1 class="generic-title" style="text-align: center;">Vælg en turnering her:</h1>
 
 {#await database}
-	<p>
-		loading...
-	</p>
-{:then database} 
-
+	<p>loading...</p>
+{:then database}
 	<div class="tournament-card-grid">
 		{#each database as db}
-            {#if db.active}
-                <TournamentCard name={db.tournament_name} db_id={db.db_id}/>
-            {/if}
+			{#if db.active}
+				<TournamentCard name={db.tournament_name} db_id={db.db_id} />
+			{/if}
 		{/each}
 	</div>
-
 {:catch error}
 	<p>
 		{error}

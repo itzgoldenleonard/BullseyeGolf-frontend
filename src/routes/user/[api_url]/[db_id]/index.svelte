@@ -24,22 +24,16 @@
 	<link rel="stylesheet" type="text/css" href="/global.css" />
 </head>
 
-<h1 class="generic-title" style="text-align: center;">
-	Vælg et hul her:
-</h1>
+<h1 class="generic-title" style="text-align: center;">Vælg et hul her:</h1>
 
 {#await database}
-	<p>
-		loading...
-	</p>
-{:then database} 
-
+	<p>loading...</p>
+{:then database}
 	<div class="hole-card-grid">
 		{#each database.holes as db}
-			<HoleCard hole={db.hole_number} db_id={$page.params.db_id}/>
+			<HoleCard hole={db.hole_number} db_id={$page.params.db_id} />
 		{/each}
 	</div>
-
 {:catch error}
 	<p>
 		{error}

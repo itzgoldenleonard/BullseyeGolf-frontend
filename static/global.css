@@ -235,7 +235,7 @@ a {
 }
 
 .tournament-list-element {
-    background: var(--view-bg-color);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+	background: var(--view-bg-color);
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
