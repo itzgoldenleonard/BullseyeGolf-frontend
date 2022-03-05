@@ -72,7 +72,11 @@
 </main>
 
 <style lang="scss"> 
+	@import '../../../../../static/_variables';
+
 	main {
 		grid-area: nav;
+		background-color: $foreground-color;
+		padding: $padding;
 	}
 </style>

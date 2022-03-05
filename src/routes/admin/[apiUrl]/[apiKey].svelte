@@ -13,6 +13,8 @@
 </main>
 
 <style lang="scss">
+	@import '../../../../static/_variables';
+
 	main {
 		width: 100vw;
 		height: 100vh;
@@ -20,5 +22,7 @@
 		grid-template-columns: 256px 1fr;
 		grid-template-areas: 
 		"nav content";
+		background-color: $background-color;
+		color: white;
 	}
 </style>

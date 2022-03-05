@@ -63,7 +63,19 @@
 </main>
 	
 <style lang="scss">
+	@import '../../../../../static/_variables';
+
 	main {
 		grid-area: editor;
+		background-color: $foreground-color;
+		border-radius: $border-radius;
+		padding: 0 $padding;
+		
+		overflow-y: scroll;
+		// Hide the scrollbar
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 </style>

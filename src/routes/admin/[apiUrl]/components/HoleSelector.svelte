@@ -58,7 +58,12 @@
 </main>
 	
 <style lang="scss">
+	@import '../../../../../static/_variables';
+
 	main {
 		grid-area: holeselector;
+		background-color: $foreground-color;
+		border-radius: $border-radius;
+		padding: 0 $padding;
 	}
 </style>

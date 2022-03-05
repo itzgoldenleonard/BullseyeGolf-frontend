@@ -26,11 +26,17 @@
 	{/if}
 	
 <style lang="scss">
+	@import '../../../../../static/_variables';
+
 	main {
 		grid-area: content;
 		display: grid;
-		grid-template-columns: 256px minmax(400px, 1fr);
+		grid-template-columns: 200px minmax(400px, 1fr);
 		grid-template-areas: 
 		"holeselector editor";
+		
+		margin: $gap;
+		gap: $gap;
+		overflow: hidden;
 	}
 </style>
