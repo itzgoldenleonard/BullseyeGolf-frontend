@@ -19,6 +19,11 @@
 			<input type="text" name="hole_sponsor" bind:value={hole.hole_sponsor} maxlength="40" />
 		</label>
 
+		<label for="hole_text" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
+			>Hul tekst:
+			<input type="text" name="hole_text" bind:value={hole.hole_text} maxlength="40" placeholder="Nærmest hullet"/>
+		</label>
+
 		{#each hole.scores as score, i}
 			<div
 				style="display: grid; grid-template-columns: 1fr 1fr auto; column-gap: 0.5rem; width: 100%; row-gap: 0.1rem;"

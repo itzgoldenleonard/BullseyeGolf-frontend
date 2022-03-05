@@ -47,7 +47,7 @@
 </script>
 
 <main>
-	<p>This is a hole selector</p>
+	<p>Vælg huller:</p>
 
 	{#each inactiveHoles as inactiveHole, i}
 		<label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">

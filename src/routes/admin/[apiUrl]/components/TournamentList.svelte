@@ -41,11 +41,14 @@
 	{#await $tournamentList}
 		<p>loading...</p>
 	{:then tournamentList}
-		{#each tournamentList as tournament}
-			{#if tournament.active}
-				<TournamentListElement {tournament} on:pick={pick} />
-			{/if}
-		{/each}
+		<details>
+			<summary>Aktive turneringer</summary>
+			{#each tournamentList as tournament}
+				{#if tournament.active}
+					<TournamentListElement {tournament} on:pick={pick} />
+				{/if}
+			{/each}
+		</details>
 
 		<details>
 			<summary>Fremtidige turneringer</summary>
@@ -78,5 +81,12 @@
 		grid-area: nav;
 		background-color: $foreground-color;
 		padding: $padding;
+	}
+
+	details {
+		summary {
+			font-size: 16pt;
+			font-weight: 600;
+		}
 	}
 </style>

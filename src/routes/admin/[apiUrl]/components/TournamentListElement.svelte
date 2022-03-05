@@ -10,5 +10,5 @@
 </script>
 
 <div class="tournament-list-element" on:click={onClick} id={tournament.db_id}>
-	<h1>{tournament.tournament_name}</h1>
+	<p>{tournament.tournament_name}</p>
 </div>

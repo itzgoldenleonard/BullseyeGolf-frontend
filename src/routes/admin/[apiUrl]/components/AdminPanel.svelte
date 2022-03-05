@@ -37,6 +37,6 @@
 		
 		margin: $gap;
 		gap: $gap;
-		overflow: hidden;
+		overflow-y: hidden;
 	}
 </style>
