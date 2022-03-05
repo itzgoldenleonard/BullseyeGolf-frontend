@@ -7,16 +7,18 @@
 	const baseAdminUrl: string = `https://${$page.params.apiUrl}/admin/${$page.params.apiKey}`;
 </script>
 
-<div id="page-container">
+<main>
 	<TournamentList {baseUserUrl} />
 	<AdminPanel {baseUserUrl} {baseAdminUrl} />
-</div>
+</main>
 
-<style>
-	#page-container {
+<style lang="scss">
+	main {
+		width: 100vw;
+		height: 100vh;
 		display: grid;
-		grid-template-columns: auto 1fr;
-		grid-template-rows: 100vh;
-		grid-gap: 10px;
+		grid-template-columns: 256px 1fr;
+		grid-template-areas: 
+		"nav content";
 	}
 </style>

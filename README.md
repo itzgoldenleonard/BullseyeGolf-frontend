@@ -24,4 +24,4 @@ Once the project enters public beta a support chatroom will be made on matrix
 
 ## License
 
-The project is licensed under the AGPL-3.0 license. Assets are licensed under CC licenses, see the license files in the same directory as the assets themselves.
+The project is licensed under the AGPL-3.0 license. Assets are also licensed under CC licenses, see the license files in the same directory as the assets themselves.

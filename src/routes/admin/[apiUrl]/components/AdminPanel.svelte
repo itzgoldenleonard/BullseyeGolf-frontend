@@ -16,11 +16,21 @@
 </script>
 
 <svelte:window on:beforeunload={beforeunload} />
-<main>
 	{#if $activeTournament === null}
 		<p>Vaelg en turnering</p>
 	{:else}
+	<main>
 		<HoleSelector />
 		<TournamentEditor {baseUserUrl} {baseAdminUrl} />
+	</main>
 	{/if}
-</main>
+	
+<style lang="scss">
+	main {
+		grid-area: content;
+		display: grid;
+		grid-template-columns: 256px minmax(400px, 1fr);
+		grid-template-areas: 
+		"holeselector editor";
+	}
+</style>

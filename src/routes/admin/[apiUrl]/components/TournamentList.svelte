@@ -37,7 +37,7 @@
 	}
 </script>
 
-<div>
+<main>
 	{#await $tournamentList}
 		<p>loading...</p>
 	{:then tournamentList}
@@ -69,4 +69,10 @@
 	{:catch error}
 		{error}
 	{/await}
-</div>
+</main>
+
+<style lang="scss"> 
+	main {
+		grid-area: nav;
+	}
+</style>

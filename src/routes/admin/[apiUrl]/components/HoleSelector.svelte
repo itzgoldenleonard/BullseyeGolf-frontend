@@ -46,11 +46,19 @@
 	}
 </script>
 
-<p>This is a hole selector</p>
+<main>
+	<p>This is a hole selector</p>
 
-{#each inactiveHoles as inactiveHole, i}
-	<label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-		Hul {i + 1}:
-		<input type="checkbox" checked={!inactiveHole} on:change={checkHandler} id={String(i)} />
-	</label>
-{/each}
+	{#each inactiveHoles as inactiveHole, i}
+		<label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
+			Hul {i + 1}:
+			<input type="checkbox" checked={!inactiveHole} on:change={checkHandler} id={String(i)} />
+		</label>
+	{/each}
+</main>
+	
+<style lang="scss">
+	main {
+		grid-area: holeselector;
+	}
+</style>
