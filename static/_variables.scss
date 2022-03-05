@@ -4,5 +4,10 @@ $foreground-color: #464646;
 
 // Sizes
 $gap: 10px;
-$border-radius: 10px;
+$border-radius-medium: 10px;
+$border-radius-small: 5px;
 $padding: 10px;
+$padding-small: 5px;
+
+// Timings
+$fast-animation: 100ms;

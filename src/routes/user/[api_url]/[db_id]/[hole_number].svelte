@@ -44,6 +44,8 @@
 			if (db.scores[0].player_score < submission_score) {
 				if (!confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) {
 					return;
+				} else {
+					submission_name += ' 🏴'
 				}
 			}
 		}
@@ -115,6 +117,7 @@
 								min="0"
 								max="99"
 								step="1"
+								required
 								class="input-field number-input"
 							/>
 							cm

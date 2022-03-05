@@ -7,8 +7,19 @@
 	function onClick(): void {
 		dispatch('pick', tournament.db_id);
 	}
+
 </script>
 
-<div class="tournament-list-element" on:click={onClick} id={tournament.db_id}>
-	<p>{tournament.tournament_name}</p>
-</div>
+<main on:click={onClick} id={tournament.db_id}>
+	{tournament.tournament_name}
+</main>
+
+<style lang="scss">
+	@import '../../../../../static/_variables';
+	@import '../../../../../static/global.scss';
+
+	main {
+		@extend %tournament-list;
+		margin-left: 20px;
+	}
+</style>

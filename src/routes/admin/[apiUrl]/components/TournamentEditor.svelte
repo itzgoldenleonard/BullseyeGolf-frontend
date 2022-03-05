@@ -68,7 +68,7 @@
 	main {
 		grid-area: editor;
 		background-color: $foreground-color;
-		border-radius: $border-radius;
+		border-radius: $border-radius-medium;
 		padding: 0 $padding;
 		
 		overflow-y: scroll;

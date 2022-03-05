@@ -1,0 +1,13 @@
+%tournament-list {
+    font-size: 15pt;
+    font-weight: 600;
+    border-radius: $border-radius-small;
+    margin: 0 $padding/2;
+    padding: $padding;
+    user-select: none;
+    
+    transition: $fast-animation;
+    &:hover {
+        background-color: adjust-color($color: $foreground-color, $lightness: 10%);
+    }
+}

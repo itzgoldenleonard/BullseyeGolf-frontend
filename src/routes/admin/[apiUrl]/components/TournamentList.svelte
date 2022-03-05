@@ -41,7 +41,7 @@
 	{#await $tournamentList}
 		<p>loading...</p>
 	{:then tournamentList}
-		<details>
+		<details open>
 			<summary>Aktive turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if tournament.active}
@@ -76,17 +76,17 @@
 
 <style lang="scss"> 
 	@import '../../../../../static/_variables';
+	@import '../../../../../static/global.scss';
 
 	main {
 		grid-area: nav;
 		background-color: $foreground-color;
-		padding: $padding;
+		padding-top: $padding;
 	}
 
 	details {
 		summary {
-			font-size: 16pt;
-			font-weight: 600;
+			@extend %tournament-list;
 		}
 	}
 </style>
