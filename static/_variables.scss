@@ -1,6 +1,10 @@
 // Colors
-$background-color: #212121;
-$foreground-color: #464646;
+$background-color: hsl(0, 0%, 9%);
+$foreground-color: rgb(32, 33, 36);
+$foreground-color-selected: hsla(217, 89%, 76%, 0.12);
+$primary-color: hsl(217, 89%, 76%);
+$text-color: hsl(215, 12%, 80%);
+$text-color-selected: hsl(217, 89%, 76%);
 
 // Sizes
 $gap: 10px;
@@ -8,6 +12,11 @@ $border-radius-medium: 10px;
 $border-radius-small: 5px;
 $padding: 10px;
 $padding-small: 5px;
+
+// Shadows
+$shadow-color: hsla(0, 0%, 11%, 0.308);
+$shadow-small: 2px 2px 5px $shadow-color;
+$shadow-medium: 4px 4px 8px $shadow-color;
 
 // Timings
 $fast-animation: 100ms;

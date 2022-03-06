@@ -1,7 +1,7 @@
 <script lang="ts">
 	// # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
-	import { tournamentList, activeTournament, formChanged } from '../persistence/stores';
+	import { tournamentList, activeTournament, formChanged, selectedTournament } from '../persistence/stores';
 	import { getTournament } from '../scripts/api';
 	import { createDefaultTournament } from '../scripts/misc';
 	import { updateTournamentList } from '../scripts/misc';
@@ -20,6 +20,7 @@
 			return;
 		formChanged.set(false);
 		activeTournament.set(null);
+		$selectedTournament = event.detail;
 		activeTournament.set(await getTournament(baseUserUrl, event.detail));
 	}
 
@@ -41,11 +42,14 @@
 	{#await $tournamentList}
 		<p>loading...</p>
 	{:then tournamentList}
+	<div>
 		<details open>
-			<summary>Aktive turneringer</summary>
+			<summary >Aktive turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if tournament.active}
-					<TournamentListElement {tournament} on:pick={pick} />
+					{#key tournament}
+						<TournamentListElement {tournament} on:pick={pick} />
+					{/key}
 				{/if}
 			{/each}
 		</details>
@@ -67,7 +71,7 @@
 				{/if}
 			{/each}
 		</details>
-
+	</div>
 		<button on:click={create}> + </button>
 	{:catch error}
 		{error}
@@ -82,11 +86,30 @@
 		grid-area: nav;
 		background-color: $foreground-color;
 		padding-top: $padding;
+		position: relative;
+		
+		@extend %y-scroll;
+		div {
+			@extend %y-scroll;
+		}
+		display: grid;
+		grid-template-rows: 1fr auto;
+		box-shadow: $shadow-medium;
 	}
 
 	details {
+		transition: $fast-animation;
+
 		summary {
 			@extend %tournament-list;
 		}
+	}
+
+	button {
+		@extend %button;
+		margin: $padding;
+		padding: $padding/2;
+		font-size: 18pt;
+		font-weight: 900;
 	}
 </style>

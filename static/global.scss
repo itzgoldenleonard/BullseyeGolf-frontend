@@ -2,12 +2,31 @@
     font-size: 15pt;
     font-weight: 600;
     border-radius: $border-radius-small;
-    margin: 0 $padding/2;
+    margin: $padding-small/2 $padding/2;
     padding: $padding;
     user-select: none;
+    cursor: pointer;
     
     transition: $fast-animation;
     &:hover {
         background-color: adjust-color($color: $foreground-color, $lightness: 10%);
     }
+}
+
+%y-scroll {
+    overflow-y: scroll;
+    // Hide the scrollbar
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+%button {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: $shadow-small;
+    border-radius: $border-radius-medium;
+    border: 0;
+    background-color: $primary-color;
+    color: $text-color;
 }

@@ -1,16 +1,21 @@
 <script lang="ts">
-	//import { page } from '$app/stores';
-	import { createEventDispatcher } from 'svelte';
+	import { selectedTournament } from '../persistence/stores';
+	import { createEventDispatcher, onDestroy } from 'svelte';
 	export let tournament: ShortTournament;
+	export let selected: boolean = false;
 
 	const dispatch = createEventDispatcher();
 	function onClick(): void {
 		dispatch('pick', tournament.db_id);
 	}
+	const unsubscribe = selectedTournament.subscribe(value => {
+		selected = tournament.db_id === value;
+	});
 
+	onDestroy(unsubscribe);
 </script>
 
-<main on:click={onClick} id={tournament.db_id}>
+<main on:click={onClick} id={tournament.db_id} {selected}>
 	{tournament.tournament_name}
 </main>
 
@@ -21,5 +26,12 @@
 	main {
 		@extend %tournament-list;
 		margin-left: 20px;
+		font-weight: 400;
+		font-size: 13pt;
+		&[selected="true"] {
+			background-color: $foreground-color-selected;
+			color: $text-color-selected;
+			cursor: auto;
+		}
 	}
 </style>
