@@ -1,15 +1,23 @@
 %tournament-list {
-    font-size: 15pt;
+    font-size: $h2-size;
     font-weight: 600;
     border-radius: $border-radius-small;
     margin: $padding-small/2 $padding/2;
     padding: $padding;
+    @extend %selectable;
+}
+
+%selectable {
     user-select: none;
     cursor: pointer;
-    
     transition: $fast-animation;
     &:hover {
         background-color: adjust-color($color: $foreground-color, $lightness: 10%);
+    }
+    &[aria-selected="true"] {
+        background-color: $foreground-color-selected;
+        color: $text-color-selected;
+        cursor: auto;
     }
 }
 
@@ -29,6 +37,7 @@
     border: 0;
     background-color: $primary-color;
     color: $text-color;
+    cursor: pointer;
 }
 
 %card {

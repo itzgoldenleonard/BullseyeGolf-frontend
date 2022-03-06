@@ -15,7 +15,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<main on:click={onClick} id={tournament.db_id} {selected}>
+<main on:click={onClick} id={tournament.db_id} aria-selected={selected}>
 	{tournament.tournament_name}
 </main>
 
@@ -27,11 +27,6 @@
 		@extend %tournament-list;
 		margin-left: 20px;
 		font-weight: 400;
-		font-size: 13pt;
-		&[selected="true"] {
-			background-color: $foreground-color-selected;
-			color: $text-color-selected;
-			cursor: auto;
-		}
+		font-size: $h3-size;
 	}
 </style>

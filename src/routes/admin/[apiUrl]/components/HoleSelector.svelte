@@ -23,7 +23,7 @@
 
 	function checkHandler(event: any): void {
 		let id: number = Number(event.target.id);
-		let checked: boolean = event.target.checked;
+		let checked: boolean = !!inactiveHoles[id];
 		formChanged.set(true);
 		if (checked) check(id);
 		else uncheck(id);
@@ -47,14 +47,13 @@
 </script>
 
 <main>
-	<p>Vælg huller:</p>
+	<h1>Vælg huller:</h1>
 
+	<content>
 	{#each inactiveHoles as inactiveHole, i}
-		<label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-			Hul {i + 1}:
-			<input type="checkbox" checked={!inactiveHole} on:change={checkHandler} id={String(i)} />
-		</label>
+			<span aria-selected={!inactiveHole} on:click={checkHandler} id={String(i)}>{i + 1}</span>
 	{/each}
+	</content>
 </main>
 	
 <style lang="scss">
@@ -64,5 +63,21 @@
 	main {
 		grid-area: holeselector;
 		@extend %card;
+		
+		h1 {
+			font-size: $h2-size;
+			margin: 0;
+			padding-top: $padding;
+			padding-bottom: $padding;
+		}
+		
+		content {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			
+			span {
+				@extend %selectable;
+			}
+		}
 	}
 </style>

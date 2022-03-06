@@ -7,6 +7,7 @@
 	import { updateTournamentList } from '../scripts/misc';
 	// # Exports
 	export let baseUserUrl: string;
+	let openFolds: boolean[] = [true, false, false];
 
 	updateTournamentList(baseUserUrl);
 
@@ -43,7 +44,7 @@
 		<p>loading...</p>
 	{:then tournamentList}
 	<div>
-		<details open>
+		<details bind:open={openFolds[0]}>
 			<summary >Aktive turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if tournament.active}
@@ -54,7 +55,7 @@
 			{/each}
 		</details>
 
-		<details>
+		<details bind:open={openFolds[1]}>
 			<summary>Fremtidige turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if !tournament.active && Date.now() < tournament.t_start * 1000}
@@ -63,7 +64,7 @@
 			{/each}
 		</details>
 
-		<details>
+		<details bind:open={openFolds[2]}>
 			<summary>Afsluttede turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if !tournament.active && tournament.t_end * 1000 < Date.now()}
