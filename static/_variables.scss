@@ -4,7 +4,7 @@ $foreground-color: rgb(32, 33, 36);
 $foreground-color-selected: hsla(217, 89%, 76%, 0.12);
 $primary-color: hsl(217, 89%, 76%);
 $text-color: hsl(215, 12%, 80%);
-$text-color-selected: hsl(217, 89%, 76%);
+$text-color-selected: $primary-color;
 
 // Sizes
 $gap: 10px;
@@ -12,6 +12,10 @@ $border-radius-medium: 10px;
 $border-radius-small: 5px;
 $padding: 10px;
 $padding-small: 5px;
+$h1-size: 24pt;
+$h2-size: 20pt;
+$h3-size: 16pt;
+$text-size: 14pt;
 
 // Shadows
 $shadow-color: hsla(0, 0%, 11%, 0.308);

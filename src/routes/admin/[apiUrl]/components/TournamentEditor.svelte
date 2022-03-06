@@ -68,11 +68,8 @@
 
 	main {
 		grid-area: editor;
-		background-color: $foreground-color;
-		border-radius: $border-radius-medium;
-		padding: 0 $padding;
-		box-shadow: $shadow-medium;
 		
-		@extend %y-scroll
+		@extend %card;
+		@extend %y-scroll;
 	}
 </style>

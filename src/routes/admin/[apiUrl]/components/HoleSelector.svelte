@@ -59,12 +59,10 @@
 	
 <style lang="scss">
 	@import '../../../../../static/_variables';
+	@import '../../../../../static/global.scss';
 
 	main {
 		grid-area: holeselector;
-		background-color: $foreground-color;
-		border-radius: $border-radius-medium;
-		padding: 0 $padding;
-		box-shadow: $shadow-medium;
+		@extend %card;
 	}
 </style>

@@ -24,7 +24,7 @@
 		grid-template-areas: 
 		"nav content";
 		background-color: $background-color;
-		color: white;
+		color: $text-color;
 		
 		font-family: 'Roboto', sans-serif;
 	}

@@ -98,8 +98,6 @@
 	}
 
 	details {
-		transition: $fast-animation;
-
 		summary {
 			@extend %tournament-list;
 		}
