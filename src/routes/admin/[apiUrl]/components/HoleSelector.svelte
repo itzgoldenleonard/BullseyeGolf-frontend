@@ -62,7 +62,7 @@
 
 	main {
 		grid-area: holeselector;
-		@extend %card;
+		padding: $padding;
 		
 		h1 {
 			font-size: $h2-size;
@@ -73,10 +73,17 @@
 		
 		content {
 			display: grid;
+			place-items: center;
 			grid-template-columns: repeat(3, 1fr);
 			
 			span {
 				@extend %selectable;
+				padding: $padding;
+				font-size: $h3-size;
+				border-radius: $border-radius-small;
+				width: 22px;
+				text-align: center;
+				margin: $padding-small/2;
 			}
 		}
 	}

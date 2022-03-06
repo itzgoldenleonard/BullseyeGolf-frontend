@@ -20,7 +20,6 @@
 		<p>Vaelg en turnering</p>
 	{:else}
 	<main>
-		<HoleSelector />
 		<TournamentEditor {baseUserUrl} {baseAdminUrl} />
 	</main>
 	{/if}
@@ -31,9 +30,9 @@
 	main {
 		grid-area: content;
 		display: grid;
-		grid-template-columns: 200px minmax(400px, 1fr);
+		grid-template-columns: minmax(400px, 1fr);
 		grid-template-areas: 
-		"holeselector editor";
+		"editor";
 		
 		margin: $gap;
 		gap: $gap;

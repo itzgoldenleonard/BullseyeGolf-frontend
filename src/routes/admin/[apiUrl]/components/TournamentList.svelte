@@ -5,6 +5,7 @@
 	import { getTournament } from '../scripts/api';
 	import { createDefaultTournament } from '../scripts/misc';
 	import { updateTournamentList } from '../scripts/misc';
+	import HoleSelector from './HoleSelector.svelte';
 	// # Exports
 	export let baseUserUrl: string;
 	let openFolds: boolean[] = [true, false, false];
@@ -35,6 +36,7 @@
 			return;
 		formChanged.set(false);
 		activeTournament.set(null);
+		selectedTournament.set('');
 		activeTournament.set(await createDefaultTournament());
 	}
 </script>
@@ -73,7 +75,10 @@
 			{/each}
 		</details>
 	</div>
-		<button on:click={create}> + </button>
+	{#if $activeTournament !== null}
+		<HoleSelector />
+	{/if}
+	<button on:click={create}> + </button>
 	{:catch error}
 		{error}
 	{/await}
@@ -94,7 +99,11 @@
 			@extend %y-scroll;
 		}
 		display: grid;
-		grid-template-rows: 1fr auto;
+		grid-template-rows: 1fr auto auto;
+		grid-template-areas: 
+		"tournaments"
+		"holeselector"
+		"button";
 		box-shadow: $shadow-medium;
 	}
 
