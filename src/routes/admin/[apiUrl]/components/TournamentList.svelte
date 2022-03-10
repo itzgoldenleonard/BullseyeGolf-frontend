@@ -50,9 +50,7 @@
 			<summary >Aktive turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if tournament.active}
-					{#key tournament}
-						<TournamentListElement {tournament} on:pick={pick} />
-					{/key}
+					<TournamentListElement {tournament} on:pick={pick} />
 				{/if}
 			{/each}
 		</details>
@@ -114,7 +112,7 @@
 	}
 
 	button {
-		@extend %button;
+		@extend %button-hilighted;
 		margin: $padding;
 		padding: $padding/2;
 		font-size: 18pt;

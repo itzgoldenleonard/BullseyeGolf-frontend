@@ -22,11 +22,12 @@
 	}
 </script>
 
-<main>
-	<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
+<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
+	<main id="tournament">
 		<h1>Turnering</h1>
-		<label for="tournament_name" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Turneringens navn:
+
+		<label>
+			<p>Turneringens navn:</p>
 			<input
 				type="text"
 				name="tournament_name"
@@ -36,40 +37,66 @@
 			/>
 		</label>
 
-		<label for="tournament_sponsor" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Turneringens sponsor:
+		<label>
+			<p>Sponsor</p>
 			<input
 				type="text"
 				name="tournament_sponsor"
 				bind:value={$activeTournament.tournament_sponsor}
 				maxlength="40"
-				required
 			/>
 		</label>
 
 		<TimePicker />
 
 		<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+	</main>
 
+	<main id="holes">
 		<h1>Huller</h1>
 		{#each $activeTournament.holes as hole}
 			<Hole bind:hole />
 		{/each}
 
-		<input type="submit" value="Anvend" class="small-hilighted-button submit-screen-button" />
-	</form>
-	<button on:click={duplciateActiveTournament}> Dupliker turnering </button>
-	<button on:click={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
-</main>
+		<button on:click|preventDefault={duplciateActiveTournament}> Dupliker turnering </button>
+		<button on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
+		<input type="submit" value="Anvend"/>
+	</main>
+</form>
 	
 <style lang="scss">
 	@import '../../../../../static/_variables';
 	@import '../../../../../static/global.scss';
 
-	main {
+	form {
 		grid-area: editor;
-		
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: $padding;
+		grid-template-areas: 
+		"tournament holes";
+
+		h1 {
+			font-size: $h2-size;
+			margin: 0;
+			padding-top: $padding;
+			padding-bottom: $padding;
+		}
+	}
+
+	#tournament {
+		grid-area: tournament;
 		@extend %card;
 		@extend %y-scroll;
+	}
+
+	#holes {
+		grid-area: holes;
+		@extend %card;
+		@extend %y-scroll;
+	}
+
+	input[type=submit] {
+		@extend %button-hilighted;
 	}
 </style>
