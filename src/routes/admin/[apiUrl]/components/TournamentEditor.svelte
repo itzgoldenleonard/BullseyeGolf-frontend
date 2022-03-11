@@ -4,6 +4,7 @@
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from './ImagePicker.svelte';
 	import Hole from './Hole.svelte';
+	import InputText from './InputText.svelte';
 	import { deleteActiveTournament, generateID, updateTournamentList } from '../scripts/misc';
 
 	export let baseUserUrl: string;
@@ -26,26 +27,9 @@
 	<main id="tournament">
 		<h1>Turnering</h1>
 
-		<label>
-			<p>Turneringens navn:</p>
-			<input
-				type="text"
-				name="tournament_name"
-				bind:value={$activeTournament.tournament_name}
-				maxlength="40"
-				required
-			/>
-		</label>
+		<InputText label="Turneringens navn" bind:value={$activeTournament.tournament_name} required maxlength={40} width="100%" />
 
-		<label>
-			<p>Sponsor</p>
-			<input
-				type="text"
-				name="tournament_sponsor"
-				bind:value={$activeTournament.tournament_sponsor}
-				maxlength="40"
-			/>
-		</label>
+		<InputText label="Sponsor" bind:value={$activeTournament.tournament_sponsor} maxlength={40} width="100%" />
 
 		<TimePicker />
 

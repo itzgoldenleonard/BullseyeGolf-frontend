@@ -2,6 +2,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { activeTournament } from '../persistence/stores';
 	import { toISOTs, toUNIXTs } from '../scripts/timeConversion';
+	import InputDateTime from './InputDateTime.svelte';
 
 	let tStart: string;
 	let tEnd: string;
@@ -17,9 +18,22 @@
 	});
 </script>
 
-<label for="t" style="display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 1rem;"
-	>Tidspunkt:
-	<input type="datetime-local" name="t" bind:value={tStart} required />
-	-
-	<input type="datetime-local" name="t" bind:value={tEnd} required />
-</label>
+<main>
+	<InputDateTime label="Start tidspunkt" bind:value={tStart} required/>
+	<InputDateTime label="Start tidspunkt" bind:value={tEnd} required/>
+</main>
+
+<style lang="scss">
+	@import '../../../../../static/_variables';
+
+	main {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: $padding;
+		
+		@media only screen and (max-width: 1300px) {
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 1fr;
+		}
+	}
+</style>
