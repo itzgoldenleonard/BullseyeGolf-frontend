@@ -63,8 +63,7 @@
 		h1 {
 			font-size: $h2-size;
 			margin: 0;
-			padding-top: $padding;
-			padding-bottom: $padding;
+			padding-top: $padding-large;
 		}
 	}
 
@@ -72,6 +71,11 @@
 		grid-area: tournament;
 		@extend %card;
 		@extend %y-scroll;
+		
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(4, auto) 1fr;
+		row-gap: $padding-large;
 	}
 
 	#holes {

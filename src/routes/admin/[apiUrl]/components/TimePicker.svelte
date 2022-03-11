@@ -34,6 +34,7 @@
 		@media only screen and (max-width: 1300px) {
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr 1fr;
+			row-gap: $padding-large;
 		}
 	}
 </style>
