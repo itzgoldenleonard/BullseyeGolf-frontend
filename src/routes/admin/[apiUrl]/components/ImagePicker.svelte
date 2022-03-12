@@ -22,18 +22,60 @@
 </script>
 
 <img
+	class="selected-image"
 	{alt}
 	src={value ? value : '/default-header/medium.avif'}
+/>
+
+<div 
 	on:click={() => {
 		document.getElementById(id).click();
-	}}
-/>
+	}}>
+
+	<img src="/camera-retake.svg" alt="Change"/>	
+	<p>Klik for at ændre billedet</p>
+</div>
 
 <input type="file" {id} style="display: none;" accept="image/*" on:change={updateImage} />
 
-<style>
-	img {
-		max-width: 50%;
-		max-height: 50%;
+<style lang="scss">
+	@import '../../../../../static/_variables';
+	@import '../../../../../static/global.scss';
+
+	img.selected-image {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		object-fit: contain;
+	}
+
+	div {
+		user-select: none;
+		cursor: pointer;
+		opacity: 0;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.349);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		will-change: opacity;
+		transition: opacity $fast-animation ease-in-out;
+		
+		&:hover {
+			opacity: 1;
+		}
+		
+		img {
+			max-height: 50%;
+			max-width: 50%;
+			height: 256px;
+		}
+		
+		p {
+			font-size: $h3-size;
+		}
 	}
 </style>

@@ -91,10 +91,10 @@
 		background-color: $foreground-color;
 		padding-top: $padding;
 		position: relative;
+		overflow-y: hidden;
 		
-		@extend %y-scroll;
 		div {
-			@extend %y-scroll;
+			overflow-y: auto;
 		}
 		display: grid;
 		grid-template-rows: 1fr auto auto;

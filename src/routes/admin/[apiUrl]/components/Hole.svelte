@@ -12,7 +12,9 @@
 
 <details>
 	<summary><b>Hul {hole.hole_number}</b></summary>
-	<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
+	<figure>
+		<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
+	</figure>
 	<div>
 		<label for="hole_sponsor" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
 			>Hul sponsor:
@@ -35,3 +37,12 @@
 		{/each}
 	</div>
 </details>
+
+<style lang="scss">
+	figure {
+		position: relative;
+		margin: 0;
+		width: 50%;
+		height: 250px;
+	}
+</style>

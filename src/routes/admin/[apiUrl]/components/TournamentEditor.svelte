@@ -33,7 +33,9 @@
 
 		<TimePicker />
 
-		<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+		<figure>
+			<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+		</figure>
 	</main>
 
 	<main id="holes">
@@ -55,10 +57,11 @@
 	form {
 		grid-area: editor;
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: minmax(400px, 1fr) minmax(400px, 1fr);
 		column-gap: $padding;
 		grid-template-areas: 
 		"tournament holes";
+		overflow-y: hidden;
 
 		h1 {
 			font-size: $h2-size;
@@ -70,21 +73,27 @@
 	#tournament {
 		grid-area: tournament;
 		@extend %card;
-		@extend %y-scroll;
+		overflow: hidden;
 		
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: repeat(4, auto) 1fr;
 		row-gap: $padding-large;
+		padding-bottom: $padding-large;
 	}
 
 	#holes {
 		grid-area: holes;
 		@extend %card;
-		@extend %y-scroll;
+		overflow-y: auto;
 	}
 
 	input[type=submit] {
 		@extend %button-hilighted;
+	}
+
+	figure {
+		position: relative;
+		margin: 0;
 	}
 </style>
