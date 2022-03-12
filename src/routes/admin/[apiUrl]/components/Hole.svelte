@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formChanged } from '../persistence/stores';
 	import ImagePicker from './ImagePicker.svelte';
+	import InputText from './InputText.svelte';
 
 	export let hole: Hole;
 
@@ -11,38 +12,84 @@
 </script>
 
 <details>
-	<summary><b>Hul {hole.hole_number}</b></summary>
-	<figure>
-		<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
-	</figure>
-	<div>
-		<label for="hole_sponsor" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Hul sponsor:
-			<input type="text" name="hole_sponsor" bind:value={hole.hole_sponsor} maxlength="40" />
-		</label>
+	<summary>Hul {hole.hole_number}</summary>
+	<main>
+		<InputText label="Hul sponsor" bind:value={hole.hole_sponsor} maxlength={40}/>
 
-		<label for="hole_text" style="display: grid; grid-template-columns: auto 1fr; gap: 1rem;"
-			>Hul tekst:
-			<input type="text" name="hole_text" bind:value={hole.hole_text} maxlength="40" placeholder="Nærmest hullet"/>
-		</label>
+		<InputText label="Hul tekst" bind:value={hole.hole_text} maxlength={40}/> <!--Maybe there should be a placeholder in here-->
 
-		{#each hole.scores as score, i}
-			<div
-				style="display: grid; grid-template-columns: 1fr 1fr auto; column-gap: 0.5rem; width: 100%; row-gap: 0.1rem;"
-			>
-				<p>{score.player_name}</p>
-				<p>{score.player_score}</p>
-				<button style="color: red;" on:click|preventDefault={() => removeScore(i)}>x</button>
-			</div>
-		{/each}
-	</div>
+		<figure>
+			<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
+		</figure>
+
+		<ul>
+			{#each hole.scores as score, i}
+				<article>
+					<p>{score.player_name}</p>
+					<p>{score.player_score}</p>
+					<button style="color: red;" on:click|preventDefault={() => removeScore(i)}>x</button>
+				</article>
+			{/each}
+
+			{#if hole.scores.length === 0}
+				<p>Der er ingen scorer endnu</p>
+			{/if}
+		</ul>
+	</main>
 </details>
 
 <style lang="scss">
+	@import '../../../../../static/_variables';
+	@import '../../../../../static/global.scss';
+
+	$image-height: 5*$h3-size + 18*$padding;
+
+	details {
+		margin: $padding 0;
+	}
+
+	main {
+		font-size: $h3-size;
+		color: $text-color;
+		
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto 1fr;
+		gap: $padding;
+	}
+
+	ul {
+		overflow-y: auto;
+		margin: 0;
+		padding: 0;
+		height: $image-height;
+	}
+
 	figure {
 		position: relative;
 		margin: 0;
-		width: 50%;
-		height: 250px;
+		height: $image-height;
+	}
+
+	summary {
+		@extend %tournament-list;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: $padding-small;
+		padding-right: $padding-small;
+	}
+
+	article {
+		@extend %card;
+		margin: $padding 0;
+		margin-left: 3px;
+		margin-right: 3px;
+		display: grid;
+		grid-template-columns: 1fr 1fr auto;
+		
+		p {
+			padding: $padding;
+			margin: 0;
+		}
 	}
 </style>

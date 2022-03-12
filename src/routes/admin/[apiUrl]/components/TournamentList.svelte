@@ -47,7 +47,7 @@
 	{:then tournamentList}
 	<div>
 		<details bind:open={openFolds[0]}>
-			<summary >Aktive turneringer</summary>
+			<summary>Aktive turneringer</summary>
 			{#each tournamentList as tournament}
 				{#if tournament.active}
 					<TournamentListElement {tournament} on:pick={pick} />
@@ -105,10 +105,8 @@
 		box-shadow: $shadow-medium;
 	}
 
-	details {
-		summary {
-			@extend %tournament-list;
-		}
+	summary {
+		@extend %tournament-list;
 	}
 
 	button {
