@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeTournament, formChanged } from '../persistence/stores';
+	import { activeTournament, formChanged } from '../../persistence/stores';
 
 	let inactiveHoles: Hole[] = [];
 
@@ -57,8 +57,8 @@
 </main>
 	
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
 
 	main {
 		grid-area: holeselector;

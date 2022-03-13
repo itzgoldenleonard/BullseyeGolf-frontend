@@ -1,10 +1,10 @@
 <script lang="ts">
 	// # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
-	import { tournamentList, activeTournament, formChanged, selectedTournament } from '../persistence/stores';
-	import { getTournament } from '../scripts/api';
-	import { createDefaultTournament } from '../scripts/misc';
-	import { updateTournamentList } from '../scripts/misc';
+	import { tournamentList, activeTournament, formChanged, selectedTournament } from '../../persistence/stores';
+	import { getTournament } from '../../scripts/api';
+	import { createDefaultTournament } from '../../scripts/misc';
+	import { updateTournamentList } from '../../scripts/misc';
 	import HoleSelector from './HoleSelector.svelte';
 	// # Exports
 	export let baseUserUrl: string;
@@ -83,8 +83,8 @@
 </main>
 
 <style lang="scss"> 
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
 
 	main {
 		grid-area: nav;

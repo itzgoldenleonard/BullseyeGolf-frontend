@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { formChanged } from '../persistence/stores';
-	import ImagePicker from './ImagePicker.svelte';
-	import InputText from './InputText.svelte';
+	import { formChanged } from '../../persistence/stores';
+	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
+	import InputText from '../../../../../../static/components/InputText.svelte';
 
 	export let hole: Hole;
 
@@ -39,8 +39,8 @@
 </details>
 
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
 
 	$image-height: 5*$h3-size + 18*$padding;
 

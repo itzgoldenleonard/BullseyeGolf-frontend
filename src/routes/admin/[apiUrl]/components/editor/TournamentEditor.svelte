@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { activeTournament, formChanged } from '../persistence/stores';
-	import { postTournament } from '../scripts/api';
+	import { activeTournament, formChanged } from '../../persistence/stores';
+	import { postTournament } from '../../scripts/api';
 	import TimePicker from './TimePicker.svelte';
-	import ImagePicker from './ImagePicker.svelte';
+	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
 	import Hole from './Hole.svelte';
-	import InputText from './InputText.svelte';
-	import { deleteActiveTournament, generateID, updateTournamentList } from '../scripts/misc';
+	import InputText from '../../../../../../static/components/InputText.svelte';
+	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
 
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
@@ -55,8 +55,8 @@
 </form>
 	
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
 
 	form {
 		grid-area: editor;

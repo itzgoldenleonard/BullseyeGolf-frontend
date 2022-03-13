@@ -1,6 +1,5 @@
 <script lang="ts">
-	import HoleSelector from './HoleSelector.svelte';
-	import TournamentEditor from './TournamentEditor.svelte';
+	import TournamentEditor from './editor/TournamentEditor.svelte';
 	import { activeTournament, formChanged } from '../persistence/stores';
 
 	export let baseUserUrl: string;

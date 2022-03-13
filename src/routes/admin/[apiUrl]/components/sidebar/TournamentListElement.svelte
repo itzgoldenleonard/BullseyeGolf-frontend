@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { selectedTournament } from '../persistence/stores';
+	import { selectedTournament } from '../../persistence/stores';
 	import { createEventDispatcher, onDestroy } from 'svelte';
 	export let tournament: ShortTournament;
 	export let selected: boolean = false;
@@ -20,8 +20,8 @@
 </main>
 
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
 
 	main {
 		@extend %tournament-list;

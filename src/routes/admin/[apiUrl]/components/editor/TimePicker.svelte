@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { afterUpdate, onMount } from 'svelte';
-	import { activeTournament } from '../persistence/stores';
-	import { toISOTs, toUNIXTs } from '../scripts/timeConversion';
-	import InputDateTime from './InputDateTime.svelte';
+	import { activeTournament } from '../../persistence/stores';
+	import { toISOTs, toUNIXTs } from '../../scripts/timeConversion';
+	import InputDateTime from '../../../../../../static/components/InputDateTime.svelte';
 
 	let tStart: string;
 	let tEnd: string;
@@ -24,7 +24,7 @@
 </main>
 
 <style lang="scss">
-	@import '../../../../../static/_variables';
+	@import '../../../../../../static/_variables';
 
 	main {
 		display: grid;

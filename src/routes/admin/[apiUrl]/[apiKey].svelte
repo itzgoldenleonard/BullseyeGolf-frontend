@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TournamentList from './components/TournamentList.svelte';
+	import TournamentList from './components/sidebar/TournamentList.svelte';
 	import AdminPanel from './components/AdminPanel.svelte';
 	import { page } from '$app/stores';
 
