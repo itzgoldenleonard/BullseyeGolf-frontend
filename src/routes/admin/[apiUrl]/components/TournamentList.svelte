@@ -111,9 +111,8 @@
 
 	button {
 		@extend %button-hilighted;
-		margin: $padding;
-		padding: $padding/2;
 		font-size: 18pt;
 		font-weight: 900;
+		margin: $padding;
 	}
 </style>

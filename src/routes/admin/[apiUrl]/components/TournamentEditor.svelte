@@ -40,13 +40,17 @@
 
 	<main id="holes">
 		<h1>Huller</h1>
+		<article>
 		{#each $activeTournament.holes as hole}
 			<Hole bind:hole />
 		{/each}
+		</article>
 
-		<button on:click|preventDefault={duplciateActiveTournament}> Dupliker turnering </button>
-		<button on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
-		<input type="submit" value="Anvend"/>
+		<article id="buttons">
+			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}> Dupliker turnering </button>
+			<button id="delete" on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
+			<input type="submit" value="Anvend"/>
+		</article>
 	</main>
 </form>
 	
@@ -66,7 +70,7 @@
 		h1 {
 			font-size: $h2-size;
 			margin: 0;
-			padding-top: $padding-large;
+			padding-top: $padding;
 		}
 	}
 
@@ -79,18 +83,44 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: repeat(4, auto) 1fr;
 		row-gap: $padding-large;
-		padding-bottom: $padding-large;
 	}
 
 	#holes {
 		grid-area: holes;
 		@extend %card;
 		overflow-y: auto;
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+
+		input[type=submit] {
+			@extend %button-hilighted;
+			font-size: $h3-size;
+			padding-left: $padding-large;
+			padding-right: $padding-large;
+		}
+
+		button {
+			&#duplicate {
+				@include button();
+				@extend %selectable;
+			}
+
+			&#delete {
+				@extend %button-negative;
+			}
+
+			font-size: $h3-size;
+			padding-left: $padding-large;
+			padding-right: $padding-large;
+		}
 	}
 
-	input[type=submit] {
-		@extend %button-hilighted;
+	#buttons {
+		display: flex;
+		justify-content: end;
+		gap: $padding;
 	}
+
 
 	figure {
 		position: relative;

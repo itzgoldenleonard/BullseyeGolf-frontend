@@ -39,20 +39,31 @@
     }
 }
 
-%button-hilighted {
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: $shadow-small;
+@mixin button($background-color: $foreground-color) {
+    text-shadow: $shadow-small;
+    box-shadow: $shadow-medium;
     border-radius: $border-radius-medium;
     border: 0;
-    background-color: $primary-color;
     color: $text-color;
     cursor: pointer;
+    padding-top: $padding/2;
+    padding-bottom: $padding/2;
+    background-color: $background-color;
+    font-weight: 600;
+}
+
+%button-hilighted {
+    @include button($primary-color);
+}
+
+%button-negative {
+    @include button($negative-color);
 }
 
 %card {
     background-color: $foreground-color;
     border-radius: $border-radius-medium;
-    padding: 0 $padding;
+    padding: $padding;
     box-shadow: $shadow-medium;
 }
 

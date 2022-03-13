@@ -3,6 +3,7 @@ $background-color: hsl(0, 0%, 9%);
 $foreground-color: rgb(32, 33, 36);
 $foreground-color-selected: hsla(217, 89%, 76%, 0.12);
 $primary-color: hsl(217, 89%, 76%);
+$negative-color: hsl(3, 70%, 83%);
 $text-color: hsl(215, 12%, 80%);
 $text-color-selected: $primary-color;
 
@@ -19,7 +20,7 @@ $h3-size: 13pt;
 $text-size: 14pt;
 
 // Shadows
-$shadow-small: 2px 2px 5px hsla(0, 0%, 11%, 0.308);
+$shadow-small: 2px 2px 5px hsla(0, 0%, 11%, 0.308), 0 0 4px hsla(0, 0%, 0%, 0.507);
 $shadow-medium: 4px 4px 8px hsla(0, 0%, 11%, 0.308), 0 0 5px hsla(0, 0%, 0%, 0.3);
 
 // Timings
