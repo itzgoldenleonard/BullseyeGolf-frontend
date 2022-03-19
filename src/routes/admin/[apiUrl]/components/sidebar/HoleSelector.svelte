@@ -67,13 +67,6 @@
 		grid-area: holeselector;
 		padding: $padding;
 
-		h2 {
-			font-size: $h2-size;
-			margin: 0;
-			padding-top: $padding;
-			padding-bottom: $padding;
-		}
-
 		div {
 			display: grid;
 			place-items: center;
@@ -81,14 +74,11 @@
 
 			button {
 				@extend %selectable;
-				background: none;
-				color: $text-color;
+				@extend %selected;
 				padding: $padding;
-				font-size: $h3-size;
 				border-radius: $border-radius-small;
 				width: 42px;
 				margin: $padding-small/2;
-				border: none;
 			}
 		}
 	}

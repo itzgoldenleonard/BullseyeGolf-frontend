@@ -30,13 +30,10 @@
 	@import '../../../../../../static/global.scss';
 
 	button {
-		@extend %tournament-list;
+		@extend %summary;
+		@extend %selected;
 		margin-left: 20px;
 		font-weight: 400;
-		font-size: $h3-size;
-		border: 0;
-		background: none;
-		color: $text-color;
 		text-align: left;
 	}
 </style>

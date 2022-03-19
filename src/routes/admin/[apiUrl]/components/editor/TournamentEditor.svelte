@@ -97,23 +97,12 @@
 				@extend %card;
 				display: grid;
 
-				h2 {
-					font-size: $h2-size;
-					margin: 0;
-					padding-top: $padding;
-				}
-
 				&#tournament {
 					grid-area: tournament;
 					overflow: hidden;
 					grid-template-columns: 1fr;
 					grid-template-rows: repeat(4, auto) 1fr;
 					row-gap: $padding-large;
-
-					figure {
-						position: relative;
-						margin: 0;
-					}
 				}
 
 				&#holes {
@@ -132,7 +121,6 @@
 						gap: $padding;
 
 						> * {
-							font-size: $h3-size;
 							padding-left: $padding-large;
 							padding-right: $padding-large;
 
@@ -147,6 +135,7 @@
 
 							&[type='submit'] {
 								@extend %button-hilighted;
+								font-size: $h3-size;
 							}
 						}
 					}

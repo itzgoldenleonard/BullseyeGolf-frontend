@@ -1,4 +1,4 @@
-%tournament-list {
+%summary {
 	font-size: $h2-size;
 	font-weight: 600;
 	border-radius: $border-radius-small;
@@ -14,6 +14,9 @@
 	&:hover {
 		background-color: adjust-color($color: $foreground-color, $lightness: 10%);
 	}
+}
+
+%selected {
 	&[aria-selected='true'] {
 		background-color: $foreground-color-selected;
 		color: $text-color-selected;
@@ -125,4 +128,27 @@
 			transform: translate($padding * 2, -0.75em) scale(0.75);
 		}
 	}
+}
+
+button {
+    background: none;
+    color: $text-color;
+    border: none;
+    font-size: $h3-size;
+}
+
+p {
+    font-size: $h3-size;
+    margin: 0;
+}
+
+h2 {
+    font-size: $h2-size;
+    margin: 0;
+    padding-top: $padding;
+}
+
+figure {
+    position: relative;
+    margin: 0;
 }

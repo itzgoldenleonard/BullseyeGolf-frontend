@@ -113,7 +113,7 @@
 			overflow-y: auto;
 
 			summary {
-				@extend %tournament-list;
+				@extend %summary;
 			}
 		}
 

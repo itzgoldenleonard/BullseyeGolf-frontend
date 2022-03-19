@@ -69,9 +69,5 @@
 			max-width: 50%;
 			height: 256px;
 		}
-
-		p {
-			font-size: $h3-size;
-		}
 	}
 </style>

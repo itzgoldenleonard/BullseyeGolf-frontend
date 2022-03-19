@@ -27,7 +27,7 @@
 			{#each hole.scores as score, i}
 				<li>
 					<p>{score.player_name}</p>
-					<p>{score.player_score}</p>
+					<p>{score.player_score}m</p>
 					<button on:click|preventDefault={() => removeScore(i)}>x</button>
 				</li>
 			{:else}
@@ -47,7 +47,7 @@
 		margin: $padding 0;
 
 		summary {
-			@extend %tournament-list;
+			@extend %summary;
 			margin-left: 0;
 			margin-right: 0;
 			padding-left: $padding-small;
@@ -55,21 +55,20 @@
 		}
 
 		section {
-			font-size: $h3-size;
-			color: $text-color;
-
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: auto 1fr;
 			gap: $padding;
 
 			figure {
-				position: relative;
-				margin: 0;
 				height: $image-height;
 			}
 
 			ol {
+				> p {
+					padding: $padding 0;
+				}
+
 				overflow-y: auto;
 				margin: 0;
 				padding: 0;
@@ -78,20 +77,23 @@
 				li {
 					@extend %card;
 					margin: $padding 0;
+					padding: 0;
 					margin-left: 3px;
 					margin-right: 3px;
 					display: grid;
 					grid-template-columns: 1fr 1fr auto;
+					align-items: center;
+					
 
 					p {
 						padding: $padding;
-						margin: 0;
 					}
 
 					button {
 						@extend %button-negative;
-						padding: $padding;
+						padding: $padding-small;
 						height: fit-content;
+						margin-right: $padding;
 					}
 				}
 			}
