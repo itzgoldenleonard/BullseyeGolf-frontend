@@ -23,6 +23,7 @@
 	}
 </script>
 
+<main>
 <form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
 	<article id="tournament">
 		<h2>Turnering</h2>
@@ -72,73 +73,81 @@
 		</div>
 	</article>
 </form>
+</main>
 
 <style lang="scss">
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
 
-	form {
-		grid-area: editor;
-		display: grid;
-		grid-template-columns: minmax(400px, 1fr) minmax(400px, 1fr);
-		column-gap: $padding;
-		grid-template-areas: 'tournament holes';
-		overflow-y: hidden;
+	main {
+		grid-area: content;
+		margin: $gap;
+		position: relative;
 
-		article {
-			@extend %card;
+		form {
 			display: grid;
+			grid-template-columns: minmax(400px, 1fr) minmax(400px, 1fr);
+			column-gap: $padding;
+			grid-template-areas: 'tournament holes';
+			overflow-y: hidden;
+			height: 100%;
+			width: 100%;
 
-			h2 {
-				font-size: $h2-size;
-				margin: 0;
-				padding-top: $padding;
-			}
+			article {
+				@extend %card;
+				display: grid;
 
-			&#tournament {
-				grid-area: tournament;
-				overflow: hidden;
-				grid-template-columns: 1fr;
-				grid-template-rows: repeat(4, auto) 1fr;
-				row-gap: $padding-large;
-
-				figure {
-					position: relative;
+				h2 {
+					font-size: $h2-size;
 					margin: 0;
-				}
-			}
-
-			&#holes {
-				grid-area: holes;
-				overflow-y: auto;
-				grid-template-rows: auto 1fr auto;
-
-				ol {
-					margin: 0;
-					padding: 0;
+					padding-top: $padding;
 				}
 
-				div {
-					display: flex;
-					justify-content: end;
-					gap: $padding;
+				&#tournament {
+					grid-area: tournament;
+					overflow: hidden;
+					grid-template-columns: 1fr;
+					grid-template-rows: repeat(4, auto) 1fr;
+					row-gap: $padding-large;
 
-					> * {
-						font-size: $h3-size;
-						padding-left: $padding-large;
-						padding-right: $padding-large;
+					figure {
+						position: relative;
+						margin: 0;
+					}
+				}
 
-						&#duplicate {
-							@include button();
-							@extend %selectable;
-						}
+				&#holes {
+					grid-area: holes;
+					overflow-y: auto;
+					grid-template-rows: auto 1fr auto;
 
-						&#delete {
-							@extend %button-negative;
-						}
+					ol {
+						margin: 0;
+						padding: 0;
+					}
 
-						&[type='submit'] {
-							@extend %button-hilighted;
+					div {
+						display: flex;
+						justify-content: end;
+						gap: $padding;
+
+						> * {
+							font-size: $h3-size;
+							padding-left: $padding-large;
+							padding-right: $padding-large;
+
+							&#duplicate {
+								@include button();
+								@extend %selectable;
+							}
+
+							&#delete {
+								@extend %button-negative;
+							}
+
+							&[type='submit'] {
+								@extend %button-hilighted;
+							}
 						}
 					}
 				}

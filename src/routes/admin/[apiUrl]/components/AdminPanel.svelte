@@ -18,22 +18,5 @@
 {#if $activeTournament === null}
 	<p>Vaelg en turnering</p>
 {:else}
-	<main>
-		<TournamentEditor {baseUserUrl} {baseAdminUrl} />
-	</main>
+	<TournamentEditor {baseUserUrl} {baseAdminUrl} />
 {/if}
-
-<style lang="scss">
-	@import '../../../../../static/_variables';
-
-	main {
-		grid-area: content;
-		display: grid;
-		grid-template-columns: minmax(400px, 1fr);
-		grid-template-areas: 'editor';
-
-		margin: $gap;
-		gap: $gap;
-		overflow-y: hidden;
-	}
-</style>

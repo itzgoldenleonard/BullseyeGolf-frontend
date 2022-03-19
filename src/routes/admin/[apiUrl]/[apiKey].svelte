@@ -7,16 +7,16 @@
 	const baseAdminUrl: string = `https://${$page.params.apiUrl}/admin/${$page.params.apiKey}`;
 </script>
 
-<main>
+<body>
 	<TournamentList {baseUserUrl} />
 	<AdminPanel {baseUserUrl} {baseAdminUrl} />
-</main>
+</body>
 
 <style lang="scss">
 	@import '../../../../static/_variables';
 	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-	main {
+	body {
 		width: 100vw;
 		height: 100vh;
 		display: grid;
