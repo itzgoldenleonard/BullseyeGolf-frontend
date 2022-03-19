@@ -18,15 +18,15 @@
 	});
 </script>
 
-<main>
+<div>
 	<InputDateTime label="Start tidspunkt" bind:value={tStart} required/>
 	<InputDateTime label="Start tidspunkt" bind:value={tEnd} required/>
-</main>
+</div>
 
 <style lang="scss">
 	@import '../../../../../../static/_variables';
 
-	main {
+	div {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		column-gap: $padding;

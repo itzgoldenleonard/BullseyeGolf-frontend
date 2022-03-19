@@ -6,14 +6,14 @@
 	export let hole: Hole;
 
 	function removeScore(index: number): void {
-		hole.scores = hole.scores.filter((e, i) => i !== index); // TODO: take a look at this boy again once I've slept on it
+		hole.scores = hole.scores.filter((e, i) => i !== index); // Removes the element at index and assigns to the array (to update the UI) at the same time
 		formChanged.set(true);
 	}
 </script>
 
 <details>
 	<summary>Hul {hole.hole_number}</summary>
-	<main>
+	<section>
 		<InputText label="Hul sponsor" bind:value={hole.hole_sponsor} maxlength={40}/>
 
 		<InputText label="Hul tekst" bind:value={hole.hole_text} maxlength={40}/> <!--Maybe there should be a placeholder in here-->
@@ -22,20 +22,20 @@
 			<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
 		</figure>
 
-		<ul>
+		<ol>
 			{#each hole.scores as score, i}
-				<article>
+				<li>
 					<p>{score.player_name}</p>
 					<p>{score.player_score}</p>
-					<button style="color: red;" on:click|preventDefault={() => removeScore(i)}>x</button>
-				</article>
+					<button on:click|preventDefault={() => removeScore(i)}>x</button>
+				</li>
 			{/each}
 
 			{#if hole.scores.length === 0}
 				<p>Der er ingen scorer endnu</p>
 			{/if}
-		</ul>
-	</main>
+		</ol>
+	</section>
 </details>
 
 <style lang="scss">
@@ -46,50 +46,56 @@
 
 	details {
 		margin: $padding 0;
-	}
 
-	main {
-		font-size: $h3-size;
-		color: $text-color;
-		
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: auto 1fr;
-		gap: $padding;
-	}
+		summary {
+			@extend %tournament-list;
+			margin-left: 0;
+			margin-right: 0;
+			padding-left: $padding-small;
+			padding-right: $padding-small;
+		}
 
-	ul {
-		overflow-y: auto;
-		margin: 0;
-		padding: 0;
-		height: $image-height;
-	}
+		section {
+			font-size: $h3-size;
+			color: $text-color;
+			
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: auto 1fr;
+			gap: $padding;
 
-	figure {
-		position: relative;
-		margin: 0;
-		height: $image-height;
-	}
+			figure {
+				position: relative;
+				margin: 0;
+				height: $image-height;
+			}
 
-	summary {
-		@extend %tournament-list;
-		margin-left: 0;
-		margin-right: 0;
-		padding-left: $padding-small;
-		padding-right: $padding-small;
-	}
+			ol {
+				overflow-y: auto;
+				margin: 0;
+				padding: 0;
+				height: $image-height;
 
-	article {
-		@extend %card;
-		margin: $padding 0;
-		margin-left: 3px;
-		margin-right: 3px;
-		display: grid;
-		grid-template-columns: 1fr 1fr auto;
-		
-		p {
-			padding: $padding;
-			margin: 0;
+				li {
+					@extend %card;
+					margin: $padding 0;
+					margin-left: 3px;
+					margin-right: 3px;
+					display: grid;
+					grid-template-columns: 1fr 1fr auto;
+					
+					p {
+						padding: $padding;
+						margin: 0;
+					}
+					
+					button {
+						@extend %button-negative;
+						padding: $padding;
+						height: fit-content;
+					}
+				}
+			}
 		}
 	}
 </style>

@@ -8,10 +8,14 @@
 	import HoleSelector from './HoleSelector.svelte';
 	// # Exports
 	export let baseUserUrl: string;
+
+	// # Variables
 	let openFolds: boolean[] = [true, false, false];
 
+	// On load
 	updateTournamentList(baseUserUrl);
 
+	// # Functions
 	async function pick(event: { detail: string }): Promise<void> {
 		if (
 			$formChanged &&

@@ -24,8 +24,8 @@
 </script>
 
 <form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
-	<main id="tournament">
-		<h1>Turnering</h1>
+	<article id="tournament">
+		<h2>Turnering</h2>
 
 		<InputText label="Turneringens navn" bind:value={$activeTournament.tournament_name} required maxlength={40} width="100%" />
 
@@ -36,22 +36,23 @@
 		<figure>
 			<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
 		</figure>
-	</main>
+	</article>
 
-	<main id="holes">
-		<h1>Huller</h1>
-		<article>
-		{#each $activeTournament.holes as hole}
-			<Hole bind:hole />
-		{/each}
-		</article>
+	<article id="holes">
+		<h2>Huller</h2>
 
-		<article id="buttons">
+		<ol>
+			{#each $activeTournament.holes as hole}
+				<Hole bind:hole />
+			{/each}
+		</ol>
+
+		<div id="buttons">
 			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}> Dupliker turnering </button>
 			<button id="delete" on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
 			<input type="submit" value="Anvend"/>
-		</article>
-	</main>
+		</div>
+	</article>
 </form>
 	
 <style lang="scss">
@@ -67,63 +68,64 @@
 		"tournament holes";
 		overflow-y: hidden;
 
-		h1 {
-			font-size: $h2-size;
-			margin: 0;
-			padding-top: $padding;
-		}
-	}
-
-	#tournament {
-		grid-area: tournament;
-		@extend %card;
-		overflow: hidden;
-		
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: repeat(4, auto) 1fr;
-		row-gap: $padding-large;
-	}
-
-	#holes {
-		grid-area: holes;
-		@extend %card;
-		overflow-y: auto;
-		display: grid;
-		grid-template-rows: auto 1fr auto;
-
-		input[type=submit] {
-			@extend %button-hilighted;
-			font-size: $h3-size;
-			padding-left: $padding-large;
-			padding-right: $padding-large;
-		}
-
-		button {
-			&#duplicate {
-				@include button();
-				@extend %selectable;
+		article {
+			@extend %card;
+			display: grid;
+			
+			h2 {
+				font-size: $h2-size;
+				margin: 0;
+				padding-top: $padding;
 			}
 
-			&#delete {
-				@extend %button-negative;
+			&#tournament {
+				grid-area: tournament;
+				overflow: hidden;
+				grid-template-columns: 1fr;
+				grid-template-rows: repeat(4, auto) 1fr;
+				row-gap: $padding-large;
+				
+				figure {
+					position: relative;
+					margin: 0;
+				}
 			}
+			
+			&#holes {
+				grid-area: holes;
+				overflow-y: auto;
+				grid-template-rows: auto 1fr auto;
 
-			font-size: $h3-size;
-			padding-left: $padding-large;
-			padding-right: $padding-large;
+				ol {
+					margin: 0;
+					padding: 0;
+				}
+
+				div {
+					display: flex;
+					justify-content: end;
+					gap: $padding;
+				
+					> * {
+						font-size: $h3-size;
+						padding-left: $padding-large;
+						padding-right: $padding-large;
+
+						&#duplicate {
+							@include button();
+							@extend %selectable;
+						}
+
+						&#delete {
+							@extend %button-negative;
+						}
+						
+						&[type=submit] {
+							@extend %button-hilighted;
+						}
+					}
+				}
+			}
 		}
-	}
-
-	#buttons {
-		display: flex;
-		justify-content: end;
-		gap: $padding;
-	}
-
-
-	figure {
-		position: relative;
-		margin: 0;
 	}
 </style>
