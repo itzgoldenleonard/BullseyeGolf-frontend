@@ -21,19 +21,20 @@
 	onDestroy(unsubscribe);
 </script>
 
-<button on:click={onClick} id={tournament.db_id} aria-selected={selected}>
+<div on:click={onClick} id={tournament.db_id} aria-selected={selected}>
 	{tournament.tournament_name}
-</button>
+</div>
 
 <style lang="scss">
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
 
-	button {
+	div {
 		@extend %summary;
 		@extend %selected;
 		margin-left: 20px;
 		font-weight: 400;
 		text-align: left;
+		font-size: $h3-size;
 	}
 </style>
