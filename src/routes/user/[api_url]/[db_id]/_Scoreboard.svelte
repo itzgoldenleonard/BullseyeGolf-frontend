@@ -31,13 +31,16 @@
 		</svg>
 	</header>
 
-	{#if database.hole_text == ''}
-		<div id="L_title" class="image-shade">
-			<h1 class="main-heading">
-				Nærmest hullet <br /> Hul {database.hole_number}
-			</h1>
-		</div>
-	{/if}
+	<div id="L_title" class="image-shade">
+		<h1 class="main-heading">
+			{#if database.hole_text == ''}
+				Nærmest hullet
+			{:else}
+				{database.hole_text}
+			{/if}
+			<br /> Hul {database.hole_number}
+		</h1>
+	</div>
 
 	{#if database.hole_image == ''}
 		<picture class="header-image">
@@ -58,7 +61,7 @@
 		{#if database.scores.length == 0}
 			<h2 class="no-scores-title">
 				Der er ingen noteringer endnu <br />
-				Vær den første til indsende en
+				Vær den første til at indsende en
 			</h2>
 		{/if}
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TournamentList from './components/TournamentList.svelte';
+	import TournamentList from './components/sidebar/TournamentList.svelte';
 	import AdminPanel from './components/AdminPanel.svelte';
 	import { page } from '$app/stores';
 
@@ -7,16 +7,24 @@
 	const baseAdminUrl: string = `https://${$page.params.apiUrl}/admin/${$page.params.apiKey}`;
 </script>
 
-<div id="page-container">
+<body>
 	<TournamentList {baseUserUrl} />
 	<AdminPanel {baseUserUrl} {baseAdminUrl} />
-</div>
+</body>
 
-<style>
-	#page-container {
+<style lang="scss">
+	@import '../../../../static/_variables';
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+	body {
+		width: 100vw;
+		height: 100vh;
 		display: grid;
-		grid-template-columns: auto 1fr;
-		grid-template-rows: 100vh;
-		grid-gap: 10px;
+		grid-template-columns: 256px 1fr;
+		grid-template-areas: 'nav content';
+		background-color: $background-color;
+		color: $text-color;
+
+		font-family: 'Roboto', sans-serif;
 	}
 </style>

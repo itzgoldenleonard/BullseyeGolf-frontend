@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeTournament, formChanged } from '../persistence/stores';
+	import { activeTournament, formChanged } from '../../persistence/stores';
 
 	let inactiveHoles: Hole[] = [];
 
 	onMount(() => {
 		for (let i = 0; i < 18; i++) {
-            inactiveHoles = [...inactiveHoles, {
-				hole_number: i + 1,
-				hole_text: '',
-				hole_image: '',
-				game_mode: '',
-				hole_sponsor: '',
-				scores: []
-            }]
+			inactiveHoles = [
+				...inactiveHoles,
+				{
+					hole_number: i + 1,
+					hole_text: '',
+					hole_image: '',
+					game_mode: '',
+					hole_sponsor: '',
+					scores: []
+				}
+			];
 		}
 
 		for (let hole of $activeTournament.holes) {
@@ -23,7 +26,7 @@
 
 	function checkHandler(event: any): void {
 		let id: number = Number(event.target.id);
-		let checked: boolean = event.target.checked;
+		let checked: boolean = !!inactiveHoles[id];
 		formChanged.set(true);
 		if (checked) check(id);
 		else uncheck(id);
@@ -46,11 +49,37 @@
 	}
 </script>
 
-<p>This is a hole selector</p>
+<aside>
+	<h2>Vælg huller:</h2>
 
-{#each inactiveHoles as inactiveHole, i}
-	<label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 1rem;">
-		Hul {i + 1}:
-		<input type="checkbox" checked={!inactiveHole} on:change={checkHandler} id={String(i)} />
-	</label>
-{/each}
+	<div>
+		{#each inactiveHoles as inactiveHole, i}
+			<button aria-selected={!inactiveHole} on:click={checkHandler} id={String(i)}>{i + 1}</button>
+		{/each}
+	</div>
+</aside>
+
+<style lang="scss">
+	@import '../../../../../../static/_variables';
+	@import '../../../../../../static/global.scss';
+
+	aside {
+		grid-area: holeselector;
+		padding: $padding;
+
+		div {
+			display: grid;
+			place-items: center;
+			grid-template-columns: repeat(3, 1fr);
+
+			button {
+				@extend %selectable;
+				@extend %selected;
+				padding: $padding;
+				border-radius: $border-radius-small;
+				width: 42px;
+				margin: $padding-small/2;
+			}
+		}
+	}
+</style>

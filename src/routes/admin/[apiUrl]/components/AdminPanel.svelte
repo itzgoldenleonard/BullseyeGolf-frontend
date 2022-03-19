@@ -1,6 +1,5 @@
 <script lang="ts">
-	import HoleSelector from './HoleSelector.svelte';
-	import TournamentEditor from './TournamentEditor.svelte';
+	import TournamentEditor from './editor/TournamentEditor.svelte';
 	import { activeTournament, formChanged } from '../persistence/stores';
 
 	export let baseUserUrl: string;
@@ -16,11 +15,8 @@
 </script>
 
 <svelte:window on:beforeunload={beforeunload} />
-<main>
-	{#if $activeTournament === null}
-		<p>Vaelg en turnering</p>
-	{:else}
-		<HoleSelector />
-		<TournamentEditor {baseUserUrl} {baseAdminUrl} />
-	{/if}
-</main>
+{#if $activeTournament === null}
+	<p>Vaelg en turnering</p>
+{:else}
+	<TournamentEditor {baseUserUrl} {baseAdminUrl} />
+{/if}

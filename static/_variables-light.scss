@@ -1,0 +1,26 @@
+// Colors
+$background-color: hsl(0, 0%, 91%);
+$foreground-color: rgb(196, 196, 196);
+$foreground-color-selected: hsla(217, 89%, 76%, 0.12);
+$primary-color: hsl(217, 89%, 76%);
+$text-color: hsl(220, 3%, 21%);
+$text-color-selected: $primary-color;
+
+// Sizes
+$gap: 10px;
+$border-radius-medium: 10px;
+$border-radius-small: 5px;
+$padding: 10px;
+$padding-small: 5px;
+$padding-large: 25px;
+$h1-size: 20pt;
+$h2-size: 15pt;
+$h3-size: 13pt;
+$text-size: 14pt;
+
+// Shadows
+$shadow-small: 2px 2px 5px hsla(0, 0%, 11%, 0.308);
+$shadow-medium: 4px 4px 8px hsla(0, 0%, 11%, 0.308), 0 0 5px hsla(0, 0%, 0%, 0.3);
+
+// Timings
+$fast-animation: 100ms;
