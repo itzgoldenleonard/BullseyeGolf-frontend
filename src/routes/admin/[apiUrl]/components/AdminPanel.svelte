@@ -15,14 +15,14 @@
 </script>
 
 <svelte:window on:beforeunload={beforeunload} />
-	{#if $activeTournament === null}
-		<p>Vaelg en turnering</p>
-	{:else}
+{#if $activeTournament === null}
+	<p>Vaelg en turnering</p>
+{:else}
 	<main>
 		<TournamentEditor {baseUserUrl} {baseAdminUrl} />
 	</main>
-	{/if}
-	
+{/if}
+
 <style lang="scss">
 	@import '../../../../../static/_variables';
 
@@ -30,9 +30,8 @@
 		grid-area: content;
 		display: grid;
 		grid-template-columns: minmax(400px, 1fr);
-		grid-template-areas: 
-		"editor";
-		
+		grid-template-areas: 'editor';
+
 		margin: $gap;
 		gap: $gap;
 		overflow-y: hidden;

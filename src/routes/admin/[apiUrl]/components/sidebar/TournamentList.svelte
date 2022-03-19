@@ -1,7 +1,12 @@
 <script lang="ts">
 	// # Imports
 	import TournamentListElement from './TournamentListElement.svelte';
-	import { tournamentList, activeTournament, formChanged, selectedTournament } from '../../persistence/stores';
+	import {
+		tournamentList,
+		activeTournament,
+		formChanged,
+		selectedTournament
+	} from '../../persistence/stores';
 	import { getTournament } from '../../scripts/api';
 	import { createDefaultTournament } from '../../scripts/misc';
 	import { updateTournamentList } from '../../scripts/misc';
@@ -45,78 +50,78 @@
 	}
 </script>
 
-<main>
+<nav>
 	{#await $tournamentList}
 		<p>loading...</p>
 	{:then tournamentList}
-	<div>
-		<details bind:open={openFolds[0]}>
-			<summary>Aktive turneringer</summary>
-			{#each tournamentList as tournament}
-				{#if tournament.active}
-					<TournamentListElement {tournament} on:pick={pick} />
-				{/if}
-			{/each}
-		</details>
+		<section>
+			<details bind:open={openFolds[0]}>
+				<summary>Aktive turneringer</summary>
+				{#each tournamentList as tournament}
+					{#if tournament.active}
+						<TournamentListElement {tournament} on:pick={pick} />
+					{/if}
+				{/each}
+			</details>
 
-		<details bind:open={openFolds[1]}>
-			<summary>Fremtidige turneringer</summary>
-			{#each tournamentList as tournament}
-				{#if !tournament.active && Date.now() < tournament.t_start * 1000}
-					<TournamentListElement {tournament} on:pick={pick} />
-				{/if}
-			{/each}
-		</details>
+			<details bind:open={openFolds[1]}>
+				<summary>Fremtidige turneringer</summary>
+				{#each tournamentList as tournament}
+					{#if !tournament.active && Date.now() < tournament.t_start * 1000}
+						<TournamentListElement {tournament} on:pick={pick} />
+					{/if}
+				{/each}
+			</details>
 
-		<details bind:open={openFolds[2]}>
-			<summary>Afsluttede turneringer</summary>
-			{#each tournamentList as tournament}
-				{#if !tournament.active && tournament.t_end * 1000 < Date.now()}
-					<TournamentListElement {tournament} on:pick={pick} />
-				{/if}
-			{/each}
-		</details>
-	</div>
-	{#if $activeTournament !== null}
-		<HoleSelector />
-	{/if}
-	<button on:click={create}> + </button>
+			<details bind:open={openFolds[2]}>
+				<summary>Afsluttede turneringer</summary>
+				{#each tournamentList as tournament}
+					{#if !tournament.active && tournament.t_end * 1000 < Date.now()}
+						<TournamentListElement {tournament} on:pick={pick} />
+					{/if}
+				{/each}
+			</details>
+		</section>
+		{#if $activeTournament !== null}
+			<HoleSelector />
+		{/if}
+		<button on:click={create}> + </button>
 	{:catch error}
 		{error}
 	{/await}
-</main>
+</nav>
 
-<style lang="scss"> 
+<style lang="scss">
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
 
-	main {
+	nav {
 		grid-area: nav;
 		background-color: $foreground-color;
 		padding-top: $padding;
-		position: relative;
-		overflow-y: hidden;
-		
-		div {
-			overflow-y: auto;
-		}
+		overflow: hidden;
+
 		display: grid;
 		grid-template-rows: 1fr auto auto;
-		grid-template-areas: 
-		"tournaments"
-		"holeselector"
-		"button";
+		grid-template-areas:
+			'tournaments'
+			'holeselector'
+			'button';
 		box-shadow: $shadow-medium;
-	}
 
-	summary {
-		@extend %tournament-list;
-	}
+		section {
+			overflow-y: auto;
 
-	button {
-		@extend %button-hilighted;
-		font-size: 18pt;
-		font-weight: 900;
-		margin: $padding;
+			summary {
+				@extend %tournament-list;
+			}
+		}
+
+		button {
+			@extend %button-hilighted;
+			font-size: 18pt;
+			font-weight: 900;
+			margin: $padding;
+		}
 	}
 </style>

@@ -45,7 +45,7 @@
 				if (!confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) {
 					return;
 				} else {
-					submission_name += ' 🏴'
+					submission_name += ' 🏴';
 				}
 			}
 		}

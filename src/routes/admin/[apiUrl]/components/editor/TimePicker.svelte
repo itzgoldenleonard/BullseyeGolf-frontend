@@ -19,8 +19,8 @@
 </script>
 
 <div>
-	<InputDateTime label="Start tidspunkt" bind:value={tStart} required/>
-	<InputDateTime label="Start tidspunkt" bind:value={tEnd} required/>
+	<InputDateTime label="Start tidspunkt" bind:value={tStart} required />
+	<InputDateTime label="Start tidspunkt" bind:value={tEnd} required />
 </div>
 
 <style lang="scss">
@@ -30,7 +30,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		column-gap: $padding;
-		
+
 		@media only screen and (max-width: 1300px) {
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr 1fr;

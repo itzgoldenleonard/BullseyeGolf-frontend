@@ -21,18 +21,14 @@
 	}
 </script>
 
-<img
-	class="selected-image"
-	{alt}
-	src={value ? value : '/default-header/medium.avif'}
-/>
+<img class="selected-image" {alt} src={value ? value : '/default-header/medium.avif'} />
 
-<div 
+<div
 	on:click={() => {
 		document.getElementById(id).click();
-	}}>
-
-	<img src="/camera-retake.svg" alt="Change"/>	
+	}}
+>
+	<img src="/camera-retake.svg" alt="Change" />
 	<p>Klik for at ændre billedet</p>
 </div>
 
@@ -63,17 +59,17 @@
 		flex-direction: column;
 		will-change: opacity;
 		transition: opacity $fast-animation ease-in-out;
-		
+
 		&:hover {
 			opacity: 1;
 		}
-		
+
 		img {
 			max-height: 50%;
 			max-width: 50%;
 			height: 256px;
 		}
-		
+
 		p {
 			font-size: $h3-size;
 		}

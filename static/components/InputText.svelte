@@ -1,24 +1,31 @@
 <script lang="ts">
-    export let value: string;
-    export let label: string = '';
-    export let required: boolean = false;
-    export let maxlength: number = 100;
-    export let width: string = "auto";
+	export let value: string;
+	export let label: string = '';
+	export let required: boolean = false;
+	export let maxlength: number = 100;
+	export let width: string = 'auto';
 
-    let focus: boolean = false;
-    $: nonEmpty = focus || !!value;
+	let focus: boolean = false;
+	$: nonEmpty = focus || !!value;
 </script>
 
 <label style={`width: ${width};`} aria-selected={focus} non-empty={nonEmpty}>
-    <p>{label}</p>
-    <input type="text" bind:value {required} {maxlength} on:focus={() => focus = true} on:blur={() => focus = false} />
+	<p>{label}</p>
+	<input
+		type="text"
+		bind:value
+		{required}
+		{maxlength}
+		on:focus={() => (focus = true)}
+		on:blur={() => (focus = false)}
+	/>
 </label>
-    
+
 <style lang="scss">
 	@import '../_variables';
 	@import '../global.scss';
 
-    label {
-        @extend %input;
-    }
+	label {
+		@extend %input;
+	}
 </style>

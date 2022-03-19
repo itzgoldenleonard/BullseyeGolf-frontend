@@ -1,128 +1,128 @@
 %tournament-list {
-    font-size: $h2-size;
-    font-weight: 600;
-    border-radius: $border-radius-small;
-    margin: $padding-small/2 $padding/2;
-    padding: $padding;
-    @extend %selectable;
+	font-size: $h2-size;
+	font-weight: 600;
+	border-radius: $border-radius-small;
+	margin: $padding-small/2 $padding/2;
+	padding: $padding;
+	@extend %selectable;
 }
 
 %selectable {
-    user-select: none;
-    cursor: pointer;
-    transition: $fast-animation;
-    &:hover {
-        background-color: adjust-color($color: $foreground-color, $lightness: 10%);
-    }
-    &[aria-selected="true"] {
-        background-color: $foreground-color-selected;
-        color: $text-color-selected;
-        cursor: auto;
-    }
+	user-select: none;
+	cursor: pointer;
+	transition: $fast-animation;
+	&:hover {
+		background-color: adjust-color($color: $foreground-color, $lightness: 10%);
+	}
+	&[aria-selected='true'] {
+		background-color: $foreground-color-selected;
+		color: $text-color-selected;
+		cursor: auto;
+	}
 }
 
 %y-scroll {
-    overflow-y: scroll;
-    // Hide the scrollbar
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+	overflow-y: scroll;
+	// Hide the scrollbar
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 %x-scroll {
-    overflow-x: scroll;
-    // Hide the scrollbar
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+	overflow-x: scroll;
+	// Hide the scrollbar
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 @mixin button($background-color: $foreground-color) {
-    text-shadow: $shadow-small;
-    box-shadow: $shadow-medium;
-    border-radius: $border-radius-medium;
-    border: 0;
-    color: $text-color;
-    cursor: pointer;
-    padding-top: $padding/2;
-    padding-bottom: $padding/2;
-    background-color: $background-color;
-    font-weight: 600;
+	text-shadow: $shadow-small;
+	box-shadow: $shadow-medium;
+	border-radius: $border-radius-medium;
+	border: 0;
+	color: $text-color;
+	cursor: pointer;
+	padding-top: $padding/2;
+	padding-bottom: $padding/2;
+	background-color: $background-color;
+	font-weight: 600;
 }
 
 %button-hilighted {
-    @include button($primary-color);
+	@include button($primary-color);
 }
 
 %button-negative {
-    @include button();
-    color: red;
-    @extend %selectable;
+	@include button();
+	color: red;
+	@extend %selectable;
 }
 
 %card {
-    background-color: $foreground-color;
-    border-radius: $border-radius-medium;
-    padding: $padding;
-    box-shadow: $shadow-medium;
+	background-color: $foreground-color;
+	border-radius: $border-radius-medium;
+	padding: $padding;
+	box-shadow: $shadow-medium;
 }
 
 %input {
-    position: relative;
-    display: flex;
-    background-color: $foreground-color;
-    box-shadow: $shadow-medium;
-    border-radius: $border-radius-small $border-radius-small 0 0;
-    border-bottom: 1px solid $text-color;
-    height: 3em;
-    align-items: center;
-    font-size: $h3-size;
-    transition: $fast-animation ease-in-out;
-    
-    p {
-        transform-origin: left top;
-        position: absolute;
-        transform: translate($padding * 2);
-        margin: 0;
-        margin-top: 0.5em;
-        will-change: transform;
-        transition: $fast-animation ease-in-out;
-        opacity: 0.7;
-    }
-    
-    input {
-        font-size: $h3-size;
-        color: $text-color;
-        padding-left: $padding * 2;
-        margin-top: 0.95em;
-        position: absolute;
-        background: none;
-        outline: none;
-        border: none;
-        caret-color: $primary-color;
-        transition: $fast-animation ease-in-out;
-        width: 90%;
-    }
-    
-    &:hover {
-        border-bottom: 1px solid $primary-color;
-        background-color: lighten($color: $foreground-color, $amount: 2%);
-    }
+	position: relative;
+	display: flex;
+	background-color: $foreground-color;
+	box-shadow: $shadow-medium;
+	border-radius: $border-radius-small $border-radius-small 0 0;
+	border-bottom: 1px solid $text-color;
+	height: 3em;
+	align-items: center;
+	font-size: $h3-size;
+	transition: $fast-animation ease-in-out;
 
-    &[aria-selected="true"] {
-        border-bottom: 1px solid $primary-color;
-        
-        p {
-            color: $primary-color;
-            opacity: 1;
-        }
-    }
-    
-    &[non-empty="true"] {
-        p {
-            transform: translate($padding * 2, -0.75em) scale(0.75);
-        }
-    }
+	p {
+		transform-origin: left top;
+		position: absolute;
+		transform: translate($padding * 2);
+		margin: 0;
+		margin-top: 0.5em;
+		will-change: transform;
+		transition: $fast-animation ease-in-out;
+		opacity: 0.7;
+	}
+
+	input {
+		font-size: $h3-size;
+		color: $text-color;
+		padding-left: $padding * 2;
+		margin-top: 0.95em;
+		position: absolute;
+		background: none;
+		outline: none;
+		border: none;
+		caret-color: $primary-color;
+		transition: $fast-animation ease-in-out;
+		width: 90%;
+	}
+
+	&:hover {
+		border-bottom: 1px solid $primary-color;
+		background-color: lighten($color: $foreground-color, $amount: 2%);
+	}
+
+	&[aria-selected='true'] {
+		border-bottom: 1px solid $primary-color;
+
+		p {
+			color: $primary-color;
+			opacity: 1;
+		}
+	}
+
+	&[non-empty='true'] {
+		p {
+			transform: translate($padding * 2, -0.75em) scale(0.75);
+		}
+	}
 }

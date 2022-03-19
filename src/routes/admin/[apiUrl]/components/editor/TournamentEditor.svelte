@@ -27,9 +27,20 @@
 	<article id="tournament">
 		<h2>Turnering</h2>
 
-		<InputText label="Turneringens navn" bind:value={$activeTournament.tournament_name} required maxlength={40} width="100%" />
+		<InputText
+			label="Turneringens navn"
+			bind:value={$activeTournament.tournament_name}
+			required
+			maxlength={40}
+			width="100%"
+		/>
 
-		<InputText label="Sponsor" bind:value={$activeTournament.tournament_sponsor} maxlength={40} width="100%" />
+		<InputText
+			label="Sponsor"
+			bind:value={$activeTournament.tournament_sponsor}
+			maxlength={40}
+			width="100%"
+		/>
 
 		<TimePicker />
 
@@ -48,13 +59,20 @@
 		</ol>
 
 		<div id="buttons">
-			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}> Dupliker turnering </button>
-			<button id="delete" on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}> Slet turnering </button>
-			<input type="submit" value="Anvend"/>
+			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
+				Dupliker turnering
+			</button>
+			<button
+				id="delete"
+				on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}
+			>
+				Slet turnering
+			</button>
+			<input type="submit" value="Anvend" />
 		</div>
 	</article>
 </form>
-	
+
 <style lang="scss">
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
@@ -64,14 +82,13 @@
 		display: grid;
 		grid-template-columns: minmax(400px, 1fr) minmax(400px, 1fr);
 		column-gap: $padding;
-		grid-template-areas: 
-		"tournament holes";
+		grid-template-areas: 'tournament holes';
 		overflow-y: hidden;
 
 		article {
 			@extend %card;
 			display: grid;
-			
+
 			h2 {
 				font-size: $h2-size;
 				margin: 0;
@@ -84,13 +101,13 @@
 				grid-template-columns: 1fr;
 				grid-template-rows: repeat(4, auto) 1fr;
 				row-gap: $padding-large;
-				
+
 				figure {
 					position: relative;
 					margin: 0;
 				}
 			}
-			
+
 			&#holes {
 				grid-area: holes;
 				overflow-y: auto;
@@ -105,7 +122,7 @@
 					display: flex;
 					justify-content: end;
 					gap: $padding;
-				
+
 					> * {
 						font-size: $h3-size;
 						padding-left: $padding-large;
@@ -119,8 +136,8 @@
 						&#delete {
 							@extend %button-negative;
 						}
-						
-						&[type=submit] {
+
+						&[type='submit'] {
 							@extend %button-hilighted;
 						}
 					}

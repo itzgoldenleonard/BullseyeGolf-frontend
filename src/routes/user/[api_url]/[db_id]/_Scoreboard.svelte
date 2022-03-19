@@ -31,16 +31,16 @@
 		</svg>
 	</header>
 
-		<div id="L_title" class="image-shade">
-			<h1 class="main-heading">
-				{#if database.hole_text == ''}
+	<div id="L_title" class="image-shade">
+		<h1 class="main-heading">
+			{#if database.hole_text == ''}
 				Nærmest hullet
-				{:else}
+			{:else}
 				{database.hole_text}
-				{/if} 
-				<br /> Hul {database.hole_number}
-			</h1>
-		</div>
+			{/if}
+			<br /> Hul {database.hole_number}
+		</h1>
+	</div>
 
 	{#if database.hole_image == ''}
 		<picture class="header-image">

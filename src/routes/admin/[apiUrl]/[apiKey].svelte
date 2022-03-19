@@ -21,11 +21,10 @@
 		height: 100vh;
 		display: grid;
 		grid-template-columns: 256px 1fr;
-		grid-template-areas: 
-		"nav content";
+		grid-template-areas: 'nav content';
 		background-color: $background-color;
 		color: $text-color;
-		
+
 		font-family: 'Roboto', sans-serif;
 	}
 </style>

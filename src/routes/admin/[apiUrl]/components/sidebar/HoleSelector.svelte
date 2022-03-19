@@ -6,14 +6,17 @@
 
 	onMount(() => {
 		for (let i = 0; i < 18; i++) {
-            inactiveHoles = [...inactiveHoles, {
-				hole_number: i + 1,
-				hole_text: '',
-				hole_image: '',
-				game_mode: '',
-				hole_sponsor: '',
-				scores: []
-            }]
+			inactiveHoles = [
+				...inactiveHoles,
+				{
+					hole_number: i + 1,
+					hole_text: '',
+					hole_image: '',
+					game_mode: '',
+					hole_sponsor: '',
+					scores: []
+				}
+			];
 		}
 
 		for (let hole of $activeTournament.holes) {
@@ -46,44 +49,46 @@
 	}
 </script>
 
-<main>
-	<h1>Vælg huller:</h1>
+<aside>
+	<h2>Vælg huller:</h2>
 
-	<content>
-	{#each inactiveHoles as inactiveHole, i}
-			<span aria-selected={!inactiveHole} on:click={checkHandler} id={String(i)}>{i + 1}</span>
-	{/each}
-	</content>
-</main>
-	
+	<div>
+		{#each inactiveHoles as inactiveHole, i}
+			<button aria-selected={!inactiveHole} on:click={checkHandler} id={String(i)}>{i + 1}</button>
+		{/each}
+	</div>
+</aside>
+
 <style lang="scss">
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
 
-	main {
+	aside {
 		grid-area: holeselector;
 		padding: $padding;
-		
-		h1 {
+
+		h2 {
 			font-size: $h2-size;
 			margin: 0;
 			padding-top: $padding;
 			padding-bottom: $padding;
 		}
-		
-		content {
+
+		div {
 			display: grid;
 			place-items: center;
 			grid-template-columns: repeat(3, 1fr);
-			
-			span {
+
+			button {
 				@extend %selectable;
+				background: none;
+				color: $text-color;
 				padding: $padding;
 				font-size: $h3-size;
 				border-radius: $border-radius-small;
-				width: 22px;
-				text-align: center;
+				width: 42px;
 				margin: $padding-small/2;
+				border: none;
 			}
 		}
 	}

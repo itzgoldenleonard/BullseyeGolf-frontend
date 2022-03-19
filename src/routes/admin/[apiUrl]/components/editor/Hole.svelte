@@ -14,9 +14,10 @@
 <details>
 	<summary>Hul {hole.hole_number}</summary>
 	<section>
-		<InputText label="Hul sponsor" bind:value={hole.hole_sponsor} maxlength={40}/>
+		<InputText label="Hul sponsor" bind:value={hole.hole_sponsor} maxlength={40} />
 
-		<InputText label="Hul tekst" bind:value={hole.hole_text} maxlength={40}/> <!--Maybe there should be a placeholder in here-->
+		<InputText label="Hul tekst" bind:value={hole.hole_text} maxlength={40} />
+		<!--Maybe there should be a placeholder in here-->
 
 		<figure>
 			<ImagePicker bind:value={hole.hole_image} alt={`Hul ${hole.hole_number} billede`} />
@@ -29,11 +30,9 @@
 					<p>{score.player_score}</p>
 					<button on:click|preventDefault={() => removeScore(i)}>x</button>
 				</li>
-			{/each}
-
-			{#if hole.scores.length === 0}
+			{:else}
 				<p>Der er ingen scorer endnu</p>
-			{/if}
+			{/each}
 		</ol>
 	</section>
 </details>
@@ -42,7 +41,7 @@
 	@import '../../../../../../static/_variables';
 	@import '../../../../../../static/global.scss';
 
-	$image-height: 5*$h3-size + 18*$padding;
+	$image-height: 5 * $h3-size + 18 * $padding;
 
 	details {
 		margin: $padding 0;
@@ -58,7 +57,7 @@
 		section {
 			font-size: $h3-size;
 			color: $text-color;
-			
+
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: auto 1fr;
@@ -83,12 +82,12 @@
 					margin-right: 3px;
 					display: grid;
 					grid-template-columns: 1fr 1fr auto;
-					
+
 					p {
 						padding: $padding;
 						margin: 0;
 					}
-					
+
 					button {
 						@extend %button-negative;
 						padding: $padding;
