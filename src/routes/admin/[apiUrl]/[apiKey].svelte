@@ -1,6 +1,6 @@
 <script lang="ts">
-	import TournamentList from './components/sidebar/TournamentList.svelte';
-	import AdminPanel from './components/AdminPanel.svelte';
+	import TournamentList from './_components/sidebar/TournamentList.svelte';
+	import AdminPanel from './_components/AdminPanel.svelte';
 	import { page } from '$app/stores';
 
 	const baseUserUrl: string = `https://${$page.params.apiUrl}/user/`;

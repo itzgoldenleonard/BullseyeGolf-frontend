@@ -1,17 +1,18 @@
 <script lang="ts">
-	import { activeTournament, formChanged } from '../../persistence/stores';
+	import { activeTournament, formChanged, selectedTournament } from '../../persistence/stores';
 	import { postTournament } from '../../scripts/api';
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
 	import Hole from './Hole.svelte';
 	import InputText from '../../../../../../static/components/InputText.svelte';
-	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
+	import { deleteActiveTournament, generateID, updateTournamentList, printScores } from '../../scripts/misc';
 
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
 
 	function duplciateActiveTournament(): void {
 		$activeTournament.db_id = generateID();
+		selectedTournament.set($activeTournament.db_id);
 		$activeTournament.tournament_name += ' (kopi)';
 		submit();
 	}
@@ -60,6 +61,9 @@
 		</ol>
 
 		<div id="buttons">
+			<button id="print" on:click|preventDefault={printScores}>
+				Print scorer
+			</button>
 			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
 				Dupliker turnering
 			</button>
@@ -124,7 +128,7 @@
 							padding-left: $padding-large;
 							padding-right: $padding-large;
 
-							&#duplicate {
+							&#duplicate,&#print {
 								@include button();
 								@extend %selectable;
 							}

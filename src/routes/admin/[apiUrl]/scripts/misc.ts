@@ -43,3 +43,7 @@ export async function deleteActiveTournament(
 
 	updateTournamentList(baseUserUrl);
 }
+
+export function printScores() {
+	window.open('./print', '_blank').focus();
+}
