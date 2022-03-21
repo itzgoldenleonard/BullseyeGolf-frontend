@@ -61,7 +61,7 @@
 		</ol>
 
 		<div id="buttons">
-			<button id="print" on:click|preventDefault={printScores}>
+			<button id="print" on:click|preventDefault={() => printScores($activeTournament.db_id)}>
 				Print scorer
 			</button>
 			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
