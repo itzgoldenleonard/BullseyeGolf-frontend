@@ -87,6 +87,7 @@
 		grid-area: content;
 		margin: $gap;
 		position: relative;
+		overflow-y: auto;
 
 		form {
 			display: grid;
@@ -111,17 +112,19 @@
 
 				&#holes {
 					grid-area: holes;
-					overflow-y: auto;
+					overflow-y: hidden;
 					grid-template-rows: auto 1fr auto;
 
 					ol {
 						margin: 0;
 						padding: 0;
+						overflow-y: auto;
 					}
 
 					div {
 						display: flex;
 						justify-content: end;
+						padding-top: $padding;
 						gap: $padding;
 
 						> * {
