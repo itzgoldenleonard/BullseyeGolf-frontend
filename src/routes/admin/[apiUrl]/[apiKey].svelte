@@ -1,7 +1,10 @@
 <script lang="ts">
 	import TournamentList from './_components/sidebar/TournamentList.svelte';
 	import AdminPanel from './_components/AdminPanel.svelte';
+	import Print from './_components/editor/Print.svelte';
+	//import { printing } from './persistence/stores';
 	import { page } from '$app/stores';
+	let printing = false;
 
 	const baseUserUrl: string = `https://${$page.params.apiUrl}/user/`;
 	const baseAdminUrl: string = `https://${$page.params.apiUrl}/admin/${$page.params.apiKey}`;
@@ -10,6 +13,7 @@
 <body>
 	<TournamentList {baseUserUrl} />
 	<AdminPanel {baseUserUrl} {baseAdminUrl} />
+	<Print/>
 </body>
 
 <style lang="scss">

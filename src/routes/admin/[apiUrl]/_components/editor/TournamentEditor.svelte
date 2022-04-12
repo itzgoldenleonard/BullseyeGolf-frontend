@@ -5,7 +5,7 @@
 	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
 	import Hole from './Hole.svelte';
 	import InputText from '../../../../../../static/components/InputText.svelte';
-	import { deleteActiveTournament, generateID, updateTournamentList, printScores } from '../../scripts/misc';
+	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
 
 	export let baseUserUrl: string;
 	export let baseAdminUrl: string;
@@ -61,7 +61,7 @@
 		</ol>
 
 		<div id="buttons">
-			<button id="print" on:click|preventDefault={() => printScores($activeTournament.db_id)}>
+			<button id="print" on:click|preventDefault={() => window.print()}>
 				Print scorer
 			</button>
 			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
@@ -75,6 +75,7 @@
 			</button>
 			<input type="submit" value="Anvend" />
 		</div>
+	
 	</article>
 </form>
 </main>
@@ -148,6 +149,9 @@
 					}
 				}
 			}
+		}
+		@media only print {
+			display: none;
 		}
 	}
 </style>
