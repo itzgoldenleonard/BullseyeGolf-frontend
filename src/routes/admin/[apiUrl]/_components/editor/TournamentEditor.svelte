@@ -25,59 +25,58 @@
 </script>
 
 <main>
-<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
-	<article id="tournament">
-		<h2>Turnering</h2>
+	<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
+		<article id="tournament">
+			<h2>Turnering</h2>
 
-		<InputText
-			label="Turneringens navn"
-			bind:value={$activeTournament.tournament_name}
-			required
-			maxlength={40}
-			width="100%"
-		/>
+			<InputText
+				label="Turneringens navn"
+				bind:value={$activeTournament.tournament_name}
+				required
+				maxlength={40}
+				width="100%"
+			/>
 
-		<InputText
-			label="Sponsor"
-			bind:value={$activeTournament.tournament_sponsor}
-			maxlength={40}
-			width="100%"
-		/>
+			<InputText
+				label="Sponsor"
+				bind:value={$activeTournament.tournament_sponsor}
+				maxlength={40}
+				width="100%"
+			/>
 
-		<TimePicker />
+			<TimePicker />
 
-		<figure>
-			<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
-		</figure>
-	</article>
+			<figure>
+				<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+			</figure>
+		</article>
 
-	<article id="holes">
-		<h2>Huller</h2>
+		<article id="holes">
+			<h2>Huller</h2>
 
-		<ol>
-			{#each $activeTournament.holes as hole}
-				<Hole bind:hole />
-			{/each}
-		</ol>
+			<ol>
+				{#each $activeTournament.holes as hole}
+					<Hole bind:hole />
+				{/each}
+			</ol>
 
-		<div id="buttons">
-			<button id="print" on:click|preventDefault={() => window.print()}>
-				Print scorer
-			</button>
-			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
-				Dupliker turnering
-			</button>
-			<button
-				id="delete"
-				on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}
-			>
-				Slet turnering
-			</button>
-			<input type="submit" value="Anvend" />
-		</div>
-	
-	</article>
-</form>
+			<div id="buttons">
+				<button id="print" on:click|preventDefault={() => window.print()}>
+					Print resultatliste
+				</button>
+				<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
+					Dupliker turnering
+				</button>
+				<button
+					id="delete"
+					on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}
+				>
+					Slet turnering
+				</button>
+				<input type="submit" value="Anvend" />
+			</div>
+		</article>
+	</form>
 </main>
 
 <style lang="scss">
@@ -132,7 +131,8 @@
 							padding-left: $padding-large;
 							padding-right: $padding-large;
 
-							&#duplicate,&#print {
+							&#duplicate,
+							&#print {
 								@include button();
 								@extend %selectable;
 							}

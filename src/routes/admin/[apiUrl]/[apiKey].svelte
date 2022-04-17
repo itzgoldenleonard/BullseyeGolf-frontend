@@ -13,7 +13,7 @@
 <body>
 	<TournamentList {baseUserUrl} />
 	<AdminPanel {baseUserUrl} {baseAdminUrl} />
-	<Print/>
+	<Print />
 </body>
 
 <style lang="scss">
