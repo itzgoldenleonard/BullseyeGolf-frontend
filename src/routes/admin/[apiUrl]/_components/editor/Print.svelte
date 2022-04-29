@@ -30,47 +30,43 @@
 
 {#if $activeTournament !== null}
 	<main>
-		<div id="correct">
-			<h1>
-				{$activeTournament.tournament_name}
-			</h1>
+		<h1>
+			{$activeTournament.tournament_name}
+		</h1>
 
-			<div class="triplet">
-				{#each $activeTournament.holes as hole}
-					<table>
-						<caption>
-							Hul {hole.hole_number}
-						</caption>
-						<thead>
-							<tr>
-								<th scope="col"> Navn: </th>
-								<th scope="col"> Score: </th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each table as i}
-								{#if hole.scores.length > i}
-									<tr>
-										<td>
-											{hole.scores[i].player_name}
-										</td>
-										<td>
-											{hole.scores[i].player_score}m
-										</td>
-									</tr>
-								{:else if hole.scores.length === 0 && i === 0}
-									<tr><td colspan="2">Der er ingen scorer for dette hul</td></tr>
-								{:else}
-									<tr><td colspan="2" style="text-indent: -9999px;">|</td></tr>
-								{/if}
-							{/each}
-						</tbody>
-					</table>
-				{/each}
-			</div>
+		<div class="triplet">
+			{#each $activeTournament.holes as hole}
+				<table>
+					<caption>
+						Hul {hole.hole_number}
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col"> Navn: </th>
+							<th scope="col"> Score: </th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each table as i}
+							{#if hole.scores.length > i}
+								<tr>
+									<td>
+										{hole.scores[i].player_name}
+									</td>
+									<td>
+										{hole.scores[i].player_score}m
+									</td>
+								</tr>
+							{:else if hole.scores.length === 0 && i === 0}
+								<tr><td colspan="2">Der er ingen scorer for dette hul</td></tr>
+							{:else}
+								<tr><td colspan="2" style="text-indent: -9999px;">|</td></tr>
+							{/if}
+						{/each}
+					</tbody>
+				</table>
+			{/each}
 		</div>
-
-		<h1 id="incorrect">For at printe skal du bruge stående A4 størrelse og slå marginer fra</h1>
 	</main>
 {:else}
 	<h1>Du har ikke valgt nogen turnering</h1>
@@ -133,28 +129,20 @@
 			tr:nth-child(even) {
 				background-color: hsl(0, 0%, 95%);
 			}
+			
+			page-break-inside: avoid;
 		}
 
 		// logic
-		#incorrect {
-			display: none;
-		}
-
 		@media only screen {
 			display: none;
 		}
+		
+	}
 
-		@media only print and (max-width: 209mm),
-			only print and (min-width: 211mm),
-			only print and (orientation: landscape) {
-			width: 100vw;
-			#correct {
-				display: none;
-			}
-			#incorrect {
-				display: block;
-			}
-		}
+	@page {
+		margin: 0;
+		size: A4 portrait;
 	}
 
 	h1 {
