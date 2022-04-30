@@ -20,7 +20,7 @@
 
 <div>
 	<InputDateTime label="Start tidspunkt" bind:value={tStart} required />
-	<InputDateTime label="Start tidspunkt" bind:value={tEnd} required />
+	<InputDateTime label="Slut tidspunkt" bind:value={tEnd} required />
 </div>
 
 <style lang="scss">

@@ -16,17 +16,12 @@
 
 <style lang="scss">
 	@import '../../../../static/_variables';
-	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+	@import '../../../../static/global.scss';
 
 	body {
-		width: 100vw;
-		height: 100vh;
+		@extend %body;
 		display: grid;
 		grid-template-columns: 256px 1fr;
 		grid-template-areas: 'nav content';
-		background-color: $background-color;
-		color: $text-color;
-
-		font-family: 'Roboto', sans-serif;
 	}
 </style>
