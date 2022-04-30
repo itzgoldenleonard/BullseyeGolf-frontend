@@ -6,6 +6,9 @@
     let tournamentList = getTournamentList(baseUrl);
 </script>
 
+<svelte:head>
+    <title>BullseyeGolf</title>
+</svelte:head>
 <body>
     <h1>
         Vælg en turnering:
