@@ -108,7 +108,7 @@
 			}
 
 			div {
-				background: linear-gradient(-60deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
+				background: linear-gradient(-110deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
 				display: grid;
 				grid-template-rows: 1fr auto;
 				align-items: center;
@@ -119,6 +119,7 @@
 				}
 				p {
 					margin: $padding;
+                    max-width: 80%;
 				}
 			}
 		}
