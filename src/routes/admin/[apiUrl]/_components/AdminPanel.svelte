@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TournamentEditor from './editor/TournamentEditor.svelte';
+	import Tutorial from './editor/Tutorial.svelte';
 	import { activeTournament, formChanged } from '../persistence/stores';
 
 	export let baseUserUrl: string;
@@ -16,7 +17,7 @@
 
 <svelte:window on:beforeunload={beforeunload} />
 {#if $activeTournament === null}
-	<p>Vaelg en turnering</p>
+	<Tutorial />
 {:else}
 	<TournamentEditor {baseUserUrl} {baseAdminUrl} />
 {/if}
