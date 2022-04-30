@@ -7,7 +7,7 @@
 </script>
 
 <body>
-	<h1>Vælg et hul:</h1>
+	<h2>Vælg et hul:</h2>
 	{#await tournament}
 		<p>Loading...</p>
 	{:then tournament}
@@ -54,13 +54,7 @@
 		width: auto;
 		padding: $padding;
 
-		h1 {
-			font-size: $h1-size;
-			font-weight: 600;
-			margin: 0;
-		}
-
-		> h1 {
+		h2 {
 			margin-top: 100vw * 0.66;
 			@media only screen and (orientation: landscape) {
 				margin-top: 100vw * 0.2;
@@ -114,8 +108,11 @@
 				align-items: center;
 
 				h1 {
+                    margin: 0;
 					margin-left: $padding-large;
 					max-width: 60%;
+                    font-size: $h1-size;
+                    font-weight: 600;
 				}
 				p {
 					margin: $padding;
