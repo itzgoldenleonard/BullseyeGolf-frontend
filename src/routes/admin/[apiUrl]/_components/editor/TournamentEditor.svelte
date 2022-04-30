@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { activeTournament, formChanged } from '../../persistence/stores';
+	import { activeTournament, formChanged, selectedTournament } from '../../persistence/stores';
 	import { postTournament } from '../../scripts/api';
 	import TimePicker from './TimePicker.svelte';
 	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
@@ -12,6 +12,7 @@
 
 	function duplciateActiveTournament(): void {
 		$activeTournament.db_id = generateID();
+		selectedTournament.set($activeTournament.db_id);
 		$activeTournament.tournament_name += ' (kopi)';
 		submit();
 	}
@@ -24,55 +25,58 @@
 </script>
 
 <main>
-<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
-	<article id="tournament">
-		<h2>Turnering</h2>
+	<form on:submit|preventDefault={submit} on:change={() => formChanged.set(true)}>
+		<article id="tournament">
+			<h2>Turnering</h2>
 
-		<InputText
-			label="Turneringens navn"
-			bind:value={$activeTournament.tournament_name}
-			required
-			maxlength={40}
-			width="100%"
-		/>
+			<InputText
+				label="Turneringens navn"
+				bind:value={$activeTournament.tournament_name}
+				required
+				maxlength={40}
+				width="100%"
+			/>
 
-		<InputText
-			label="Sponsor"
-			bind:value={$activeTournament.tournament_sponsor}
-			maxlength={40}
-			width="100%"
-		/>
+			<InputText
+				label="Sponsor"
+				bind:value={$activeTournament.tournament_sponsor}
+				maxlength={40}
+				width="100%"
+			/>
 
-		<TimePicker />
+			<TimePicker />
 
-		<figure>
-			<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
-		</figure>
-	</article>
+			<figure>
+				<ImagePicker bind:value={$activeTournament.tournament_image} alt="Turneringens billede" />
+			</figure>
+		</article>
 
-	<article id="holes">
-		<h2>Huller</h2>
+		<article id="holes">
+			<h2>Huller</h2>
 
-		<ol>
-			{#each $activeTournament.holes as hole}
-				<Hole bind:hole />
-			{/each}
-		</ol>
+			<ol>
+				{#each $activeTournament.holes as hole}
+					<Hole bind:hole />
+				{/each}
+			</ol>
 
-		<div id="buttons">
-			<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
-				Dupliker turnering
-			</button>
-			<button
-				id="delete"
-				on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}
-			>
-				Slet turnering
-			</button>
-			<input type="submit" value="Anvend" />
-		</div>
-	</article>
-</form>
+			<div id="buttons">
+				<button id="print" on:click|preventDefault={() => window.print()}>
+					Print resultatliste
+				</button>
+				<button id="duplicate" on:click|preventDefault={duplciateActiveTournament}>
+					Dupliker turnering
+				</button>
+				<button
+					id="delete"
+					on:click|preventDefault={() => deleteActiveTournament(baseAdminUrl, baseUserUrl)}
+				>
+					Slet turnering
+				</button>
+				<input type="submit" value="Anvend" />
+			</div>
+		</article>
+	</form>
 </main>
 
 <style lang="scss">
@@ -83,6 +87,7 @@
 		grid-area: content;
 		margin: $gap;
 		position: relative;
+		overflow-y: auto;
 
 		form {
 			display: grid;
@@ -107,24 +112,27 @@
 
 				&#holes {
 					grid-area: holes;
-					overflow-y: auto;
+					overflow-y: hidden;
 					grid-template-rows: auto 1fr auto;
 
 					ol {
 						margin: 0;
 						padding: 0;
+						overflow-y: auto;
 					}
 
 					div {
 						display: flex;
 						justify-content: end;
+						padding-top: $padding;
 						gap: $padding;
 
 						> * {
 							padding-left: $padding-large;
 							padding-right: $padding-large;
 
-							&#duplicate {
+							&#duplicate,
+							&#print {
 								@include button();
 								@extend %selectable;
 							}
@@ -141,6 +149,9 @@
 					}
 				}
 			}
+		}
+		@media only print {
+			display: none;
 		}
 	}
 </style>

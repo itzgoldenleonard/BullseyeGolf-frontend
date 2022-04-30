@@ -123,5 +123,8 @@
 			font-weight: 900;
 			margin: $padding;
 		}
+		@media only print {
+			display: none;
+		}
 	}
 </style>

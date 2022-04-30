@@ -83,7 +83,6 @@
 					display: grid;
 					grid-template-columns: 1fr 1fr auto;
 					align-items: center;
-					
 
 					p {
 						padding: $padding;
