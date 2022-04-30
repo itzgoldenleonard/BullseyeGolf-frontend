@@ -1,21 +1,22 @@
 <script lang="ts">
 	import { activeTournament } from '../../persistence/stores';
 
-	//let table = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 	$: table = createTable($activeTournament);
 
 	function calculateLargestHole(holes: Hole[]) {
 		let longest: Number = 0;
 
 		for (let hole of holes) {
-			longest = hole.scores.length > longest ? hole.scores.length : longest;
+			if (hole.scores.length > longest) {
+				longest = hole.scores.length;
+			}
 		}
 
 		return longest;
 	}
 
 	function createTable(tournament: Tournament) {
-		if (tournament === null) return [0, 1, 2, 3, 4, 5, 6, 7, 8];
+		if (tournament === null) return [];
 		let holes = tournament.holes;
 		let largest = calculateLargestHole(holes);
 		if (largest > 9) return [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -90,54 +91,52 @@
 			margin-top: 0;
 		}
 
-		caption {
-			text-align: left;
-			font-size: 18pt;
-			font-weight: 500;
-			margin-top: 0;
-			margin-bottom: 0.5rem;
-		}
-
 		.triplet {
 			display: grid;
-			grid-template-columns: 1fr 1fr 1fr;
+			grid-template-columns: repeat(3, 1fr);
 			grid-gap: 3mm;
-			grid-template-rows: repeat(auto, 3);
+			grid-template-rows: repeat(3, auto);
 			row-gap: 10mm;
-		}
 
-		table {
-			table-layout: fixed;
-			width: 100%;
-			border-collapse: collapse;
-			border: 1pt solid black;
-			-webkit-print-color-adjust: exact; //:For Chrome
-			color-adjust: exact; //:For Firefox
-
-			th {
-				width: 50%;
-				text-align: left;
-				background: hsl(0, 0%, 90%);
-			}
-
-			th,
-			td {
-				padding: 0.25rem;
+			table {
+				table-layout: fixed;
+				width: 100%;
+				border-collapse: collapse;
 				border: 1pt solid black;
-			}
+				-webkit-print-color-adjust: exact; //:For Chrome
+				color-adjust: exact; //:For Firefox
 
-			tr:nth-child(even) {
-				background-color: hsl(0, 0%, 95%);
+				caption {
+					text-align: left;
+					font-size: 18pt;
+					font-weight: 500;
+					margin-top: 0;
+					margin-bottom: 0.5rem;
+				}
+
+				th {
+					width: 50%;
+					text-align: left;
+					background: hsl(0, 0%, 90%);
+				}
+
+				th,
+				td {
+					padding: 0.25rem;
+					border: 1pt solid black;
+				}
+
+				tr:nth-child(even) {
+					background-color: hsl(0, 0%, 95%);
+				}
+
+				page-break-inside: avoid;
 			}
-			
-			page-break-inside: avoid;
 		}
 
-		// logic
 		@media only screen {
 			display: none;
 		}
-		
 	}
 
 	@page {
