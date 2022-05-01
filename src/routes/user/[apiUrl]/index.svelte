@@ -9,7 +9,6 @@
 <svelte:head>
 	<title>BullseyeGolf</title>
 </svelte:head>
-<body>
 	<h1>Vælg en turnering:</h1>
 	{#await tournamentList}
 		<p>loading...</p>
@@ -26,33 +25,26 @@
 	{:catch error}
 		<p>{error}</p>
 	{/await}
-</body>
 
 <style lang="scss">
 	@import '../../../../static/_variables';
 	@import '../../../../static/global.scss';
 
-	body {
-		@extend %body;
-		height: auto;
-		width: auto;
-		padding: $padding;
+	h1 {
+		font-size: $h1-size;
+		font-weight: 600;
+		margin: 0;
+		margin-top: 48px;
+	}
 
-		h1 {
-			font-size: $h1-size;
-			font-weight: 600;
-			margin: 0;
-		}
+	a {
+		color: $text-color;
+		text-decoration: none;
+		font-size: $h3-size;
+	}
 
-		a {
-			color: $text-color;
-			text-decoration: none;
-			font-size: $h3-size;
-		}
-
-		article {
-			@extend %card;
-			margin: $padding 0;
-		}
+	article {
+		@extend %card;
+		margin: $padding 0;
 	}
 </style>
