@@ -1,7 +1,19 @@
+<script lang="ts">
+    import { page } from '$app/stores';
+    import SvgIcon from '@jamescoyle/svelte-icon';
+    import { mdiArrowLeft, mdiInformationOutline } from '@mdi/js';
+</script>
+
 <header>
-    <img src="" alt="back">
-    <img src="" alt="logo">
-    <img src="" alt="info">
+    {#if $page.params.dbId !== undefined}
+        <a href="./">
+            <SvgIcon type="mdi" path={mdiArrowLeft} size="48"></SvgIcon>
+        </a>
+    {/if}
+    <img src="/logo-temp.svg" alt="logo">
+    <button on:click>
+        <SvgIcon type="mdi" path={mdiInformationOutline} size="48"></SvgIcon>
+    </button>
 </header>
 
 <body>
@@ -28,5 +40,27 @@
         background-color: $foreground-color; 
         opacity: 0.9;
         z-index: 1;
+        color: $text-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 100%;
+        }
+
+        a {
+            color: $text-color;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
     }
+
 </style>
