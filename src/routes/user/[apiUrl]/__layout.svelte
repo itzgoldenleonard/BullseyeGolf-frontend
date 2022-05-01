@@ -2,6 +2,9 @@
     import { page } from '$app/stores';
     import SvgIcon from '@jamescoyle/svelte-icon';
     import { mdiArrowLeft, mdiInformationOutline } from '@mdi/js';
+    import Modal from './_components/modal.svelte';
+
+    let infoOpen: boolean = false;
 </script>
 
 <header>
@@ -11,12 +14,17 @@
         </a>
     {/if}
     <img src="/logo-temp.svg" alt="logo">
-    <button on:click>
+    <button on:click={() => infoOpen = true}>
         <SvgIcon type="mdi" path={mdiInformationOutline} size="48"></SvgIcon>
     </button>
 </header>
 
 <body>
+    <Modal bind:open={infoOpen}>
+        <h1>
+            infofelt
+        </h1>    
+    </Modal>
     <slot></slot>
 </body>
 
