@@ -1,6 +1,6 @@
 {
-	"name": "~TODO~",
-	"version": "0.0.1",
+	"name": "bullseyegolf",
+	"version": "1.0.0-beta",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
