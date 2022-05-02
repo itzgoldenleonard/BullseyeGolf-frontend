@@ -140,6 +140,51 @@
 	}
 }
 
+%header-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+
+	img,
+	div {
+		position: absolute;
+		width: 100%;
+		object-fit: cover;
+		aspect-ratio: 3/2;
+
+		@media only screen and (orientation: landscape) {
+			aspect-ratio: 5/1;
+		}
+	}
+
+	div {
+		background: linear-gradient(-110deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
+		display: grid;
+		grid-template-rows: 1fr auto;
+		align-items: center;
+
+		h1 {
+			margin: 0;
+			margin-left: $padding-large;
+			max-width: 60%;
+			font-size: $h1-size;
+			font-weight: 600;
+		}
+		p {
+			margin: $padding;
+			max-width: 80%;
+		}
+	}
+}
+
+%header-image-margin {
+	margin-top: 100vw * 0.66 !important;
+	@media only screen and (orientation: landscape) {
+		margin-top: 100vw * 0.2 !important;
+	}
+}
+
 button {
 	background: none;
 	color: $text-color;

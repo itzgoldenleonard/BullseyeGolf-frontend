@@ -46,74 +46,37 @@
 	@import '../../../../../static/_variables';
 	@import '../../../../../static/global.scss';
 
-		h2 {
-			margin-top: 100vw * 0.66;
-			@media only screen and (orientation: landscape) {
-				margin-top: 100vw * 0.2;
-			}
+	h2 {
+		@extend %header-image-margin;
+		padding: 0;
+	}
+	main {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
+		gap: $padding;
+		margin: $padding 0;
+
+		@media only screen and (orientation: landscape) {
+			grid-template-columns: repeat(auto-fit, minmax(100px, 0.25fr));
 		}
 
-		main {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
-			gap: $padding;
-			margin: $padding 0;
-
-			@media only screen and (orientation: landscape) {
-				grid-template-columns: repeat(auto-fit, minmax(100px, 0.25fr));
-			}
-
-			a {
-				color: $text-color;
-				text-decoration: none;
-				font-size: $h3-size;
-				font-weight: 600;
-			}
-
-			article {
-				@extend %card;
-				display: flex;
-				aspect-ratio: 1;
-				justify-content: center;
-				align-items: center;
-			}
+		a {
+			color: $text-color;
+			text-decoration: none;
+			font-size: $h3-size;
+			font-weight: 600;
 		}
 
-		aside {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100vw;
-
-			img,
-			div {
-				position: absolute;
-				width: 100%;
-				object-fit: cover;
-				aspect-ratio: 3/2;
-
-				@media only screen and (orientation: landscape) {
-					aspect-ratio: 5/1;
-				}
-			}
-
-			div {
-				background: linear-gradient(-110deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
-				display: grid;
-				grid-template-rows: 1fr auto;
-				align-items: center;
-
-				h1 {
-                    margin: 0;
-					margin-left: $padding-large;
-					max-width: 60%;
-                    font-size: $h1-size;
-                    font-weight: 600;
-				}
-				p {
-					margin: $padding;
-                    max-width: 80%;
-				}
-			}
+		article {
+			@extend %card;
+			display: flex;
+			aspect-ratio: 1;
+			justify-content: center;
+			align-items: center;
 		}
+	}
+
+	aside {
+		@extend %header-image;
+	}
 </style>

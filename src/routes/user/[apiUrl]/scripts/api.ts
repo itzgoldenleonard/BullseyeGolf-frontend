@@ -19,3 +19,13 @@ export async function getTournament(baseUrl: string, db_id: string): Promise<Tou
 		throw new Error(error);
 	}
 }
+
+export async function getHole(baseUrl: string, db_id: string, hole_number: number): Promise<Hole> {
+	try {
+		const request_url: string = `${baseUrl}/${db_id}/${hole_number}`;
+		const response = await axios.get(request_url);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
+}

@@ -2,7 +2,7 @@
     import { page } from '$app/stores';
     import SvgIcon from '@jamescoyle/svelte-icon';
     import { mdiArrowLeft, mdiInformationOutline, mdiGithub } from '@mdi/js';
-    import Modal from './_components/modal.svelte';
+    import Modal from './_components/Modal.svelte';
     import { VERSION } from '../../../../static/components/stores';
 
     let infoOpen: boolean = false;
