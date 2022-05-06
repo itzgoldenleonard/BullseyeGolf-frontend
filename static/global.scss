@@ -95,14 +95,18 @@
 	transition: $fast-animation ease-in-out;
 
 	p {
-		transform-origin: left top;
 		position: absolute;
-		transform: translate($padding * 2);
 		margin: 0;
 		margin-top: 0.5em;
-		will-change: transform;
-		transition: $fast-animation ease-in-out;
 		opacity: 0.7;
+		transition: $fast-animation ease-in-out;
+		
+		&.label {
+			transform-origin: left top;
+			transform: translate($padding * 2);
+			will-change: transform;
+		}
+		&.unit { right: $padding * 2; }
 	}
 
 	input {
@@ -130,11 +134,13 @@
 		p {
 			color: $primary-color;
 			opacity: 1;
+			
+			&.unit { color: $text-color; }
 		}
 	}
 
 	&[non-empty='true'] {
-		p {
+		p.label {
 			transform: translate($padding * 2, -0.75em) scale(0.75);
 		}
 	}
