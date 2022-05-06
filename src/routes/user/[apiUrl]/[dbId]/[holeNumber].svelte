@@ -15,7 +15,24 @@
 	let scoreCm: number = 0;
 
 	async function submit() {
+		if (scoreM === 0 && scoreCm === 0) return alert('Din score må ikke være 0'); 
+		
+		let _hole= await hole;
+
+		if (_hole.scores.length !== 0) {
+			if (_hole.scores[0].player_score < scoreM + scoreCm * 0.01) {
+				if (!confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) {
+					return;
+				} else {
+					name += ' 🏴';
+				}
+			}
+		}
+
 		await submitScore(baseUrl, $page.params.dbId, Number($page.params.holeNumber), name, scoreM, scoreCm);
+		submitting = false;
+		hole = getHole(baseUrl, $page.params.dbId, Number($page.params.holeNumber));
+		[name, scoreM, scoreCm] = ['', 0, 0]
 	}
 </script>
 
@@ -58,11 +75,11 @@
     </main>
 	
 	<Modal bind:open={submitting}>
-		<h1>
-			Indsend notering
-		</h1>
-
 		<form on:submit|preventDefault={submit}>
+			<h1>
+				Indsend notering
+			</h1>
+
 			<InputText label="Navn" bind:value={name} maxlength={40} required/>
 		
 			<div>
@@ -104,6 +121,9 @@
 		gap: $padding;
 		width: 90vw;
 		
+		h1 {
+			margin: $padding-small 0;
+		}
 		div {
 			display: grid;
 			gap: $padding;

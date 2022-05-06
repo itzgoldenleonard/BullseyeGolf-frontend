@@ -3,7 +3,7 @@
     export let score: number;
     export let name: string;
 
-    $: scoreString = `${Math.floor(score)},${Math.floor(score % 1 * 100)}`;
+    $: scoreString = `${Math.floor(score)},${String(Math.floor(score % 1 * 100)).padStart(2, '0')}`;
 </script>
 
 <article class={`score-${i}`}>
