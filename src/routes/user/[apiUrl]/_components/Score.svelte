@@ -24,15 +24,15 @@
         align-items: center;
 
         &.score-1 {
-            background: linear-gradient(137deg, #f1d44f 0%, 50%, #c79500);
+            background: linear-gradient(137deg, hsl(50, 85%, 60%) 0%, 50%, hsl(45, 100%, 33%));
         }
 
         &.score-2 {
-            background: linear-gradient(142deg, #d0d2d8 0%, 50%, #9598a1);
+            background: linear-gradient(142deg, hsl(225, 9%, 79%) 0%, 50%, hsl(225, 6%, 50%));
         }
 
         &.score-3 {
-            background: linear-gradient(150deg, #df9c6b 0%, 40%, #a24b20);
+            background: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%));
         }
         
         p {
@@ -40,7 +40,7 @@
             font-size: $text-size;
         }
         
-        :nth-child(1) {
+        :nth-child(1) { // i
             font-size: $text-size * 1.5;
         }
     }

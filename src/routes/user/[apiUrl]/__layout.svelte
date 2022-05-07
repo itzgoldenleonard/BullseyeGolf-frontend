@@ -20,7 +20,7 @@
     </button>
 </header>
 
-<body id="body">
+<div id="body">
     <Modal bind:open={infoOpen}>
         <h1>
             Du bruger BullseyeGolf version: {$VERSION}
@@ -52,13 +52,13 @@
         </a>
     </Modal>
     <slot></slot>
-</body>
+</div>
 
 <style lang="scss">
 	@import '../../../../static/_variables';
 	@import '../../../../static/global.scss';
 
-	body#body {
+	#body {
 		@extend %body;
 		width: auto;
 		padding: $padding;

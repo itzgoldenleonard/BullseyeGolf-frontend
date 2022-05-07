@@ -120,6 +120,7 @@
 	button {
 		@include button($primary-color);
 		//text-shadow: $shadow-text;
+		font-size: $text-size;
 	}
 
 	form {
