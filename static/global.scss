@@ -4,6 +4,7 @@
 	height: 100vh;
 	background-color: $background-color;
 	color: $text-color;
+	box-sizing: border-box;
 
 	font-family: 'Roboto', sans-serif;
 }
@@ -185,9 +186,9 @@
 }
 
 %header-image-margin {
-	margin-top: 100vw * 0.66 !important;
+	padding-top: 100vw * 0.66;
 	@media only screen and (orientation: landscape) {
-		margin-top: 100vw * 0.2 !important;
+		padding-top: 100vw * 0.2;
 	}
 }
 

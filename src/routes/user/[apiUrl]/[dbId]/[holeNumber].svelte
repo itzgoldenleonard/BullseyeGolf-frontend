@@ -109,6 +109,12 @@
         display: grid;
         grid-template-rows: repeat(6, 1fr);
         gap: $padding;
+		box-sizing: border-box;
+		height: 100%;
+		
+		button {
+			grid-row: 6/6;
+		}
     }
 
 	button {

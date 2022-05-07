@@ -6,7 +6,7 @@
 	let tournament = getTournament(baseUrl, $page.params.dbId);
 </script>
 
-<h2>Vælg et hul:</h2>
+<h2 class="header-image-margin">Vælg et hul:</h2>
 {#await tournament}
 	<p>Loading...</p>
 {:then tournament}
@@ -46,10 +46,10 @@
 	@import '../../../../../static/_variables';
 	@import '../../../../../static/global.scss';
 
-	h2 {
+	.header-image-margin {
 		@extend %header-image-margin;
-		padding: 0;
 	}
+
 	main {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
