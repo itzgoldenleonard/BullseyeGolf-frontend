@@ -6,25 +6,24 @@
 	let tournamentList = getTournamentList(baseUrl);
 </script>
 
-<svelte:head>
-	<title>BullseyeGolf</title>
-</svelte:head>
-	<h1>Vælg en turnering:</h1>
-	{#await tournamentList}
-		<p>loading...</p>
-	{:then tournamentList}
-		{#each tournamentList as tournament}
-			{#if tournament.active}
-				<a href={`./${$page.params.apiUrl}/${tournament.db_id}`}>
-					<article>
-						{tournament.tournament_name}
-					</article>
-				</a>
-			{/if}
-		{/each}
-	{:catch error}
-		<p>{error}</p>
-	{/await}
+<h1>Vælg en turnering:</h1>
+{#await tournamentList}
+	<p>loading...</p>
+{:then tournamentList}
+	{#each tournamentList.filter(e => e.active) as tournament}
+		<a href={`./${$page.params.apiUrl}/${tournament.db_id}`}>
+			<article>
+				{tournament.tournament_name}
+			</article>
+		</a>
+	{:else}
+		<h2>
+			Der er ingen aktive turneringer
+		</h2>
+	{/each}
+{:catch error}
+	<p>{error}</p>
+{/await}
 
 <style lang="scss">
 	@import '../../../../static/_variables';
@@ -41,10 +40,10 @@
 		color: $text-color;
 		text-decoration: none;
 		font-size: $h3-size;
-	}
 
-	article {
-		@extend %card;
-		margin: $padding 0;
+		article {
+			@extend %card;
+			margin: $padding 0;
+		}
 	}
 </style>

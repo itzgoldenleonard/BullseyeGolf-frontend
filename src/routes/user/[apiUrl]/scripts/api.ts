@@ -31,13 +31,11 @@ export async function getHole(baseUrl: string, db_id: string, hole_number: numbe
 }
 
 export async function submitScore(baseUrl: string, db_id: string, hole_number: number, name: string, scoreM: number, scoreCm: number): Promise<any> {
-	const score: number = scoreM + scoreCm * 0.01;
-	const requestUrl: string = `${baseUrl}/${db_id}/${hole_number}`;
-	
 	try {
+		const requestUrl: string = `${baseUrl}/${db_id}/${hole_number}`;
 		const response = await axios.post(requestUrl, {
 			player_name: name,
-			player_score: score
+			player_score: scoreM + scoreCm * 0.01
 		});
 		return response.data;
 	} catch (error) {

@@ -7,33 +7,28 @@
     import Score from '../_components/Score.svelte';
 
 	let baseUrl: string = `https://${$page.params.apiUrl}/user/`;
-	let hole = getHole(baseUrl, $page.params.dbId, Number($page.params.holeNumber));
+	let hole: Promise<Hole>;
+	const updateHole = () => hole = getHole(baseUrl, $page.params.dbId, Number($page.params.holeNumber));
 	let submitting: boolean = false;
 
-	let name: string = '';
-	let scoreM: number = 0;
-	let scoreCm: number = 0;
+	let [name, scoreM, scoreCm] = ['', 0, 0]
 
 	async function submit() {
 		if (scoreM === 0 && scoreCm === 0) return alert('Din score må ikke være 0'); 
 		
-		let _hole= await hole;
-
-		if (_hole.scores.length !== 0) {
-			if (_hole.scores[0].player_score < scoreM + scoreCm * 0.01) {
-				if (!confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) {
-					return;
-				} else {
-					name += ' 🏴';
-				}
-			}
+		let _hole = await hole;
+		if (_hole.scores.length !== 0 && _hole.scores[0].player_score < scoreM + scoreCm * 0.01) {
+			if (confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?')) name += ' 🏴'; 
+			else return;
 		}
 
 		await submitScore(baseUrl, $page.params.dbId, Number($page.params.holeNumber), name, scoreM, scoreCm);
 		submitting = false;
-		hole = getHole(baseUrl, $page.params.dbId, Number($page.params.holeNumber));
+		updateHole();
 		[name, scoreM, scoreCm] = ['', 0, 0]
 	}
+
+	updateHole();
 </script>
 
 {#await hole}
@@ -104,6 +99,11 @@
         @extend %header-image;
     }
 
+	button {
+		@include button($primary-color);
+		font-size: $text-size;
+	}
+
     main {
         @extend %header-image-margin;
         display: grid;
@@ -117,12 +117,6 @@
 		}
     }
 
-	button {
-		@include button($primary-color);
-		//text-shadow: $shadow-text;
-		font-size: $text-size;
-	}
-
 	form {
 		display: grid;
 		gap: $padding;
@@ -131,6 +125,7 @@
 		h1 {
 			margin: $padding-small 0;
 		}
+
 		div {
 			display: grid;
 			gap: $padding;

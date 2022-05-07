@@ -1,9 +1,9 @@
 <script lang="ts">
     import { page } from '$app/stores';
-    import SvgIcon from '@jamescoyle/svelte-icon';
     import { mdiArrowLeft, mdiInformationOutline, mdiGithub } from '@mdi/js';
+    import { VERSION, REPOURL } from '../../../../static/persistence/stores';
+    import SvgIcon from '@jamescoyle/svelte-icon';
     import Modal from './_components/Modal.svelte';
-    import { VERSION } from '../../../../static/components/stores';
 
     let infoOpen: boolean = false;
 </script>
@@ -29,7 +29,7 @@
 			Programmet er stadig under udvikling, så hvis du opdager nogle problemer eller har ideer til
 			nye funktioner ville det blive værdsat hvis du laver en 'issue' på denne bug tracker
         </p>
-        <a href="https://github.com/itzgoldenleonard/BullseyeGolf-frontend/issues" target="_blank">
+        <a href={`${$REPOURL}/BullseyeGolf-frontend/issues`} target="_blank">
             <div>
                 <SvgIcon type="mdi" path={mdiGithub}/>
                 <p>Bug tracker</p>
@@ -38,13 +38,13 @@
 		<p>
             BullseyeGolf er fri/gratis software og bruger AGPL-v3 licensen. Du kan se kildekoden her:
         </p>
-        <a href="https://github.com/itzgoldenleonard/BullseyeGolf-frontend" target="_blank">
+        <a href={`${$REPOURL}/BullseyeGolf-frontend`} target="_blank">
             <div>
                 <SvgIcon type="mdi" path={mdiGithub}/>
                 <p>Kildekode til frontend</p>
             </div>
         </a>
-        <a href="https://github.com/itzgoldenleonard/BullseyeGolf-backend" target="_blank">
+        <a href={`${$REPOURL}/BullseyeGolf-backend`} target="_blank">
             <div>
                 <SvgIcon type="mdi" path={mdiGithub}/>
                 <p>Kildekode til backend</p>
@@ -57,32 +57,6 @@
 <style lang="scss">
 	@import '../../../../static/_variables';
 	@import '../../../../static/global.scss';
-
-	#body {
-		@extend %body;
-		width: auto;
-		padding: $padding;
-        overflow: hidden;
-    }
-
-    a {
-        color: $text-color;
-        text-decoration: none;
-        
-        div {
-            @include button();
-            margin: $padding 0;
-            padding-left: $padding-small;
-            display: flex;
-            align-items: center;
-            width: auto;
-
-            
-            > * {
-                margin-left: $padding-small;
-            }
-        }
-    }
 
     header {
         position: absolute;
@@ -98,14 +72,14 @@
         justify-content: center;
         align-items: center;
 
-        img {
-            height: 100%;
-        }
-
         a {
             position: absolute;
             left: 0;
             top: 0;
+        }
+
+        img {
+            height: 100%;
         }
 
         button {
@@ -114,5 +88,32 @@
             top: 0;
         }
     }
+
+	#body {
+		@extend %body;
+		width: auto;
+		padding: $padding;
+        overflow: hidden;
+
+        a { // Modal "button" links
+            color: $text-color;
+            text-decoration: none;
+            
+            div {
+                @include button();
+                margin: $padding 0;
+                padding-left: $padding-small;
+                display: flex;
+                align-items: center;
+                width: auto;
+
+                
+                > * {
+                    margin-left: $padding-small;
+                }
+            }
+        }
+    }
+
 
 </style>

@@ -50,6 +50,10 @@
 		@extend %header-image-margin;
 	}
 
+	aside {
+		@extend %header-image;
+	}
+
 	main {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
@@ -63,20 +67,18 @@
 		a {
 			color: $text-color;
 			text-decoration: none;
-			font-size: $h3-size;
-			font-weight: 600;
-		}
 
-		article {
-			@extend %card;
-			display: flex;
-			aspect-ratio: 1;
-			justify-content: center;
-			align-items: center;
+			article {
+				@extend %card;
+				display: flex;
+				aspect-ratio: 1;
+				justify-content: center;
+				align-items: center;
+
+				font-size: $h3-size;
+				font-weight: 600;
+			}
 		}
 	}
 
-	aside {
-		@extend %header-image;
-	}
 </style>
