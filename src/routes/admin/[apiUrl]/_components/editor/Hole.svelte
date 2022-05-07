@@ -27,7 +27,11 @@
 			{#each hole.scores as score, i}
 				<li>
 					<p>{score.player_name}</p>
-					<p>{score.player_score}m</p>
+					<p>
+						{`${Math.floor(score.player_score)},${String(
+							Math.floor((score.player_score % 1) * 100)
+						).padStart(2, '0')}`}m
+					</p>
 					<button on:click|preventDefault={() => removeScore(i)}>x</button>
 				</li>
 			{:else}

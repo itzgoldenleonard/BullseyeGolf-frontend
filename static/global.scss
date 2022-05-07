@@ -4,6 +4,7 @@
 	height: 100vh;
 	background-color: $background-color;
 	color: $text-color;
+	box-sizing: border-box;
 
 	font-family: 'Roboto', sans-serif;
 }
@@ -95,14 +96,20 @@
 	transition: $fast-animation ease-in-out;
 
 	p {
-		transform-origin: left top;
 		position: absolute;
-		transform: translate($padding * 2);
 		margin: 0;
 		margin-top: 0.5em;
-		will-change: transform;
-		transition: $fast-animation ease-in-out;
 		opacity: 0.7;
+		transition: $fast-animation ease-in-out;
+
+		&.label {
+			transform-origin: left top;
+			transform: translate($padding * 2);
+			will-change: transform;
+		}
+		&.unit {
+			right: $padding * 2;
+		}
 	}
 
 	input {
@@ -130,13 +137,62 @@
 		p {
 			color: $primary-color;
 			opacity: 1;
+
+			&.unit {
+				color: $text-color;
+			}
 		}
 	}
 
 	&[non-empty='true'] {
-		p {
+		p.label {
 			transform: translate($padding * 2, -0.75em) scale(0.75);
 		}
+	}
+}
+
+%header-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+
+	img,
+	div {
+		position: absolute;
+		width: 100%;
+		object-fit: cover;
+		aspect-ratio: 3/2;
+
+		@media only screen and (orientation: landscape) {
+			aspect-ratio: 5/1;
+		}
+	}
+
+	div {
+		background: linear-gradient(-110deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
+		display: grid;
+		grid-template-rows: 1fr auto;
+		align-items: center;
+
+		h1 {
+			margin: 0;
+			margin-left: $padding-large;
+			max-width: 60%;
+			font-size: $h1-size;
+			font-weight: 600;
+		}
+		p {
+			margin: $padding;
+			max-width: 80%;
+		}
+	}
+}
+
+%header-image-margin {
+	padding-top: 100vw * 0.66;
+	@media only screen and (orientation: landscape) {
+		padding-top: 100vw * 0.2;
 	}
 }
 

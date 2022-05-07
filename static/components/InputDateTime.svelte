@@ -11,7 +11,7 @@
 </script>
 
 <label style={`width: ${width};`} aria-selected={focus} non-empty={nonEmpty}>
-	<p>{label}</p>
+	<p class="label">{label}</p>
 	<input
 		type="datetime-local"
 		bind:value
