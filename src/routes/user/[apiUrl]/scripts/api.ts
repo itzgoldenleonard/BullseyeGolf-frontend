@@ -30,7 +30,14 @@ export async function getHole(baseUrl: string, db_id: string, hole_number: numbe
 	}
 }
 
-export async function submitScore(baseUrl: string, db_id: string, hole_number: number, name: string, scoreM: number, scoreCm: number): Promise<any> {
+export async function submitScore(
+	baseUrl: string,
+	db_id: string,
+	hole_number: number,
+	name: string,
+	scoreM: number,
+	scoreCm: number
+): Promise<any> {
 	try {
 		const requestUrl: string = `${baseUrl}/${db_id}/${hole_number}`;
 		const response = await axios.post(requestUrl, {

@@ -101,13 +101,15 @@
 		margin-top: 0.5em;
 		opacity: 0.7;
 		transition: $fast-animation ease-in-out;
-		
+
 		&.label {
 			transform-origin: left top;
 			transform: translate($padding * 2);
 			will-change: transform;
 		}
-		&.unit { right: $padding * 2; }
+		&.unit {
+			right: $padding * 2;
+		}
 	}
 
 	input {
@@ -135,8 +137,10 @@
 		p {
 			color: $primary-color;
 			opacity: 1;
-			
-			&.unit { color: $text-color; }
+
+			&.unit {
+				color: $text-color;
+			}
 		}
 	}
 

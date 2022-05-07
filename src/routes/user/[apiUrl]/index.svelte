@@ -10,16 +10,14 @@
 {#await tournamentList}
 	<p>loading...</p>
 {:then tournamentList}
-	{#each tournamentList.filter(e => e.active) as tournament}
+	{#each tournamentList.filter((e) => e.active) as tournament}
 		<a href={`./${$page.params.apiUrl}/${tournament.db_id}`}>
 			<article>
 				{tournament.tournament_name}
 			</article>
 		</a>
 	{:else}
-		<h2>
-			Der er ingen aktive turneringer
-		</h2>
+		<h2>Der er ingen aktive turneringer</h2>
 	{/each}
 {:catch error}
 	<p>{error}</p>

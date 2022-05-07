@@ -69,7 +69,10 @@
 				</button>
 				<button
 					id="delete"
-					on:click|preventDefault={() => confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!') ? deleteActiveTournament(baseAdminUrl, baseUserUrl) : null}
+					on:click|preventDefault={() =>
+						confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!')
+							? deleteActiveTournament(baseAdminUrl, baseUserUrl)
+							: null}
 				>
 					Slet turnering
 				</button>
