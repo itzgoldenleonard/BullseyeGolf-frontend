@@ -31,7 +31,7 @@
 
 	<main>
 		{#each tournament.holes as hole}
-			<a href={`./${tournament.db_id}/${hole.hole_number}`}>
+			<a href={`${$page.path}/${hole.hole_number}`}>
 				<article>
 					Hul {hole.hole_number}
 				</article>
