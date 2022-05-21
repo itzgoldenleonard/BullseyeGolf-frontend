@@ -26,20 +26,20 @@ export async function createDefaultTournament(): Promise<Tournament> {
 }
 
 export async function deleteActiveTournament(
-	baseAdminUrl: string,
-	baseUserUrl: string
+	baseUrl: string,
+    apiKey: string
 ): Promise<void> {
 	let tournament: Tournament;
 	const unsubscribe = activeTournament.subscribe((value) => {
 		tournament = value;
 	});
 
-	await deleteTournament(baseAdminUrl, tournament.db_id);
+	await deleteTournament(baseUrl, tournament.tournament_id, apiKey);
 
 	unsubscribe();
 
 	activeTournament.set(null);
 	formChanged.set(false);
 
-	updateTournamentList(baseUserUrl);
+	updateTournamentList(baseUrl);
 }

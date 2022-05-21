@@ -3,8 +3,7 @@
 	import Tutorial from './editor/Tutorial.svelte';
 	import { activeTournament, formChanged } from '../persistence/stores';
 
-	export let baseUserUrl: string;
-	export let baseAdminUrl: string;
+	export let baseUrl: string;
 
 	function beforeunload(event) {
 		if ($formChanged) {
@@ -19,5 +18,5 @@
 {#if $activeTournament === null}
 	<Tutorial />
 {:else}
-	<TournamentEditor {baseUserUrl} {baseAdminUrl} />
+	<TournamentEditor {baseUrl} />
 {/if}

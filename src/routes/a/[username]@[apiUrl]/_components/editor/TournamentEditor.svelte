@@ -6,20 +6,20 @@
 	import Hole from './Hole.svelte';
 	import InputText from '../../../../../../static/components/InputText.svelte';
 	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
+    import { page } from '$app/stores';
 
-	export let baseUserUrl: string;
-	export let baseAdminUrl: string;
+	export let baseUrl: string;
 
 	function duplciateActiveTournament(): void {
-		$activeTournament.db_id = generateID();
-		selectedTournament.set($activeTournament.db_id);
+		$activeTournament.tournament_id = generateID();
+		selectedTournament.set($activeTournament.tournament_id);
 		$activeTournament.tournament_name += ' (kopi)';
 		submit();
 	}
 
 	async function submit(): Promise<void> {
-		await postTournament(baseAdminUrl, $activeTournament);
-		updateTournamentList(baseUserUrl);
+		await postTournament(baseUrl, $activeTournament, $page.query.get('apiKey'));
+		updateTournamentList(baseUrl);
 		formChanged.set(false);
 	}
 </script>
@@ -71,7 +71,7 @@
 					id="delete"
 					on:click|preventDefault={() =>
 						confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!')
-							? deleteActiveTournament(baseAdminUrl, baseUserUrl)
+							? deleteActiveTournament(baseUrl, $page.query.get('apiKey'))
 							: null}
 				>
 					Slet turnering
