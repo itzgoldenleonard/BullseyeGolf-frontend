@@ -6,7 +6,7 @@
 	import Modal from '../_components/Modal.svelte';
 	import Score from '../_components/Score.svelte';
 
-	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}/`;
+	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 	let hole: Promise<Hole>;
 	const updateHole = () =>
 		(hole = getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber)));

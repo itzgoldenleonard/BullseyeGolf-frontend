@@ -12,13 +12,13 @@
 	import { updateTournamentList } from '../../scripts/misc';
 	import HoleSelector from './HoleSelector.svelte';
 	// # Exports
-	export let baseUserUrl: string;
+	export let baseUrl: string;
 
 	// # Variables
 	let openFolds: boolean[] = [true, false, false];
 
 	// On load
-	updateTournamentList(baseUserUrl);
+	updateTournamentList(baseUrl);
 
 	// # Functions
 	async function pick(event: { detail: string }): Promise<void> {
@@ -32,7 +32,7 @@
 		formChanged.set(false);
 		activeTournament.set(null);
 		$selectedTournament = event.detail;
-		activeTournament.set(await getTournament(baseUserUrl, event.detail));
+		activeTournament.set(await getTournament(baseUrl, event.detail));
 	}
 
 	async function create(): Promise<void> {

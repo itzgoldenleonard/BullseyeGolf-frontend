@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getTournament } from '../scripts/api';
-	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}/`;
+	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 
 	let tournament = getTournament(baseUrl, $page.params.tournamentId);
 </script>

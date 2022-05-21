@@ -10,18 +10,18 @@
 	// # Functions
 	const dispatch = createEventDispatcher();
 	function onClick(): void {
-		dispatch('pick', tournament.db_id);
+		dispatch('pick', tournament.tournament_id);
 	}
 
 	// On load
 	const unsubscribe = selectedTournament.subscribe((value) => {
-		selected = tournament.db_id === value;
+		selected = tournament.tournament_id === value;
 	});
 
 	onDestroy(unsubscribe);
 </script>
 
-<div on:click={onClick} id={tournament.db_id} aria-selected={selected}>
+<div on:click={onClick} id={tournament.tournament_id} aria-selected={selected}>
 	{tournament.tournament_name}
 </div>
 

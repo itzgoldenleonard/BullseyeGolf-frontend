@@ -4,13 +4,12 @@
 	import Print from './_components/editor/Print.svelte';
 	import { page } from '$app/stores';
 
-	const baseUserUrl: string = `https://${$page.params.apiUrl}/user/`;
-	const baseAdminUrl: string = `https://${$page.params.apiUrl}/admin/${$page.params.apiKey}`;
+	const baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 </script>
 
 <body>
-	<TournamentList {baseUserUrl} />
-	<AdminPanel {baseUserUrl} {baseAdminUrl} />
+	<TournamentList {baseUrl} />
+	<AdminPanel {baseUrl} />
 	<Print />
 </body>
 
