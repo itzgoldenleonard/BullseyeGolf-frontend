@@ -14,7 +14,7 @@ export async function createDefaultTournament(): Promise<Tournament> {
 	let now = Math.floor(Date.now() / 1000);
 
 	let tournament: Tournament = {
-		db_id: generateID(),
+		tournament_id: generateID(),
 		tournament_name: '',
 		tournament_image: '',
 		tournament_sponsor: '',

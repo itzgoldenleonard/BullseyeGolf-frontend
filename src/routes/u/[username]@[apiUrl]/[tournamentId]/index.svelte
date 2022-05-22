@@ -36,6 +36,10 @@
 					Hul {hole.hole_number}
 				</article>
 			</a>
+		{:else}
+			<h2>
+				Der er ingen huller i denne turnering
+			</h2>
 		{/each}
 	</main>
 {:catch error}

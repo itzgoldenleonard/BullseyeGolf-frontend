@@ -39,7 +39,15 @@
 			{#each $activeTournament.holes as hole}
 				<table>
 					<caption>
-						Hul {hole.hole_number}
+                        <h2>Hul {hole.hole_number}</h2>
+                        <div>
+                            {#if hole.hole_sponsor}
+                                <p>Sponsor: {hole.hole_sponsor}</p>
+                            {/if}
+                            {#if hole.hole_text}
+                                <p>{hole.hole_text}</p>
+                            {/if}
+                        </div>
 					</caption>
 					<thead>
 						<tr>
@@ -107,11 +115,23 @@
 				color-adjust: exact; //:For Firefox
 
 				caption {
-					text-align: left;
-					font-size: 18pt;
-					font-weight: 500;
-					margin-top: 0;
-					margin-bottom: 0.5rem;
+                    position: relative;
+                    h2 {
+                        text-align: left;
+                        font-size: 18pt;
+                        font-weight: 500;
+                        margin-top: 0;
+                        margin-bottom: 0.5rem;
+                    }
+                    div {
+                        position: absolute;
+                        width: 100%;
+                    }
+                    p {
+                        margin: 0;
+                        text-align: right;
+                        transform: translateY(-2.7rem);
+                    }
 				}
 
 				th {

@@ -18,6 +18,7 @@
 	}
 
 	async function submit(): Promise<void> {
+        if ($activeTournament.t_end < $activeTournament.t_start) return alert('Slut tidspunktet må ikke være før start tidspunktet')
 		await postTournament(baseUrl, $activeTournament, $page.query.get('apiKey'));
 		updateTournamentList(baseUrl);
 		formChanged.set(false);

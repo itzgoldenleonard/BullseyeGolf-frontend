@@ -9,7 +9,7 @@
 </script>
 
 <header>
-	{#if $page.params.dbId !== undefined}
+	{#if $page.params.tournamentId !== undefined}
 		<a href="./">
 			<SvgIcon type="mdi" path={mdiArrowLeft} size="48" />
 		</a>
