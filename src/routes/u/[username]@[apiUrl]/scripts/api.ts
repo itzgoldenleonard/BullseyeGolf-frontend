@@ -9,20 +9,19 @@ export async function getTournamentList(url: string): Promise<ShortTournament[]>
 	}
 }
 
-export async function getTournament(baseUrl: string, db_id: string): Promise<Tournament> {
+export async function getTournament(baseUrl: string, tournament_id: string): Promise<Tournament> {
 	try {
-		const requestUrl: string = `${baseUrl}/${db_id}`;
+		const requestUrl: string = `${baseUrl}/${tournament_id}`;
 		const response = await axios.get(requestUrl);
-		response.data.db_id = db_id;
 		return response.data;
 	} catch (error) {
 		throw new Error(error);
 	}
 }
 
-export async function getHole(baseUrl: string, db_id: string, hole_number: number): Promise<Hole> {
+export async function getHole(baseUrl: string, tournament_id: string, hole_number: number): Promise<Hole> {
 	try {
-		const requestUrl: string = `${baseUrl}/${db_id}/${hole_number}`;
+		const requestUrl: string = `${baseUrl}/${tournament_id}/${hole_number}`;
 		const response = await axios.get(requestUrl);
 		return response.data;
 	} catch (error) {
@@ -32,14 +31,14 @@ export async function getHole(baseUrl: string, db_id: string, hole_number: numbe
 
 export async function submitScore(
 	baseUrl: string,
-	db_id: string,
+	tournament_id: string,
 	hole_number: number,
 	name: string,
 	scoreM: number,
 	scoreCm: number
 ): Promise<any> {
 	try {
-		const requestUrl: string = `${baseUrl}/${db_id}/${hole_number}`;
+		const requestUrl: string = `${baseUrl}/${tournament_id}/${hole_number}`;
 		const response = await axios.post(requestUrl, {
 			player_name: name,
 			player_score: scoreM + scoreCm * 0.01

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getTournamentList } from './scripts/api';
-	let baseUrl: string = `https://${$page.params.apiUrl}/user/`;
+	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 
 	let tournamentList = getTournamentList(baseUrl);
 </script>
@@ -11,7 +11,7 @@
 	<p>loading...</p>
 {:then tournamentList}
 	{#each tournamentList.filter((e) => e.active) as tournament}
-		<a href={`${$page.path}/${tournament.db_id}`}>
+		<a href={`${$page.path}/${tournament.tournament_id}`}>
 			<article>
 				{tournament.tournament_name}
 			</article>

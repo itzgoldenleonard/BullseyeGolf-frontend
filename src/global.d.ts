@@ -15,7 +15,7 @@ interface Hole {
 }
 
 interface Tournament {
-	db_id: string;
+	tournament_id: string;
 	tournament_name: string;
 	t_start: number;
 	t_end: number;
@@ -25,7 +25,7 @@ interface Tournament {
 }
 
 interface ShortTournament {
-	db_id: string;
+	tournament_id: string;
 	tournament_name: string;
 	active: boolean;
 	t_start?: number;

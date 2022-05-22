@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getTournament } from '../scripts/api';
-	let baseUrl: string = `https://${$page.params.apiUrl}/user/`;
+	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 
-	let tournament = getTournament(baseUrl, $page.params.dbId);
+	let tournament = getTournament(baseUrl, $page.params.tournamentId);
 </script>
 
 <h2 class="header-image-margin">Vælg et hul:</h2>
@@ -36,6 +36,10 @@
 					Hul {hole.hole_number}
 				</article>
 			</a>
+		{:else}
+			<h2>
+				Der er ingen huller i denne turnering
+			</h2>
 		{/each}
 	</main>
 {:catch error}

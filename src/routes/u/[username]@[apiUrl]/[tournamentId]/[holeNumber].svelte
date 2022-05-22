@@ -6,10 +6,10 @@
 	import Modal from '../_components/Modal.svelte';
 	import Score from '../_components/Score.svelte';
 
-	let baseUrl: string = `https://${$page.params.apiUrl}/user/`;
+	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 	let hole: Promise<Hole>;
 	const updateHole = () =>
-		(hole = getHole(baseUrl, $page.params.dbId, Number($page.params.holeNumber)));
+		(hole = getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber)));
 	let submitting: boolean = false;
 
 	let [name, scoreM, scoreCm] = ['', 0, 0];
@@ -26,7 +26,7 @@
 
 		await submitScore(
 			baseUrl,
-			$page.params.dbId,
+            $page.params.tournamentId,
 			Number($page.params.holeNumber),
 			name,
 			scoreM,
