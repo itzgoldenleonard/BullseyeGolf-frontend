@@ -7,17 +7,17 @@
 	const baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 </script>
 
-<body>
+<div id="body">
 	<TournamentList {baseUrl} />
 	<AdminPanel {baseUrl} />
 	<Print />
-</body>
+</div>
 
 <style lang="scss">
 	@import '../../../../static/_variables';
 	@import '../../../../static/global.scss';
 
-	body {
+	#body {
 		@extend %body;
 		display: grid;
 		grid-template-columns: 256px 1fr;
