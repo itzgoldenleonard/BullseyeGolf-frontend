@@ -12,7 +12,7 @@ export async function getTournamentList(url: string): Promise<ShortTournament[]>
 export async function getTournament(baseUrl: string, tournament_id: string): Promise<Tournament> {
 	try {
 		const requestUrl: string = `${baseUrl}/${tournament_id}`;
-		const response = await axios.get(requestUrl);
+		const response = await axios.get(requestUrl, {headers: {'No-Hole-Images': true}});
 		return response.data;
 	} catch (error) {
 		throw new Error(error);
