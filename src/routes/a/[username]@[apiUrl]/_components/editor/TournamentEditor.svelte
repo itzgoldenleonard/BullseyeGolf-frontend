@@ -11,10 +11,11 @@
 	export let baseUrl: string;
 
 	function duplciateActiveTournament(): void {
+        if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return
+        formChanged.set(true)
 		$activeTournament.tournament_id = generateID();
 		selectedTournament.set($activeTournament.tournament_id);
 		$activeTournament.tournament_name += ' (kopi)';
-		submit();
 	}
 
 	async function submit(): Promise<void> {
@@ -77,7 +78,7 @@
 				>
 					Slet turnering
 				</button>
-				<input type="submit" value="Anvend" />
+                <input type="submit" value="Gem">
 			</div>
 		</article>
 	</form>
