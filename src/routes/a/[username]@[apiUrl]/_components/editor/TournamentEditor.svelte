@@ -9,6 +9,7 @@
     import { page } from '$app/stores';
 
 	export let baseUrl: string;
+    let saveText: string = 'Gem';
 
 	function duplciateActiveTournament(): void {
         if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return
@@ -20,9 +21,20 @@
 
 	async function submit(): Promise<void> {
         if ($activeTournament.t_end < $activeTournament.t_start) return alert('Slut tidspunktet må ikke være før start tidspunktet')
+        saveText = '...';
+        try {
 		await postTournament(baseUrl, $activeTournament, $page.query.get('apiKey'));
+        } catch (e) {
+            saveText = '❌';
+            await new Promise(r => setTimeout(r, 1500));
+            saveText = 'Gem';
+            return
+        }
+        saveText = '✓';
 		updateTournamentList(baseUrl);
 		formChanged.set(false);
+        await new Promise(r => setTimeout(r, 1500));
+        saveText = 'Gem';
 	}
 </script>
 
@@ -78,7 +90,7 @@
 				>
 					Slet turnering
 				</button>
-                <input type="submit" value="Gem">
+                <input type="submit" value={saveText}>
 			</div>
 		</article>
 	</form>
@@ -149,6 +161,7 @@
 							&[type='submit'] {
 								@extend %button-hilighted;
 								font-size: $h3-size;
+                                width: 45px + $padding-large * 2;
 							}
 						}
 					}
