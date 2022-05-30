@@ -12,7 +12,7 @@
 		(hole = getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber)));
 	let submitting: boolean = false;
 
-	let [name, scoreM, scoreCm] = ['', 0, 0];
+	let [name, scoreM, scoreCm] = ['', null, null];
 
 	async function submit() {
 		if (scoreM === 0 && scoreCm === 0) return alert('Din score må ikke være 0');
@@ -34,7 +34,7 @@
 		);
 		submitting = false;
 		updateHole();
-		[name, scoreM, scoreCm] = ['', 0, 0];
+		[name, scoreM, scoreCm] = ['', null, null];
 	}
 
 	updateHole();
@@ -81,7 +81,7 @@
 			<InputText label="Navn" bind:value={name} maxlength={40} required />
 
 			<div>
-				<InputNumber label="Distance" bind:value={scoreM} min={0} max={10} unit="m" required />
+				<InputNumber label="Distance" bind:value={scoreM} min={0} max={25} unit="m" />
 				<InputNumber label="" bind:value={scoreCm} min={0} max={99} unit="cm" required />
 			</div>
 

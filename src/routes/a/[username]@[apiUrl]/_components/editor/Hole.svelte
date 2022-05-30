@@ -2,6 +2,7 @@
 	import { formChanged } from '../../persistence/stores';
 	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
 	import InputText from '../../../../../../static/components/InputText.svelte';
+    import { displayScore } from '../../../../../scripts/displayScore';
 
 	export let hole: Hole;
 
@@ -28,9 +29,7 @@
 				<li>
 					<p>{score.player_name}</p>
 					<p>
-						{`${Math.floor(score.player_score)},${String(
-							Math.floor((score.player_score % 1) * 100)
-						).padStart(2, '0')}`}m
+						{displayScore(score.player_score)}m
 					</p>
 					<button on:click|preventDefault={() => removeScore(i)}>x</button>
 				</li>

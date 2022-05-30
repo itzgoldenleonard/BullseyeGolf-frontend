@@ -2,14 +2,15 @@
 	export let i: number;
 	export let score: number;
 	export let name: string;
+    import { displayScore } from '../../../../scripts/displayScore';
 
-	$: scoreString = `${Math.floor(score)},${String(Math.floor((score % 1) * 100)).padStart(2, '0')}`;
+    //$: scoreString = `${Math.floor(score)},${String(Math.floor((score % 1) * 100)).padStart(2, '0')}`;
 </script>
 
 <article class={`score-${i}`}>
 	<p>{i}.</p>
 	<p>{name}</p>
-	<p>{scoreString}m</p>
+	<p>{displayScore(score)}m</p>
 </article>
 
 <style lang="scss">

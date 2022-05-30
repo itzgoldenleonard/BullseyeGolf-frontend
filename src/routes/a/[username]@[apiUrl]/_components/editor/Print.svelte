@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { activeTournament } from '../../persistence/stores';
+    import { displayScore } from '../../../../../scripts/displayScore';
 
 	$: table = createTable($activeTournament);
 
@@ -63,7 +64,7 @@
 										{hole.scores[i].player_name}
 									</td>
 									<td>
-										{hole.scores[i].player_score}m
+										{displayScore(hole.scores[i].player_score)}m
 									</td>
 								</tr>
 							{:else if hole.scores.length === 0 && i === 0}
