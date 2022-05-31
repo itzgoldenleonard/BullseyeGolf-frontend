@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { mdiArrowLeft, mdiInformationOutline, mdiGithub } from '@mdi/js';
-	import { VERSION, REPOURL } from '../../../../static/persistence/stores';
+    import { VERSION, REPOURL } from '../../../stores';
 	import SvgIcon from '@jamescoyle/svelte-icon';
 	import Modal from './_components/Modal.svelte';
 

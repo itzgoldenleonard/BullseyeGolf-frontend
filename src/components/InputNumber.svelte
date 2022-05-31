@@ -29,8 +29,8 @@
 </label>
 
 <style lang="scss">
-	@import '../_variables';
-	@import '../global.scss';
+    @import '../../static/_variables';
+    @import '../../static/global.scss';
 
 	label {
 		@extend %input;

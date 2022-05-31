@@ -2,7 +2,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { activeTournament } from '../../persistence/stores';
 	import { toISOTs, toUNIXTs } from '../../scripts/timeConversion';
-	import InputDateTime from '../../../../../../static/components/InputDateTime.svelte';
+	import InputDateTime from '../../../../../components/InputDateTime.svelte';
 
 	let tStart: string;
 	let tEnd: string;

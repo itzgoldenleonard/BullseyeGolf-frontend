@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formChanged } from '../../persistence/stores';
-	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
-	import InputText from '../../../../../../static/components/InputText.svelte';
+	import ImagePicker from '../../../../../components/ImagePicker.svelte';
+	import InputText from '../../../../../components/InputText.svelte';
     import { displayScore } from '../../../../../scripts/displayScore';
 
 	export let hole: Hole;

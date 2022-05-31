@@ -2,9 +2,9 @@
 	import { activeTournament, formChanged, selectedTournament } from '../../persistence/stores';
 	import { postTournament } from '../../scripts/api';
 	import TimePicker from './TimePicker.svelte';
-	import ImagePicker from '../../../../../../static/components/ImagePicker.svelte';
+	import ImagePicker from '../../../../../components/ImagePicker.svelte';
 	import Hole from './Hole.svelte';
-	import InputText from '../../../../../../static/components/InputText.svelte';
+	import InputText from '../../../../../components/InputText.svelte';
 	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
     import { page } from '$app/stores';
 

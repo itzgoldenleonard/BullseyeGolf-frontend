@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getHole, submitScore } from '../scripts/api';
-	import InputText from '../../../../../static/components/InputText.svelte';
-	import InputNumber from '../../../../../static/components/InputNumber.svelte';
+	import InputText from '../../../../components/InputText.svelte';
+	import InputNumber from '../../../../components/InputNumber.svelte';
 	import Modal from '../_components/Modal.svelte';
 	import Score from '../_components/Score.svelte';
 
@@ -15,8 +15,6 @@
 	let [name, scoreM, scoreCm] = ['', null, null];
 
 	async function submit() {
-		if (scoreM === 0 && scoreCm === 0) return alert('Din score må ikke være 0');
-
 		let _hole = await hole;
 		if (_hole.scores.length !== 0 && _hole.scores[0].player_score < scoreM + scoreCm * 0.01) {
 			if (confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?'))
@@ -29,7 +27,7 @@
             $page.params.tournamentId,
 			Number($page.params.holeNumber),
 			name,
-			scoreM,
+			scoreM - 1,
 			scoreCm
 		);
 		submitting = false;
@@ -78,7 +76,7 @@
 		<form on:submit|preventDefault={submit}>
 			<h1>Indsend notering</h1>
 
-			<InputText label="Navn" bind:value={name} maxlength={40} required />
+			<InputText label="Navn (evt. medlemsnummer)" bind:value={name} maxlength={40} required />
 
 			<div>
 				<InputNumber label="Distance" bind:value={scoreM} min={0} max={25} unit="m" />
