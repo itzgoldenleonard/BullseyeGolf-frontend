@@ -31,7 +31,7 @@
 
 	<main>
 		{#each tournament.holes as hole}
-			<a href={`${$page.path}/${hole.hole_number}`}>
+			<a href={`${$page.url.pathname}/${hole.hole_number}`}>
 				<article>
 					Hul {hole.hole_number}
 				</article>

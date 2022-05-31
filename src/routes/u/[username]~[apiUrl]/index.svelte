@@ -11,7 +11,7 @@
 	<p>loading...</p>
 {:then tournamentList}
 	{#each tournamentList.filter((e) => e.active) as tournament}
-		<a href={`${$page.path}/${tournament.tournament_id}`}>
+		<a href={`${$page.url.pathname}/${tournament.tournament_id}`}>
 			<article>
 				{tournament.tournament_name}
 			</article>
