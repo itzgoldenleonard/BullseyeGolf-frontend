@@ -3,6 +3,8 @@
 	import { getHole, submitScore } from '../scripts/api';
 	import InputText from '../../../../components/InputText.svelte';
 	import InputNumber from '../../../../components/InputNumber.svelte';
+    import Textfield from '@smui/textfield';
+    import HelperText from '@smui/textfield/helper-text';
 	import Modal from '../_components/Modal.svelte';
 	import Score from '../_components/Score.svelte';
 
@@ -76,11 +78,31 @@
 		<form on:submit|preventDefault={submit}>
 			<h1>Indsend notering</h1>
 
-			<InputText label="Navn (evt. medlemsnummer)" bind:value={name} maxlength={40} required />
+            <Textfield
+                label="Navn (evt. medlemsnummer)"
+                bind:value={name}
+                required
+                input$maxlength={40}
+            />
 
 			<div>
-				<InputNumber label="Distance" bind:value={scoreM} min={0} max={25} unit="m" />
-				<InputNumber label="" bind:value={scoreCm} min={0} max={99} unit="cm" required />
+                <Textfield
+                    bind:value={scoreM}
+                    label="Distance"
+                    type="number"
+                    suffix="m"
+                    input$min={0}
+                    input$max={25}
+                />
+                <Textfield
+                    bind:value={scoreCm}
+                    label=""
+                    type="number"
+                    required
+                    suffix="cm"
+                    input$min={0}
+                    input$max={99}
+                />
 			</div>
 
 			<button> Indsend </button>
