@@ -27,7 +27,7 @@
             $page.params.tournamentId,
 			Number($page.params.holeNumber),
 			name,
-			scoreM - 1,
+			scoreM,
 			scoreCm
 		);
 		submitting = false;
