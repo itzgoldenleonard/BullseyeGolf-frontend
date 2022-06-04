@@ -80,6 +80,7 @@
 
             <Textfield
                 label="Navn (evt. medlemsnummer)"
+                variant="filled"
                 bind:value={name}
                 required
                 input$maxlength={40}
