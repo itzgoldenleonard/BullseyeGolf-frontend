@@ -92,7 +92,7 @@
 		@extend %body;
 		width: auto;
 		padding: $padding;
-		overflow: hidden;
+		overflow: scroll;
 
 		a {
 			// Modal "button" links
