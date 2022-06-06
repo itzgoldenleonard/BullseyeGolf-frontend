@@ -23,6 +23,7 @@
 		"@smui/linear-progress": "^6.0.0-beta.16",
 		"@smui/paper": "^6.0.0-beta.16",
 		"@smui/textfield": "^6.0.0-beta.16",
+		"@smui/top-app-bar": "^6.0.0-beta.16",
 		"@sveltejs/adapter-cloudflare": "next",
 		"@sveltejs/kit": "next",
 		"node-sass": "^7.0.1",

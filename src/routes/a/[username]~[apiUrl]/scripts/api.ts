@@ -19,19 +19,29 @@ export async function getTournament(baseUrl: string, tournament_id: string): Pro
 	}
 }
 
-export async function postTournament(baseUrl: string, tournament: Tournament, apiKey: string): Promise<void> {
+export async function postTournament(
+	baseUrl: string,
+	tournament: Tournament,
+	apiKey: string
+): Promise<void> {
 	try {
 		const request_url: string = `${baseUrl}`;
-		const response = await axios.post(request_url, tournament, {headers: {'X-API-KEY': apiKey}});
+		const response = await axios.post(request_url, tournament, {
+			headers: { 'X-API-KEY': apiKey }
+		});
 	} catch (error) {
 		throw new Error(error);
 	}
 }
 
-export async function deleteTournament(baseUrl: string, tournament_id: string, apiKey: string): Promise<void> {
+export async function deleteTournament(
+	baseUrl: string,
+	tournament_id: string,
+	apiKey: string
+): Promise<void> {
 	try {
 		const request_url: string = `${baseUrl}/${tournament_id}`;
-		const response = await axios.delete(request_url, {headers: {'X-API-KEY': apiKey}});
+		const response = await axios.delete(request_url, { headers: { 'X-API-KEY': apiKey } });
 	} catch (error) {
 		throw new Error(error);
 	}

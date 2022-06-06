@@ -3,8 +3,8 @@
 	import { getHole, submitScore } from '../scripts/api';
 	import InputText from '../../../../components/InputText.svelte';
 	import InputNumber from '../../../../components/InputNumber.svelte';
-    import Textfield from '@smui/textfield';
-    import HelperText from '@smui/textfield/helper-text';
+	import Textfield from '@smui/textfield';
+	import HelperText from '@smui/textfield/helper-text';
 	import Modal from '../_components/Modal.svelte';
 	import Score from '../_components/Score.svelte';
 
@@ -26,7 +26,7 @@
 
 		await submitScore(
 			baseUrl,
-            $page.params.tournamentId,
+			$page.params.tournamentId,
 			Number($page.params.holeNumber),
 			name,
 			scoreM - 1,
@@ -78,32 +78,32 @@
 		<form on:submit|preventDefault={submit}>
 			<h1>Indsend notering</h1>
 
-            <Textfield
-                label="Navn (evt. medlemsnummer)"
-                variant="filled"
-                bind:value={name}
-                required
-                input$maxlength={40}
-            />
+			<Textfield
+				label="Navn (evt. medlemsnummer)"
+				variant="filled"
+				bind:value={name}
+				required
+				input$maxlength={40}
+			/>
 
 			<div>
-                <Textfield
-                    bind:value={scoreM}
-                    label="Distance"
-                    type="number"
-                    suffix="m"
-                    input$min={0}
-                    input$max={25}
-                />
-                <Textfield
-                    bind:value={scoreCm}
-                    label=""
-                    type="number"
-                    required
-                    suffix="cm"
-                    input$min={0}
-                    input$max={99}
-                />
+				<Textfield
+					bind:value={scoreM}
+					label="Distance"
+					type="number"
+					suffix="m"
+					input$min={0}
+					input$max={25}
+				/>
+				<Textfield
+					bind:value={scoreCm}
+					label=""
+					type="number"
+					required
+					suffix="cm"
+					input$min={0}
+					input$max={99}
+				/>
 			</div>
 
 			<button> Indsend </button>

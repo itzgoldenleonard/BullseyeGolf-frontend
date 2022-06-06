@@ -2,7 +2,7 @@
 	import { formChanged } from '../../persistence/stores';
 	import ImagePicker from '../../../../../components/ImagePicker.svelte';
 	import InputText from '../../../../../components/InputText.svelte';
-    import { displayScore } from '../../../../../scripts/displayScore';
+	import { displayScore } from '../../../../../scripts/displayScore';
 
 	export let hole: Hole;
 

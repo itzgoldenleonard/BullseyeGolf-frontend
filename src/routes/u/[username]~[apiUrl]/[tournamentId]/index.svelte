@@ -37,9 +37,7 @@
 				</article>
 			</a>
 		{:else}
-			<h2>
-				Der er ingen huller i denne turnering
-			</h2>
+			<h2>Der er ingen huller i denne turnering</h2>
 		{/each}
 	</main>
 {:catch error}

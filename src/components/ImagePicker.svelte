@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { generateID } from '../routes/a/[username]~[apiUrl]/scripts/misc';
+	import { generateID } from '../routes/a/[username]~[apiUrl]/scripts/misc';
 
 	export let value: string;
 	export let alt: string;
@@ -35,8 +35,8 @@
 <input type="file" {id} style="display: none;" accept="image/*" on:change={updateImage} />
 
 <style lang="scss">
-    @import '../../static/_variables';
-    @import '../../static/global.scss';
+	@import '../../static/_variables';
+	@import '../../static/global.scss';
 
 	img.selected-image {
 		position: absolute;
