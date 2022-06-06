@@ -11,6 +11,11 @@
   $error: color-palette.$red-700
 );
 
+
+.custom-green {
+  color: theme.$green-800;
+}
+
 html,
 body {
   background-color: #000;
