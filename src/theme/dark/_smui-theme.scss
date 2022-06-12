@@ -11,8 +11,10 @@
 	$error: color-palette.$red-700
 );
 
-.custom-green {
-	color: theme.$green-800;
+.full-width-if-mobile {
+    @media (max-width: 600px) {
+        width: 100% !important;
+    }
 }
 
 html,

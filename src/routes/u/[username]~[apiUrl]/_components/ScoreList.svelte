@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { displayScore } from '$lib/displayScore';
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 	import LinearProgress from '@smui/linear-progress';
 
@@ -6,7 +7,7 @@
 	export let loaded: boolean;
 </script>
 
-<DataTable style="width: 100%;">
+<DataTable style="width: 100%; max-height: inherit;">
 	<Head>
 		<Row>
 			<Cell>Nr.</Cell>
@@ -20,7 +21,7 @@
 			<Row class={`score-${i}`}>
 				<Cell style="font-size: 1.5rem">{i + 1}.</Cell>
 				<Cell>{score.player_name}</Cell>
-				<Cell>{score.player_score}</Cell>
+				<Cell>{displayScore(score.player_score)}m</Cell>
 			</Row>
 		{/each}
 	</Body>
@@ -34,26 +35,38 @@
 
 <style lang="scss">
 	:global(.score-0) {
-		//background: linear-gradient(137deg, hsl(50, 85%, 60%) 0%, 50%, hsl(45, 100%, 33%));
+        outline: 5px solid hsl(50, 85%, 60%);
+        outline-offset: -5px;
+        //background: linear-gradient(137deg, hsl(50, 85%, 60%) 0%, 50%, hsl(45, 100%, 33%));
+        /*
 		background-image: linear-gradient(137deg, hsl(50, 85%, 60%) 0%, 50%, hsl(45, 100%, 33%));
 		background-size: 100% 10px;
 		background-position: 0 100%;
 		background-repeat: no-repeat;
+        */
 	}
 
 	:global(.score-1) {
-		//background: linear-gradient(142deg, hsl(225, 9%, 79%) 0%, 50%, hsl(225, 6%, 50%));
+        outline: 5px solid hsl(225, 9%, 79%);
+        outline-offset: -5px;
+        //background: linear-gradient(142deg, hsl(225, 9%, 79%) 0%, 50%, hsl(225, 6%, 50%));
+        /*
 		background-image: linear-gradient(142deg, hsl(225, 9%, 79%) 0%, 50%, hsl(225, 6%, 50%));
 		background-size: 100% 10px;
 		background-position: 0 100%;
 		background-repeat: no-repeat;
+        */
 	}
 
 	:global(.score-2) {
-		//background: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%));
+        outline: 5px solid hsl(25, 64%, 65%);
+        outline-offset: -5px;
+        //background: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%));
+        /*
 		background-image: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%));
 		background-size: 100% 10px;
 		background-position: 0 100%;
 		background-repeat: no-repeat;
+        */
 	}
 </style>

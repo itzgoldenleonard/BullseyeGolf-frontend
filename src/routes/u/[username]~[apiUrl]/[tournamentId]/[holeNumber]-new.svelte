@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getHole, submitScore } from '../scripts/api';
+    import Fab, { Label, Icon } from '@smui/fab';
 	import SubmissionDialog from '../_components/SubmissionDialog.svelte';
 	import ScoreList from '../_components/ScoreList.svelte';
+    import HeroImage from '../_components/HeroImage.svelte';
 	let submitting: boolean = false;
 
 	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
@@ -22,8 +24,29 @@
 	updateHole();
 </script>
 
+<HeroImage src={hole.hole_image}>
+    <ScoreList scores={hole.scores} bind:loaded />
+</HeroImage>
+
+
+<div>
+    <Fab on:click={() => submitting = true} extended class="full-width-if-mobile">
+        <Icon class="material-icons">add</Icon>
+        <Label>Indsend</Label>
+    </Fab>
+</div>
+
 <SubmissionDialog bind:open={submitting} on:submit={submitHandler} />
 
-<ScoreList scores={hole.scores} bind:loaded />
-
-<button on:click={() => (submitting = true)} style="padding: 100px;">Submit</button>
+<style lang="scss">
+    div {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>

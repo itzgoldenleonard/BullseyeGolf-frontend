@@ -36,5 +36,5 @@
 </TopAppBar>
 <InfoDialog bind:open />
 <AutoAdjust {topAppBar}>
-	<slot />
+    <slot />
 </AutoAdjust>
