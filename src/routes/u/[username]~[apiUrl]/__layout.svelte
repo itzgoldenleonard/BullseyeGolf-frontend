@@ -1,3 +1,10 @@
+<script context="module" lang="ts">
+    import type { Writable } from 'svelte/store';
+    import { writable } from 'svelte/store';
+
+    export const topBarTitle: Writable<string> = writable('Bullseyegolf');
+</script>
+
 <script lang="ts">
 	// Stores
 	import { page } from '$app/stores';
@@ -21,7 +28,7 @@
 					>arrow_back</IconButton
 				>
 			{/if}
-			<Title>Bullseyegolf</Title>
+			<Title>{$topBarTitle}</Title>
 		</Section>
 		<Section align="end" toolbar>
 			<IconButton

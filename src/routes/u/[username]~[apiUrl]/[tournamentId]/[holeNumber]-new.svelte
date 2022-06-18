@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+    import { topBarTitle } from '../__layout.svelte';
 	import { getHole, submitScore } from '../scripts/api';
     import Fab, { Label, Icon } from '@smui/fab';
 	import SubmissionDialog from '../_components/SubmissionDialog.svelte';
@@ -18,18 +19,19 @@
 	const updateHole = async () => {
 		loaded = false;
 		hole = await getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber));
+        topBarTitle.set(`Hul ${hole.hole_number}`)
 		loaded = true;
 	};
 
 	updateHole();
 </script>
 
-<HeroImage src={hole.hole_image}>
+<HeroImage src={hole.hole_image} title={hole.hole_text} >
     <ScoreList scores={hole.scores} bind:loaded />
 </HeroImage>
 
 
-<div>
+<div class="fab-pos">
     <Fab on:click={() => submitting = true} extended class="full-width-if-mobile">
         <Icon class="material-icons">add</Icon>
         <Label>Indsend</Label>
@@ -39,7 +41,7 @@
 <SubmissionDialog bind:open={submitting} on:submit={submitHandler} />
 
 <style lang="scss">
-    div {
+    .fab-pos {
         position: fixed;
         bottom: 0;
         right: 0;

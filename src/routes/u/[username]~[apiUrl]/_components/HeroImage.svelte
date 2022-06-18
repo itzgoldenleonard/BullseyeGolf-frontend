@@ -2,74 +2,81 @@
     export let src: string = "";
     export let title: string = "Nærmest hullet";
     export let sponsor: string = "";
-    export let number: number = 0;
 </script>
 
-<aside>
-    <img
-        src={src ? src : '/default-header/medium.webp'}
-        alt="Turneringens billede"
-    />
-    <div>
-        <h1>
-            {title ? title : 'Nærmest hullet'}
-            <br />
-            Hul {number}
-        </h1>
-        {#if sponsor}
+<div class="hero-container">
+    <aside>
+        <img
+            src={src ? src : '/default-header/medium.webp'}
+            alt="Turneringens billede"
+        />
+        <div>
+            <h1>
+                {title ? title : 'Nærmest hullet'}
+            </h1>
             <p>
-                Sponsoreret af: {sponsor}
+                {#if sponsor}
+                    Sponsoreret af: {sponsor}
+                {/if}
             </p>
-        {/if}
-    </div>
-</aside>
-<main>
-    <slot />
-</main>
+        </div>
+    </aside>
+    <main>
+        <slot />
+    </main>
+</div>
 
 <style lang="scss">
+    @use '@material/typography/index' as typography;
 	@import '../../../../../static/_variables';
 
-    aside {
-        position: relative;
-        top: 0;
-        left: 0;
+    .hero-container {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        aspect-ratio: 3/2;
+        height: 100%;
         @media only screen and (orientation: landscape) {
-            aspect-ratio: 5/1;
+            flex-direction: row;
         }
 
-        img,
-        div {
-            position: absolute;
+        aside {
+            position: relative;
+            top: 0;
+            left: 0;
             width: 100%;
-            object-fit: cover;
-            height: 100%;
+            aspect-ratio: 3/2;
+
+            img,
+            div {
+                position: absolute;
+                width: 100%;
+                object-fit: cover;
+                height: 100%;
+            }
+
+            div {
+                background: linear-gradient(180deg, hsla(0, 0%, 0%, 0) 0%, 10%, hsla(0, 0%, 0%, 0.712));
+                display: grid;
+                height: auto;
+                bottom: 0;
+                grid-template-rows: 1fr auto;
+                align-items: center;
+                padding-inline: $padding-large;
+                box-sizing: border-box;
+            }
         }
 
-        div {
-            background: linear-gradient(-110deg, hsla(0, 0%, 0%, 0) 35%, 40%, hsla(0, 0%, 0%, 0.712));
-            display: grid;
-            grid-template-rows: 1fr auto;
-            align-items: center;
-
-            h1 {
-                margin: 0;
-                margin-left: $padding-large;
-                max-width: 60%;
-                font-size: $h1-size;
-                font-weight: 600;
-            }
-            p {
-                margin: $padding;
-                max-width: 80%;
-            }
+        h1 {
+            @include typography.typography('headline3');
+            margin-bottom: 0;
         }
-    }
+        p {
+            @include typography.typography('subtitle1');
+        }
 
-    main {
-        padding: 10px;
-        max-height: 100%;
+        main {
+            padding: 10px;
+            // max-height: will be passed on to the scorelist;
+        }
     }
 </style>
