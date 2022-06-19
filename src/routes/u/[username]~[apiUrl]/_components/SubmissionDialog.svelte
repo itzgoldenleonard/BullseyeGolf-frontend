@@ -8,13 +8,12 @@
 
 	export let open: boolean = false;
 
-	let [name, scoreM, scoreCm] = ['', null, null];
+    let [name, scoreM, scoreCm] = ['', null, null];
 
 	const dispatch = createEventDispatcher();
 	function submit() {
 		dispatch('submit', { name, scoreM, scoreCm });
-		open = false;
-		[name, scoreM, scoreCm] = ['', null, null];
+        [name, scoreM, scoreCm] = ['', null, null];
 	}
 </script>
 

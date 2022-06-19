@@ -67,7 +67,7 @@
         }
 
         h1 {
-            @include typography.typography('headline3');
+            @include typography.typography('headline4');
             margin-bottom: 0;
         }
         p {

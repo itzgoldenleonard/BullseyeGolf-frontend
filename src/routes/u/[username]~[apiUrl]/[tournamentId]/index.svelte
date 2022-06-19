@@ -1,18 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-    import { topBarTitle} from '../__layout.svelte';
 	import { getTournament } from '../scripts/api';
     import HeroImage from '../_components/HeroImage.svelte';
 	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 
 	let tournament = getTournament(baseUrl, $page.params.tournamentId);
-    topBarTitle.set('Bullseyegolf');
 </script>
 
 {#await tournament}
 	<p>Loading...</p>
 {:then tournament}
-    <HeroImage src={tournament.tournament_image} sponsor={tournament.tournament_sponsor}>
+    <HeroImage src={tournament.tournament_image} sponsor={tournament.tournament_sponsor} title={tournament.tournament_name}>
         <main>
             <h2 class="header-image-margin">Vælg et hul:</h2>
             {#each tournament.holes as hole}
