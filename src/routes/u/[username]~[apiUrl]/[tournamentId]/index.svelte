@@ -2,64 +2,43 @@
 	import { page } from '$app/stores';
 	import { getTournament } from '../scripts/api';
     import HeroImage from '../_components/HeroImage.svelte';
-	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
+	let tournament = getTournament(`https://${$page.params.apiUrl}/${$page.params.username}`, $page.params.tournamentId);
 
-	let tournament = getTournament(baseUrl, $page.params.tournamentId);
+    // Smui components
+    import Card, { PrimaryAction } from '@smui/card';
+    import LayoutGrid, { Cell } from '@smui/layout-grid';
 </script>
 
 {#await tournament}
-	<p>Loading...</p>
 {:then tournament}
     <HeroImage src={tournament.tournament_image} sponsor={tournament.tournament_sponsor} title={tournament.tournament_name}>
-        <main>
-            <h2 class="header-image-margin">Vælg et hul:</h2>
+        <h2>Vælg et hul:</h2>
+        <div>
             {#each tournament.holes as hole}
-                <a href={`${$page.url.pathname}/${hole.hole_number}`}>
-                    <article>
+                <Card>
+                    <PrimaryAction padded on:click={() => location.href=`${$page.url.pathname}/${hole.hole_number}`} style="text-align: center;">
                         Hul {hole.hole_number}
-                    </article>
-                </a>
+                    </PrimaryAction>
+                </Card>
             {:else}
                 <h2>Der er ingen huller i denne turnering</h2>
             {/each}
-        </main>
+        </div>
     </HeroImage>
 {:catch error}
 	<p>{error}</p>
 {/await}
 
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+    @use '@material/typography/index' as typography;
 
-	aside {
-		@extend %header-image;
-	}
+    h2 {
+        @include typography.typography('headline5');
+    }
 
-	main {
+    div {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
-		gap: $padding;
-		margin: $padding 0;
-
-		@media only screen and (orientation: landscape) {
-			grid-template-columns: repeat(auto-fit, minmax(100px, 0.25fr));
-		}
-
-		a {
-			color: $text-color;
-			text-decoration: none;
-
-			article {
-				@extend %card;
-				display: flex;
-				aspect-ratio: 1;
-				justify-content: center;
-				align-items: center;
-
-				font-size: $h3-size;
-				font-weight: 600;
-			}
-		}
-	}
+        gap: 10px;
+    }
 </style>
