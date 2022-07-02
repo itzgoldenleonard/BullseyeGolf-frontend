@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { activeTournament } from '../../persistence/stores';
-	import { displayScore } from '../../../../../scripts/displayScore';
+	import { displayScore } from '$lib/displayScore';
 
 	$: table = createTable($activeTournament);
 
