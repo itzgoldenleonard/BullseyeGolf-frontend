@@ -35,7 +35,7 @@
     }
 
 	async function submitHandler(e: CustomEvent<{ name: string; scoreM: number; scoreCm: number }>): void {
-		if (hole.scores.length !== 0 && hole.scores[0].player_score < e.detail.scoreM + e.detail.scoreCm * 0.01) {
+		if (hole.scores.length !== 0 && hole.scores[0].player_score <= e.detail.scoreM + e.detail.scoreCm * 0.01) {
 			if (confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?'))
 				e.detail.name += ' 🏴';
             else return;

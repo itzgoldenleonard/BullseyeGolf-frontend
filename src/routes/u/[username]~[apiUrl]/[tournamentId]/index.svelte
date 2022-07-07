@@ -12,11 +12,11 @@
 {#await tournament}
 {:then tournament}
     <HeroImage src={tournament.tournament_image} sponsor={tournament.tournament_sponsor} title={tournament.tournament_name}>
-        <h2>Vælg et hul:</h2>
+        <h2>Vælg et hul</h2>
         <div>
             {#each tournament.holes as hole}
                 <Card>
-                    <PrimaryAction padded on:click={() => location.href=`${$page.url.pathname}/${hole.hole_number}`} style="text-align: center;">
+                    <PrimaryAction padded on:click={() => location.href=`${$page.url.pathname}/${hole.hole_number}`} style="text-align: center; font-family: Roboto;">
                         Hul {hole.hole_number}
                     </PrimaryAction>
                 </Card>
@@ -34,6 +34,7 @@
 
     h2 {
         @include typography.typography('headline5');
+        text-align: center;
     }
 
     div {

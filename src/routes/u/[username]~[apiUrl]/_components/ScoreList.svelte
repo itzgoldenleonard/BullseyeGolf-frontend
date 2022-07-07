@@ -22,8 +22,8 @@
 
 	<Body>
 		{#each scores as score, i}
-			<Row class={`score-${i}`}>
-				<Cell style="font-size: 1.5rem">{i + 1}.</Cell>
+			<Row>
+				<Cell style="font-size: 1.5rem" class={`score-${i}`}>{i + 1}.</Cell>
 				<Cell>{score.player_name}</Cell>
 				<Cell>{displayScore(score.player_score)}m</Cell>
 			</Row>
