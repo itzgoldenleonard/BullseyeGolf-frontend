@@ -45,6 +45,9 @@
             left: 0;
             width: 100%;
             aspect-ratio: 3/2;
+            @media only screen and (orientation: landscape) {
+                width: 50%;
+            }
 
             img,
             div {
@@ -77,6 +80,9 @@
         main {
             padding: 10px;
             // max-height: will be passed on to the scorelist;
+            @media only screen and (orientation: landscape) {
+                width: 50%;
+            }
         }
     }
 </style>

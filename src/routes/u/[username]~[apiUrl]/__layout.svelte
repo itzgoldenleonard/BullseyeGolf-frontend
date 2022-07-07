@@ -36,6 +36,6 @@
 	</Row>
 </TopAppBar>
 <InfoDialog bind:open />
-<AutoAdjust {topAppBar}>
+<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
     <slot />
 </AutoAdjust>
