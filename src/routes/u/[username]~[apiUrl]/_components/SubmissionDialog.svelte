@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Dialog, { Header, Title, Content, Actions } from '@smui/dialog';
 	import Button, { Label } from '@smui/button';
+    import Checkbox from '@smui/checkbox';
+    import FormField from '@smui/form-field';
 	import IconButton from '@smui/icon-button';
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
@@ -9,6 +11,7 @@
 	export let open: boolean = false;
 
     let [name, scoreM, scoreCm] = ['', null, null];
+    let checked = false;
 
 	const dispatch = createEventDispatcher();
 	function submit() {
@@ -61,6 +64,11 @@
 					style="width: 100%;"
 				/>
 			</div>
+            <FormField>
+                <Checkbox bind:checked />
+                <span slot="label">Bekræft indsendelse af score med navn: {name} på <b>{scoreM},{scoreCm}m</b> på hul 9</span>
+            </FormField>
+
 			<input type="submit" id="submit-button" hidden />
 		</form>
 	</Content>
@@ -70,7 +78,7 @@
 			on:click={() => {
 				document.getElementById('submit-button').click();
 			}}
-			action=""><Label>Indsend</Label></Button
+			action="" disabled={!checked}><Label>Indsend</Label></Button
 		>
 	</Actions>
 </Dialog>

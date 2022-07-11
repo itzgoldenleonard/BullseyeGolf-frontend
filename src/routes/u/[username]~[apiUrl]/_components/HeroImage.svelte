@@ -72,9 +72,11 @@
         h1 {
             @include typography.typography('headline4');
             margin-bottom: 0;
+            color: #fff;
         }
         p {
             @include typography.typography('subtitle1');
+            color: #fff;
         }
 
         main {

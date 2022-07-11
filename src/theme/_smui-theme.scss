@@ -1,6 +1,7 @@
 @use 'sass:color';
 
 @use '@material/theme/color-palette';
+@use './_shared-clases.scss';
 
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
@@ -23,3 +24,4 @@ a {
 a:visited {
 	color: color.scale(#40b3ff, $lightness: -35%);
 }
+
