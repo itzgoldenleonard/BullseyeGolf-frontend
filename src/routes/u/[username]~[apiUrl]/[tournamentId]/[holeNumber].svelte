@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getHole, submitScore } from '../scripts/api';
+    import { displayScore } from '../../../../scripts/displayScore';
 	import InputText from '../../../../components/InputText.svelte';
 	import InputNumber from '../../../../components/InputNumber.svelte';
 	import Modal from '../_components/Modal.svelte';
@@ -13,6 +14,7 @@
 	let submitting: boolean = false;
 
 	let [name, scoreM, scoreCm] = ['', null, null];
+    let confirmInfo = false;
 
 	async function submit() {
 		let _hole = await hole;
@@ -33,6 +35,7 @@
 		submitting = false;
 		updateHole();
 		[name, scoreM, scoreCm] = ['', null, null];
+        confirmInfo = false;
 	}
 
 	updateHole();
@@ -83,7 +86,12 @@
 				<InputNumber label="" bind:value={scoreCm} min={0} max={99} unit="cm" required />
 			</div>
 
-			<button> Indsend </button>
+            <label for="confirmInfo">
+                <input name="confirmInfo" id="confirmInfo" type="checkbox" bind:value={confirmInfo}>
+                Bekræft at <b>'{name}'</b> er <b>{displayScore(scoreM+scoreCm*0.01)}m</b> fra <b>hul {hole.hole_number}</b>
+            </label>
+
+			<button disabled={!confirmInfo}> Indsend </button>
 		</form>
 	</Modal>
 {:catch error}
@@ -102,6 +110,10 @@
 		@include button($primary-color);
 		font-size: $text-size;
 	}
+
+    input[type="checkbox"] {
+        box-shadow: $shadow-medium;
+    }
 
 	main {
 		@extend %header-image-margin;
