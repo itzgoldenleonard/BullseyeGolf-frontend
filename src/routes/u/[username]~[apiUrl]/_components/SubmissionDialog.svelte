@@ -7,6 +7,8 @@
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
 	import { createEventDispatcher } from 'svelte';
+    import { displayScore } from '$lib/displayScore';
+	import { page } from '$app/stores';
 
 	export let open: boolean = false;
 
@@ -17,6 +19,7 @@
 	function submit() {
 		dispatch('submit', { name, scoreM, scoreCm });
         [name, scoreM, scoreCm] = ['', null, null];
+        checked = false;
 	}
 </script>
 
@@ -66,7 +69,7 @@
 			</div>
             <FormField>
                 <Checkbox bind:checked />
-                <span slot="label">Bekræft indsendelse af score med navn: {name} på <b>{scoreM},{scoreCm}m</b> på hul 9</span>
+                <span slot="label">Bekræft at <b>'{name}'</b> er <b>{displayScore(scoreM+scoreCm*0.01)}m</b> fra <b>hul {$page.params.holeNumber}</b></span>
             </FormField>
 
 			<input type="submit" id="submit-button" hidden />
@@ -91,5 +94,6 @@
 		flex-direction: row;
 		justify-content: space-between;
 		gap: mdc-textfield.$padding-horizontal;
+        margin-bottom: mdc-textfield.$padding-horizontal;
 	}
 </style>

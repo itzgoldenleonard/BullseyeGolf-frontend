@@ -1,4 +1,4 @@
-export function displayScore(input: number): string {
+export function displayScore(input: number | null): string {
 	let output = String(input).replace('.', ',');
 	try {
 		let digits = output.split(',')[1].length;

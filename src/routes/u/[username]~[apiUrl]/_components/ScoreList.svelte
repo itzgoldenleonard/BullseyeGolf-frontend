@@ -27,6 +27,12 @@
 				<Cell>{score.player_name}</Cell>
 				<Cell>{displayScore(score.player_score)}m</Cell>
 			</Row>
+        {:else}
+            <Row>
+                <Cell colspan={3}>
+                    Der er ingen noteringer endnu
+                </Cell>
+            </Row>
 		{/each}
 	</Body>
 	<LinearProgress
