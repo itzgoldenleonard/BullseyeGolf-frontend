@@ -1,21 +1,21 @@
 <script lang="ts">
-    // SMUI Components
+	// SMUI Components
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 	import LinearProgress from '@smui/linear-progress';
 
-    // Variables
+	// Variables
 	export let scores: Score[];
 	export let loaded: boolean;
 
-    // Functions
-    import { displayScore } from '$lib/displayScore';
+	// Functions
+	import { displayScore } from '$lib/displayScore';
 </script>
 
 <DataTable style="width: 100%; max-height: inherit;">
 	<Head>
 		<Row>
 			<Cell>Nr.</Cell>
-            <Cell style="width: 100%">Navn</Cell>
+			<Cell style="width: 100%">Navn</Cell>
 			<Cell>Score</Cell>
 		</Row>
 	</Head>
@@ -27,12 +27,10 @@
 				<Cell>{score.player_name}</Cell>
 				<Cell>{displayScore(score.player_score)}m</Cell>
 			</Row>
-        {:else}
-            <Row>
-                <Cell colspan={3}>
-                    Der er ingen noteringer endnu
-                </Cell>
-            </Row>
+		{:else}
+			<Row>
+				<Cell colspan={3}>Der er ingen noteringer endnu</Cell>
+			</Row>
 		{/each}
 	</Body>
 	<LinearProgress

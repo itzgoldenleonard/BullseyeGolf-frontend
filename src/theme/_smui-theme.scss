@@ -8,7 +8,7 @@
 	$primary: color-palette.$red-600,
 	$secondary: color-palette.$indigo-700,
 	$surface: color.adjust(color-palette.$grey-200, $red: +2),
-    $background: color.adjust(white, $red: +3),
+	$background: color.adjust(white, $red: +3),
 	$error: color-palette.$red-a700
 );
 
@@ -24,4 +24,3 @@ a {
 a:visited {
 	color: color.scale(#40b3ff, $lightness: -35%);
 }
-

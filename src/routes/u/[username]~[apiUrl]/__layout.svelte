@@ -11,7 +11,7 @@
 
 	// UI Variables
 	let open: boolean = false;
-    $: topBarTitle = $page.params.holeNumber ? `Hul ${$page.params.holeNumber}` : 'Bullseyegolf';
+	$: topBarTitle = $page.params.holeNumber ? `Hul ${$page.params.holeNumber}` : 'Bullseyegolf';
 </script>
 
 <TopAppBar bind:this={topAppBar} variant="fixed" dense>
@@ -37,5 +37,5 @@
 </TopAppBar>
 <InfoDialog bind:open />
 <AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-    <slot />
+	<slot />
 </AutoAdjust>

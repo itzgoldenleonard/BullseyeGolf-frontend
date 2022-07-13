@@ -1,25 +1,25 @@
 <script lang="ts">
 	import Dialog, { Header, Title, Content, Actions } from '@smui/dialog';
 	import Button, { Label } from '@smui/button';
-    import Checkbox from '@smui/checkbox';
-    import FormField from '@smui/form-field';
+	import Checkbox from '@smui/checkbox';
+	import FormField from '@smui/form-field';
 	import IconButton from '@smui/icon-button';
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
 	import { createEventDispatcher } from 'svelte';
-    import { displayScore } from '$lib/displayScore';
+	import { displayScore } from '$lib/displayScore';
 	import { page } from '$app/stores';
 
 	export let open: boolean = false;
 
-    let [name, scoreM, scoreCm] = ['', null, null];
-    let checked = false;
+	let [name, scoreM, scoreCm] = ['', null, null];
+	let checked = false;
 
 	const dispatch = createEventDispatcher();
 	function submit() {
 		dispatch('submit', { name, scoreM, scoreCm });
-        [name, scoreM, scoreCm] = ['', null, null];
-        checked = false;
+		[name, scoreM, scoreCm] = ['', null, null];
+		checked = false;
 	}
 </script>
 
@@ -67,10 +67,13 @@
 					style="width: 100%;"
 				/>
 			</div>
-            <FormField>
-                <Checkbox bind:checked />
-                <span slot="label">Bekræft at <b>'{name}'</b> er <b>{displayScore(scoreM+scoreCm*0.01)}m</b> fra <b>hul {$page.params.holeNumber}</b></span>
-            </FormField>
+			<FormField>
+				<Checkbox bind:checked />
+				<span slot="label"
+					>Bekræft at <b>'{name}'</b> er <b>{displayScore(scoreM + scoreCm * 0.01)}m</b> fra
+					<b>hul {$page.params.holeNumber}</b></span
+				>
+			</FormField>
 
 			<input type="submit" id="submit-button" hidden />
 		</form>
@@ -81,7 +84,8 @@
 			on:click={() => {
 				document.getElementById('submit-button').click();
 			}}
-			action="" disabled={!checked}><Label>Indsend</Label></Button
+			action=""
+			disabled={!checked}><Label>Indsend</Label></Button
 		>
 	</Actions>
 </Dialog>
@@ -94,6 +98,6 @@
 		flex-direction: row;
 		justify-content: space-between;
 		gap: mdc-textfield.$padding-horizontal;
-        margin-bottom: mdc-textfield.$padding-horizontal;
+		margin-bottom: mdc-textfield.$padding-horizontal;
 	}
 </style>
