@@ -70,7 +70,6 @@
 
 <HeroImage {...heroImage}>
 	<ScoreList {hole} bind:loading />
-	<button on:click={() => (hole = updateHole())}> Update </button>
 </HeroImage>
 
 <div class="fab-pos">
