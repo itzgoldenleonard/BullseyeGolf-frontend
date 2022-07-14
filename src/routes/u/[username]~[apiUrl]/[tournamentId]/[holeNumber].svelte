@@ -1,46 +1,42 @@
 <script lang="ts">
 	// Stores
 	import { page } from '$app/stores';
-
 	// SMUI Components
 	import Fab, { Label, Icon } from '@smui/fab';
-
 	// Custom components
 	import HeroImage from '../_components/HeroImage.svelte';
 	import ScoreList from '../_components/ScoreList.svelte';
 	import SubmissionDialog from '../_components/SubmissionDialog.svelte';
+	// Functions
+	import { getHole, submitScore } from '../scripts/api';
 
 	// UI Variables
 	let submitting: boolean = false;
-	let loaded: boolean = false;
+	let heroImage = { title: '', src: '', sponsor: '' };
+	let loading = false;
 
 	// Variables
 	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
-	let hole: Hole = { scores: [] };
+	let hole = updateHole();
+	hole.then((hole) => {
+		heroImage.title = hole.hole_text;
+		heroImage.src = hole.hole_image;
+		heroImage.sponsor = hole.hole_sponsor;
+	});
 
-	// Function declarations and imports
-	import { getHole, submitScore } from '../scripts/api';
-	import { onMount } from 'svelte';
-	async function updateHole(): void;
-	async function submitHandler(
-		e: CustomEvent<{ name: string; scoreM: number; scoreCm: number }>
-	): void;
-	function submitSuccess(): void;
-	function submitError(err: Error): void;
-
-	// Function implementations
-	async function updateHole(): void {
-		loaded = false;
-		hole = await getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber));
-		loaded = true;
+	// Functions
+	async function updateHole(): Promise<Hole> {
+		loading = false;
+		return getHole(baseUrl, $page.params.tournamentId, Number($page.params.holeNumber));
 	}
 
 	async function submitHandler(
 		e: CustomEvent<{ name: string; scoreM: number; scoreCm: number }>
-	): void {
+	): Promise<void> {
+		let _hole = await hole;
 		if (
-			hole.scores.length !== 0 &&
-			hole.scores[0].player_score <= e.detail.scoreM + e.detail.scoreCm * 0.01
+			_hole.scores.length !== 0 &&
+			_hole.scores[0].player_score <= e.detail.scoreM + e.detail.scoreCm * 0.01
 		) {
 			if (confirm('Denne score er ikke første plads.\nVil du indsende den alligevel?'))
 				e.detail.name += ' 🏴';
@@ -55,7 +51,7 @@
 				e.detail.scoreM,
 				e.detail.scoreCm
 			);
-		} catch (err) {
+		} catch (err: any) {
 			submitError(err);
 			return;
 		}
@@ -64,20 +60,17 @@
 
 	function submitSuccess(): void {
 		submitting = false;
-		updateHole();
+		hole = updateHole();
 	}
 
 	function submitError(err: Error): void {
 		alert(err.message);
 	}
-
-	onMount(() => {
-		updateHole();
-	});
 </script>
 
-<HeroImage src={hole.hole_image} title={hole.hole_text}>
-	<ScoreList scores={hole.scores} bind:loaded />
+<HeroImage {...heroImage}>
+	<ScoreList {hole} bind:loading />
+	<button on:click={() => (hole = updateHole())}> Update </button>
 </HeroImage>
 
 <div class="fab-pos">
@@ -93,7 +86,6 @@
 	.fab-pos {
 		position: fixed;
 		bottom: 0;
-		right: 0;
 		padding: 10px;
 		width: 100%;
 		box-sizing: border-box;

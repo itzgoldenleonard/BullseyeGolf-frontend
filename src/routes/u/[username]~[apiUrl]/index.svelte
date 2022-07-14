@@ -1,16 +1,18 @@
 <script lang="ts">
+	// Stores
 	import { page } from '$app/stores';
-	import { getTournamentList } from './scripts/api';
-	let tournamentList = getTournamentList(`https://${$page.params.apiUrl}/${$page.params.username}`);
-
 	// SMUI components
 	import Card, { PrimaryAction } from '@smui/card';
+	// Variables
+	let tournamentList = getTournamentList(`https://${$page.params.apiUrl}/${$page.params.username}`);
+	// Functions
+	import { getTournamentList } from './scripts/api';
 </script>
 
 <h2>Vælg en turnering</h2>
-{#await tournamentList then tournamentList}
-	{#each tournamentList.filter((e) => e.active) as tournament}
-		<div>
+<div>
+	{#await tournamentList then tournamentList}
+		{#each tournamentList.filter((e) => e.active) as tournament}
 			<Card>
 				<PrimaryAction
 					padded
@@ -20,13 +22,13 @@
 					{tournament.tournament_name}
 				</PrimaryAction>
 			</Card>
-		</div>
-	{:else}
-		Der er ingen aktive turneringer
-	{/each}
-{:catch error}
-	<p>{error}</p>
-{/await}
+		{:else}
+			Der er ingen aktive turneringer
+		{/each}
+	{:catch error}
+		<p>{error}</p>
+	{/await}
+</div>
 
 <style lang="scss">
 	@use '@material/typography/index' as typography;

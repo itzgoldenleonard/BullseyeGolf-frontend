@@ -1,15 +1,17 @@
 <script lang="ts">
+	// Stores
 	import { page } from '$app/stores';
-	import { getTournament } from '../scripts/api';
+	// SMUI Components
+	import Card, { PrimaryAction } from '@smui/card';
+	// Custom Components
 	import HeroImage from '../_components/HeroImage.svelte';
+	// Functions
+	import { getTournament } from '../scripts/api';
+
 	let tournament = getTournament(
 		`https://${$page.params.apiUrl}/${$page.params.username}`,
 		$page.params.tournamentId
 	);
-
-	// Smui components
-	import Card, { PrimaryAction } from '@smui/card';
-	import LayoutGrid, { Cell } from '@smui/layout-grid';
 </script>
 
 {#await tournament then tournament}
@@ -31,12 +33,12 @@
 					</PrimaryAction>
 				</Card>
 			{:else}
-				<h2>Der er ingen huller i denne turnering</h2>
+				Der er ingen huller i denne turnering
 			{/each}
 		</div>
 	</HeroImage>
 {:catch error}
-	<p>{error}</p>
+	{error}
 {/await}
 
 <style lang="scss">

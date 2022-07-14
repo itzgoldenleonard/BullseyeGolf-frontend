@@ -10,7 +10,7 @@
 	import InfoDialog from './_components/InfoDialog.svelte';
 
 	// UI Variables
-	let open: boolean = false;
+	let infoDialogOpen: boolean = false;
 	$: topBarTitle = $page.params.holeNumber ? `Hul ${$page.params.holeNumber}` : 'Bullseyegolf';
 </script>
 
@@ -29,13 +29,13 @@
 				class="material-icons"
 				aria-label="View info about the program"
 				on:click={() => {
-					open = true;
+					infoDialogOpen = true;
 				}}>info</IconButton
 			>
 		</Section>
 	</Row>
 </TopAppBar>
-<InfoDialog bind:open />
+<InfoDialog bind:open={infoDialogOpen} />
 <AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
 	<slot />
 </AutoAdjust>
