@@ -26,17 +26,18 @@
 	}
 
 	async function submit(): Promise<void> {
-    if ($activeTournament.t_end < $activeTournament.t_start) return alert('Slut tidspunktet må ikke være før start tidspunktet')
-    saveText = '...';
-    try {
-        await postTournament(baseUrl, $activeTournament, $page.url.searchParams.get('apiKey'));
-    } catch (e) {
-        saveText = '❌';
-        await new Promise(r => setTimeout(r, 1500));
-        saveText = 'Gem';
-        return
-    }
-    saveText = '✓';
+		if ($activeTournament.t_end < $activeTournament.t_start)
+			return alert('Slut tidspunktet må ikke være før start tidspunktet');
+		saveText = '...';
+		try {
+			await postTournament(baseUrl, $activeTournament, $page.url.searchParams.get('apiKey'));
+		} catch (e) {
+			saveText = '❌';
+			await new Promise((r) => setTimeout(r, 1500));
+			saveText = 'Gem';
+			return;
+		}
+		saveText = '✓';
 		updateTournamentList(baseUrl);
 		formChanged.set(false);
 		await new Promise((r) => setTimeout(r, 1500));
