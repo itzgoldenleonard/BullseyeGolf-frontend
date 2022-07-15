@@ -64,6 +64,11 @@
 	padding-bottom: $padding/2;
 	background-color: $background-color;
 	font-weight: 600;
+
+    &[disabled="true"] {
+        background-color: gray;
+        cursor: auto;
+    }
 }
 
 %button-hilighted {
