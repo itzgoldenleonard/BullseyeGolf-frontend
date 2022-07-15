@@ -1,87 +1,57 @@
 <script lang="ts">
+	// Stores
 	import { page } from '$app/stores';
+	// SMUI Components
+	import Card, { PrimaryAction } from '@smui/card';
+	// Custom Components
+	import HeroImage from '../_components/HeroImage.svelte';
+	// Functions
 	import { getTournament } from '../scripts/api';
-	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
 
-	let tournament = getTournament(baseUrl, $page.params.tournamentId);
+	let tournament = getTournament(
+		`https://${$page.params.apiUrl}/${$page.params.username}`,
+		$page.params.tournamentId
+	);
 </script>
 
-<h2 class="header-image-margin">Vælg et hul:</h2>
-{#await tournament}
-	<p>Loading...</p>
-{:then tournament}
-	<aside>
-		<img
-			src={tournament.tournament_image
-				? tournament.tournament_image
-				: '/default-header/medium.webp'}
-			alt="Turneringens billede"
-		/>
+{#await tournament then tournament}
+	<HeroImage
+		src={tournament.tournament_image}
+		sponsor={tournament.tournament_sponsor}
+		title={tournament.tournament_name}
+	>
+		<h2>Vælg et hul</h2>
 		<div>
-			<h1>
-				{tournament.tournament_name}
-			</h1>
-			{#if tournament.tournament_sponsor}
-				<p>
-					Sponsoreret af: {tournament.tournament_sponsor}
-				</p>
-			{/if}
-		</div>
-	</aside>
-
-	<main>
-		{#each tournament.holes as hole}
-			<a href={`${$page.url.pathname}/${hole.hole_number}`}>
-				<article>
-					Hul {hole.hole_number}
-				</article>
-			</a>
-		{:else}
-			<h2>
+			{#each tournament.holes as hole}
+				<Card>
+					<PrimaryAction
+						padded
+						on:click={() => (location.href = `${$page.url.pathname}/${hole.hole_number}`)}
+						style="text-align: center; font-family: Roboto;"
+					>
+						Hul {hole.hole_number}
+					</PrimaryAction>
+				</Card>
+			{:else}
 				Der er ingen huller i denne turnering
-			</h2>
-		{/each}
-	</main>
+			{/each}
+		</div>
+	</HeroImage>
 {:catch error}
-	<p>{error}</p>
+	{error}
 {/await}
 
 <style lang="scss">
-	@import '../../../../../static/_variables';
-	@import '../../../../../static/global.scss';
+	@use '@material/typography/index' as typography;
 
-	.header-image-margin {
-		@extend %header-image-margin;
+	h2 {
+		@include typography.typography('headline5');
+		text-align: center;
 	}
 
-	aside {
-		@extend %header-image;
-	}
-
-	main {
+	div {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
-		gap: $padding;
-		margin: $padding 0;
-
-		@media only screen and (orientation: landscape) {
-			grid-template-columns: repeat(auto-fit, minmax(100px, 0.25fr));
-		}
-
-		a {
-			color: $text-color;
-			text-decoration: none;
-
-			article {
-				@extend %card;
-				display: flex;
-				aspect-ratio: 1;
-				justify-content: center;
-				align-items: center;
-
-				font-size: $h3-size;
-				font-weight: 600;
-			}
-		}
+		gap: 10px;
 	}
 </style>

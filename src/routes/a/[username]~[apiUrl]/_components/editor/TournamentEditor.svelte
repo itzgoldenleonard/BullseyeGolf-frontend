@@ -6,35 +6,41 @@
 	import Hole from './Hole.svelte';
 	import InputText from '../../../../../components/InputText.svelte';
 	import { deleteActiveTournament, generateID, updateTournamentList } from '../../scripts/misc';
-    import { page } from '$app/stores';
+	import { page } from '$app/stores';
 
 	export let baseUrl: string;
-    let saveText: string = 'Gem';
+	let saveText: string = 'Gem';
 
 	function duplciateActiveTournament(): void {
-        if ($formChanged && !confirm('Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet')) return
-        formChanged.set(true)
+		if (
+			$formChanged &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
+		formChanged.set(true);
 		$activeTournament.tournament_id = generateID();
 		selectedTournament.set($activeTournament.tournament_id);
 		$activeTournament.tournament_name += ' (kopi)';
 	}
 
 	async function submit(): Promise<void> {
-        if ($activeTournament.t_end < $activeTournament.t_start) return alert('Slut tidspunktet må ikke være før start tidspunktet')
-        saveText = '...';
-        try {
-            await postTournament(baseUrl, $activeTournament, $page.url.searchParams.get('apiKey'));
-        } catch (e) {
-            saveText = '❌';
-            await new Promise(r => setTimeout(r, 1500));
-            saveText = 'Gem';
-            return
-        }
-        saveText = '✓';
-		updateTournamentList(baseUrl);
-		formChanged.set(false);
+    if ($activeTournament.t_end < $activeTournament.t_start) return alert('Slut tidspunktet må ikke være før start tidspunktet')
+    saveText = '...';
+    try {
+        await postTournament(baseUrl, $activeTournament, $page.url.searchParams.get('apiKey'));
+    } catch (e) {
+        saveText = '❌';
         await new Promise(r => setTimeout(r, 1500));
         saveText = 'Gem';
+        return
+    }
+    saveText = '✓';
+		updateTournamentList(baseUrl);
+		formChanged.set(false);
+		await new Promise((r) => setTimeout(r, 1500));
+		saveText = 'Gem';
 	}
 </script>
 
@@ -90,7 +96,7 @@
 				>
 					Slet turnering
 				</button>
-                <input type="submit" value={saveText}>
+				<input type="submit" value={saveText} />
 			</div>
 		</article>
 	</form>
@@ -161,7 +167,7 @@
 							&[type='submit'] {
 								@extend %button-hilighted;
 								font-size: $h3-size;
-                                width: 45px + $padding-large * 2;
+								width: 45px + $padding-large * 2;
 							}
 						}
 					}

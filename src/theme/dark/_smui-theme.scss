@@ -1,0 +1,19 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+@use '../_shared-clases.scss';
+
+// Svelte Colors! (Dark Theme)
+@use '@material/theme/index' as theme with (
+	$primary: color-palette.$red-700,
+	$secondary: color-palette.$indigo-700,
+	$surface: color.adjust(color-palette.$grey-900, $red: +2),
+	$background: color.adjust(#111, $red: +3),
+	$error: color-palette.$red-a700
+);
+
+html,
+body {
+	background: theme.$background;
+	color: theme.$on-surface;
+}

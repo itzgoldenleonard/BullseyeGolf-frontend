@@ -1,0 +1,20 @@
+.full-width-if-mobile {
+	@media (max-width: 600px) {
+		width: 100% !important;
+	}
+}
+
+.score-0 {
+	background: linear-gradient(137deg, hsl(50, 85%, 60%) 0%, 50%, hsl(45, 100%, 33%)) no-repeat;
+	background-size: 10px 100%;
+}
+
+.score-1 {
+	background: linear-gradient(142deg, hsl(225, 6%, 50%) 0%, 50%, hsl(225, 9%, 79%)) no-repeat;
+	background-size: 10px 100%;
+}
+
+.score-2 {
+	background: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%)) no-repeat;
+	background-size: 10px 100%;
+}
