@@ -53,20 +53,21 @@
 </Drawer>
 
 <AppContent>
-	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
+    <TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
 				<IconButton class="material-icons" on:click={() => (drawerOpen = !drawerOpen)}
 					>menu</IconButton
 				>
-				<TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
-					<Tab {tab} minWidth>
+				<TabBar class="test" tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
+					<Tab class="test" {tab} minWidth>
 						<Label>{tab}</Label>
 					</Tab>
 				</TabBar>
 			</Section>
 		</Row>
-	</TopAppBar>
+    </TopAppBar>
+
 	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
 		This will be the new admin panel
 		<br />
