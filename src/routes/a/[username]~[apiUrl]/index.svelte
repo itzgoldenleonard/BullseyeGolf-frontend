@@ -1,7 +1,4 @@
 <script lang="ts">
-	import Drawer, { AppContent, Content, Header, Title } from '@smui/drawer';
-	import List, { Item, Text, Separator, Subheader } from '@smui/list';
-	import { H6 } from '@smui/common/elements';
 	import Tab, { Label } from '@smui/tab';
 	import TabBar from '@smui/tab-bar';
 
@@ -13,50 +10,45 @@
 	import Tutorial from './_panels/Tutorial.svelte';
 	import Turnering from './_panels/Turnering.svelte';
 	import Huller from './_panels/Huller.svelte';
+	import Drawer from './_components/Drawer.svelte';
 
 	let drawerOpen = true;
 	let activeTournament = '0';
 	let activeTab = '';
+
+	let tournamentList = [
+		{
+			active: true,
+			t_end: 1654430400,
+			t_start: 1654248000,
+			tournament_id: '26550',
+			tournament_name: '\u00c5ben herredag 2022'
+		},
+		{
+			active: false,
+			t_end: 1656189000,
+			t_start: 1654659000,
+			tournament_id: '301965',
+			tournament_name: 'Herreklubben juni'
+		},
+		{
+			active: false,
+			t_end: 1656308460,
+			t_start: 1656222060,
+			tournament_id: '774182',
+			tournament_name: '\u00c6gteparturneringen'
+		},
+		{
+			active: false,
+			t_end: 1657300320,
+			t_start: 1657041120,
+			tournament_id: '275151',
+			tournament_name: '\u00c5ben herredag juli 2022'
+		}
+	];
 </script>
 
-<Drawer variant="dismissible" bind:open={drawerOpen}>
-	<Header>
-		<Title>Turneringer</Title>
-	</Header>
-
-	<Content>
-		<Subheader component={H6}>Aktive</Subheader>
-		<List>
-			<Item
-				on:click={() => (activeTournament = 'Gray Kittens')}
-				activated={activeTournament === 'Gray Kittens'}
-			>
-				<Text>Gray Kittens</Text>
-			</Item>
-			<Item
-				on:click={() => (activeTournament = '174780')}
-				activated={activeTournament === '174780'}
-			>
-				<Text>Gennemgående nærmest hullet i 2</Text>
-			</Item>
-
-			<Separator />
-			<Subheader component={H6}>Fremtidige</Subheader>
-
-			<Item
-				on:click={() => (activeTournament = '180024')}
-				activated={activeTournament === '180024'}
-			>
-				<Text>Extra 2</Text>
-			</Item>
-
-			<Separator />
-			<Subheader component={H6}>Afsluttede</Subheader>
-		</List>
-	</Content>
-</Drawer>
-
-<AppContent style="height: 100%;">
+<Drawer bind:open={drawerOpen} {tournamentList}>
 	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
@@ -73,12 +65,12 @@
 	</TopAppBar>
 
 	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-            {#if activeTab === 'Turnering'}
-                <Turnering />
-            {:else if activeTab === 'Huller'}
-                <Huller />
-            {:else}
-                <Tutorial />
-            {/if}
+		{#if activeTab === 'Turnering'}
+			<Turnering />
+		{:else if activeTab === 'Huller'}
+			<Huller />
+		{:else}
+			<Tutorial />
+		{/if}
 	</AutoAdjust>
-</AppContent>
+</Drawer>
