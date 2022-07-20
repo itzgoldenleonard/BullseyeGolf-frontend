@@ -10,9 +10,13 @@
 	import TopAppBar, { Row, Section, AutoAdjust } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
 
+	import Tutorial from './_panels/Tutorial.svelte';
+	import Turnering from './_panels/Turnering.svelte';
+	import Huller from './_panels/Huller.svelte';
+
 	let drawerOpen = true;
 	let activeTournament = '0';
-	let activeTab = 'Turnering';
+	let activeTab = '';
 </script>
 
 <Drawer variant="dismissible" bind:open={drawerOpen}>
@@ -52,25 +56,29 @@
 	</Content>
 </Drawer>
 
-<AppContent>
-    <TopAppBar bind:this={topAppBar} variant="fixed" dense>
+<AppContent style="height: 100%;">
+	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
 				<IconButton class="material-icons" on:click={() => (drawerOpen = !drawerOpen)}
 					>menu</IconButton
 				>
-				<TabBar class="test" tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
-					<Tab class="test" {tab} minWidth>
+				<TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
+					<Tab {tab} minWidth>
 						<Label>{tab}</Label>
 					</Tab>
 				</TabBar>
 			</Section>
 		</Row>
-    </TopAppBar>
+	</TopAppBar>
 
 	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-		This will be the new admin panel
-		<br />
-		Selected tab: {activeTab}
+            {#if activeTab === 'Turnering'}
+                <Turnering />
+            {:else if activeTab === 'Huller'}
+                <Huller />
+            {:else}
+                <Tutorial />
+            {/if}
 	</AutoAdjust>
 </AppContent>

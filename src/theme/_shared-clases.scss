@@ -20,19 +20,18 @@
 }
 
 .mdc-tab--active .mdc-tab__text-label {
-    color: white !important; 
+	color: white !important;
 }
 
 .mdc-tab.mdc-tab .mdc-tab__text-label {
-    color: rgba(255, 255, 255, 0.6);
+	color: rgba(255, 255, 255, 0.6);
 }
 
 .mdc-tab-indicator.mdc-tab-indicator .mdc-tab-indicator__content--underline {
-    border-color: white;
+	border-color: white;
 }
 
-.mdc-tab.mdc-tab .mdc-tab__ripple::before, .mdc-tab .mdc-tab__ripple::after {
-    background-color: white;
+.mdc-tab.mdc-tab .mdc-tab__ripple::before,
+.mdc-tab .mdc-tab__ripple::after {
+	background-color: white;
 }
-
-
