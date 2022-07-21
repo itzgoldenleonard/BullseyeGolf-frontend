@@ -17,3 +17,7 @@ body {
 	background: theme.$background;
 	color: theme.$on-surface;
 }
+
+.mdc-chip__checkmark-path {
+	stroke: white;
+}

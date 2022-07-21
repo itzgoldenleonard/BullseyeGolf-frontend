@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+
 	import Tab, { Label } from '@smui/tab';
 	import TabBar from '@smui/tab-bar';
 
@@ -12,43 +14,26 @@
 	import Huller from './_panels/Huller.svelte';
 	import Drawer from './_components/Drawer.svelte';
 
+	let baseUrl = `https://${$page.params.apiUrl}/${$page.params.username}`;
 	let drawerOpen = true;
-	let activeTournament = '0';
+	let activeTournament: Tournament = null;
 	let activeTab = '';
 
-	let tournamentList = [
-		{
-			active: true,
-			t_end: 1654430400,
-			t_start: 1654248000,
-			tournament_id: '26550',
-			tournament_name: '\u00c5ben herredag 2022'
-		},
-		{
-			active: false,
-			t_end: 1656189000,
-			t_start: 1654659000,
-			tournament_id: '301965',
-			tournament_name: 'Herreklubben juni'
-		},
-		{
-			active: false,
-			t_end: 1656308460,
-			t_start: 1656222060,
-			tournament_id: '774182',
-			tournament_name: '\u00c6gteparturneringen'
-		},
-		{
-			active: false,
-			t_end: 1657300320,
-			t_start: 1657041120,
-			tournament_id: '275151',
-			tournament_name: '\u00c5ben herredag juli 2022'
-		}
-	];
+	let tournamentList = getTournamentList(baseUrl);
+
+	import { getTournamentList, getTournament } from './scripts/api';
+
+	async function pick(e: CustomEvent<{ tournamentId: string }>) {
+		activeTab = '';
+		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
+		activeTab = 'Turnering';
+		console.log(e.detail.tournamentId);
+	}
 </script>
 
-<Drawer bind:open={drawerOpen} {tournamentList}>
+{@debug activeTournament}
+
+<Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick}>
 	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
@@ -66,7 +51,7 @@
 
 	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
 		{#if activeTab === 'Turnering'}
-			<Turnering />
+			<Turnering bind:tournament={activeTournament} />
 		{:else if activeTab === 'Huller'}
 			<Huller />
 		{:else}

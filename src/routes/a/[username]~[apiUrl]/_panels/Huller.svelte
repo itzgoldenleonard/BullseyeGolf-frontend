@@ -8,7 +8,7 @@
 		choices.push(`Hul ${i}`);
 	}
 	let selected: String[] = [];
-	let holes = ['hul1', 'hul2', 'hul3'];
+	$: holes = selected;
 </script>
 
 <article>

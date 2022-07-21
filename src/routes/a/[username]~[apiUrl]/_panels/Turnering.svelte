@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Textfield from '@smui/textfield';
+	import TimePicker from '../_components/TimePicker.svelte';
+	export let tournament: Tournament;
 
 	// All this is very temporary to just get the image to work
 	let valueTypeFiles: FileList | null = null;
@@ -19,33 +21,31 @@
 
 <article>
 	<div class="hide-file-ui">
-		<Textfield variant="filled" value="" label="Turneringens navn" style="flex-grow: 1;" />
-		<Textfield variant="filled" value="" label="Sponsor" style="flex-grow: 1;" />
+		<Textfield
+			variant="filled"
+			bind:value={tournament.tournament_name}
+			label="Turneringens navn"
+			required
+			style="flex-grow: 1;"
+		/>
+		<Textfield
+			variant="filled"
+			bind:value={tournament.tournament_sponsor}
+			label="Sponsor"
+			style="flex-grow: 1;"
+		/>
 		<Textfield
 			variant="filled"
 			bind:files={valueTypeFiles}
 			label$placeholder="Tryk for at vælge et billede"
-			value=" "
+			bind:value={tournament.tournament_image}
 			label="Billede"
 			type="file"
 			style="flex-grow:1;"
 		/>
 	</div>
 	<div>
-		<Textfield
-			variant="filled"
-			value=""
-			label="Start tidspunkt"
-			type="datetime-local"
-			style="flex-grow:1;"
-		/>
-		<Textfield
-			variant="filled"
-			value=""
-			label="Slut tidspunkt"
-			type="datetime-local"
-			style="flex-grow:1;"
-		/>
+		<TimePicker bind:t_start={tournament.t_start} bind:t_end={tournament.t_end} />
 	</div>
 	<img alt="Billede af turneringen" src={img ? img : '/default-header/medium.webp'} />
 </article>
