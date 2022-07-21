@@ -35,3 +35,11 @@
 .mdc-tab .mdc-tab__ripple::after {
 	background-color: white;
 }
+
+.hide-file-ui input[type='file']::file-selector-button {
+	display: none;
+}
+
+.hide-file-ui :not(.mdc-text-field--label-floating) input[type='file'] {
+	color: transparent;
+}

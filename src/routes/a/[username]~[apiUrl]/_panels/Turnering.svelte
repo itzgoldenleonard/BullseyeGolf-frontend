@@ -18,14 +18,14 @@
 </script>
 
 <article>
-	<img alt="Billede af turneringen" src={img ? img : '/default-header/medium.webp'} />
 	<div class="hide-file-ui">
 		<Textfield variant="filled" value="" label="Turneringens navn" style="flex-grow: 1;" />
 		<Textfield variant="filled" value="" label="Sponsor" style="flex-grow: 1;" />
 		<Textfield
 			variant="filled"
 			bind:files={valueTypeFiles}
-			value=""
+			label$placeholder="Tryk for at vælge et billede"
+			value=" "
 			label="Billede"
 			type="file"
 			style="flex-grow:1;"
@@ -47,29 +47,26 @@
 			style="flex-grow:1;"
 		/>
 	</div>
+	<img alt="Billede af turneringen" src={img ? img : '/default-header/medium.webp'} />
 </article>
 
 <style lang="scss">
-	.hide-file-ui :global(input[type='file']::file-selector-button) {
-		display: none;
-	}
-
-	.hide-file-ui :global(:not(.mdc-text-field--label-floating) input[type='file']) {
-		color: transparent;
-	}
-
 	article {
 		overflow-x: hidden;
 		overflow-y: auto;
 		padding-inline: 10px;
+		padding-top: 10px;
+		box-sizing: border-box;
 		height: 100%;
+		gap: 10px;
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
 
 		img {
-			height: 30%;
+			height: 50%;
+			max-width: 100%;
 			object-fit: contain;
+			object-position: center;
 		}
 
 		div {

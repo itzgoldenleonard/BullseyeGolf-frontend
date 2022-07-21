@@ -4,7 +4,7 @@
 	import { H6 } from '@smui/common/elements';
 
 	export let open: boolean;
-    export let tournamentList: Promise<ShortTournament[]>;
+	export let tournamentList: Promise<ShortTournament[]>;
 	let active = '';
 </script>
 
