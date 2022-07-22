@@ -31,8 +31,6 @@
 	}
 </script>
 
-{@debug activeTournament}
-
 <Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick}>
 	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
@@ -50,10 +48,10 @@
 	</TopAppBar>
 
 	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-		{#if activeTab === 'Turnering'}
+		{#if activeTab === 'Turnering' && activeTournament !== null}
 			<Turnering bind:tournament={activeTournament} />
-		{:else if activeTab === 'Huller'}
-			<Huller />
+		{:else if activeTab === 'Huller' && activeTournament !== null}
+			<Huller bind:holes={activeTournament.holes} />
 		{:else}
 			<Tutorial />
 		{/if}

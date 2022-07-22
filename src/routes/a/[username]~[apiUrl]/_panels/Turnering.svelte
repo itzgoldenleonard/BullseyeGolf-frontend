@@ -5,7 +5,6 @@
 
 	// All this is very temporary to just get the image to work
 	let valueTypeFiles: FileList | null = null;
-	let img = '';
 
 	$: if (valueTypeFiles != null && valueTypeFiles.length) {
 		console.log(valueTypeFiles);
@@ -14,7 +13,7 @@
 		reader.readAsDataURL(valueTypeFiles[0]);
 		reader.onload = (event) => {
 			if (event.total > 1049000) return alert('Billedet skal være mindre end 1MB');
-			img = String(event.target.result);
+			tournament.tournament_image = String(event.target.result);
 		};
 	}
 </script>
@@ -38,7 +37,6 @@
 			variant="filled"
 			bind:files={valueTypeFiles}
 			label$placeholder="Tryk for at vælge et billede"
-			bind:value={tournament.tournament_image}
 			label="Billede"
 			type="file"
 			style="flex-grow:1;"
@@ -47,7 +45,10 @@
 	<div>
 		<TimePicker bind:t_start={tournament.t_start} bind:t_end={tournament.t_end} />
 	</div>
-	<img alt="Billede af turneringen" src={img ? img : '/default-header/medium.webp'} />
+	<img
+		alt="Billede af turneringen"
+		src={tournament.tournament_image ? tournament.tournament_image : '/default-header/medium.webp'}
+	/>
 </article>
 
 <style lang="scss">
