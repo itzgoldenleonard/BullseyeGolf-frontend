@@ -3,14 +3,11 @@
 	import TimePicker from '../_components/TimePicker.svelte';
 	export let tournament: Tournament;
 
-	// All this is very temporary to just get the image to work
-	let valueTypeFiles: FileList | null = null;
+	let files: FileList | null = null;
 
-	$: if (valueTypeFiles != null && valueTypeFiles.length) {
-		console.log(valueTypeFiles);
-
+	$: if (files != null && files.length) {
 		let reader = new FileReader();
-		reader.readAsDataURL(valueTypeFiles[0]);
+		reader.readAsDataURL(files[0]);
 		reader.onload = (event) => {
 			if (event.total > 1049000) return alert('Billedet skal være mindre end 1MB');
 			tournament.tournament_image = String(event.target.result);
@@ -35,7 +32,7 @@
 		/>
 		<Textfield
 			variant="filled"
-			bind:files={valueTypeFiles}
+			bind:files
 			label$placeholder="Tryk for at vælge et billede"
 			label="Billede"
 			type="file"

@@ -56,8 +56,6 @@
 	});
 </script>
 
-{@debug selected}
-
 <article>
 	<h1>Vælg huller</h1>
 	<Set chips={choices} let:chip filter bind:selected>

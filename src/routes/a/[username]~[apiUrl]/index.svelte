@@ -3,6 +3,7 @@
 
 	import Tab, { Label } from '@smui/tab';
 	import TabBar from '@smui/tab-bar';
+	import Fab, { Icon, Label as FabLabel } from '@smui/fab';
 
 	import type { TopAppBarComponentDev } from '@smui/top-app-bar';
 	let topAppBar: TopAppBarComponentDev;
@@ -18,6 +19,7 @@
 	let drawerOpen = true;
 	let activeTournament: Tournament = null;
 	let activeTab = '';
+	$: fabExited = !activeTournament;
 
 	let tournamentList = getTournamentList(baseUrl);
 
@@ -27,7 +29,8 @@
 		activeTab = '';
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
 		activeTab = 'Turnering';
-		console.log(e.detail.tournamentId);
+		await new Promise((r) => setTimeout(r, 1));
+		fabExited = true;
 	}
 </script>
 
@@ -55,5 +58,29 @@
 		{:else}
 			<Tutorial />
 		{/if}
+
+		<div class="fab-pos">
+			<Fab
+				on:click={() => (fabExited = true)}
+				extended
+				exited={fabExited}
+				class="full-width-if-mobile"
+			>
+				<Icon class="material-icons">save</Icon>
+				<FabLabel>Gem</FabLabel>
+			</Fab>
+		</div>
 	</AutoAdjust>
 </Drawer>
+
+<style lang="scss">
+	.fab-pos {
+		position: absolute;
+		bottom: 0;
+		padding: 10px;
+		width: 100%;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: flex-end;
+	}
+</style>

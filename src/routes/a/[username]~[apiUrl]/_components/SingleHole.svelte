@@ -5,6 +5,17 @@
 	import ScoreList from '../_components/ScoreList.svelte';
 
 	export let hole: Hole;
+
+	let files: FileList | null = null;
+
+	$: if (files != null && files.length) {
+		let reader = new FileReader();
+		reader.readAsDataURL(files[0]);
+		reader.onload = (event) => {
+			if (event.total > 1049000) return alert('Billedet skal være mindre end 1MB');
+			hole.hole_image = String(event.target.result);
+		};
+	}
 </script>
 
 <Panel>
@@ -14,7 +25,7 @@
 			<div class="hide-file-ui">
 				<Textfield variant="filled" bind:value={hole.hole_text} label="Hul tekst" />
 				<Textfield variant="filled" bind:value={hole.hole_sponsor} label="Hul sponsor" />
-				<Textfield variant="filled" value="" label="Hul billede" type="file" />
+				<Textfield variant="filled" bind:files label="Hul billede" type="file" />
 			</div>
 
 			<img
