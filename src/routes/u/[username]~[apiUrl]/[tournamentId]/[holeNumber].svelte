@@ -8,12 +8,14 @@
 	import ScoreList from '../_components/ScoreList.svelte';
 	import SubmissionDialog from '../_components/SubmissionDialog.svelte';
 	// Functions
-	import { getHole, submitScore } from '../scripts/api';
+	import { getHole, submitScore, getTournamentList } from '../scripts/api';
+	import { onMount } from 'svelte';
 
 	// UI Variables
 	let submitting: boolean = false;
 	let heroImage = { title: '', src: '', sponsor: '' };
 	let loading = false;
+	let active: boolean;
 
 	// Variables
 	let baseUrl: string = `https://${$page.params.apiUrl}/${$page.params.username}`;
@@ -66,20 +68,31 @@
 	function submitError(err: Error): void {
 		alert(err.message);
 	}
+
+	// Lifecycle functions
+	onMount(async () => {
+		let tournamentList = await getTournamentList(baseUrl);
+		let currentTournament = tournamentList.find(
+			(e) => e.tournament_id === $page.params.tournamentId
+		);
+		active = currentTournament.active;
+	});
 </script>
 
 <HeroImage {...heroImage}>
 	<ScoreList {hole} bind:loading />
 </HeroImage>
 
-<div class="fab-pos">
-	<Fab on:click={() => (submitting = true)} extended class="full-width-if-mobile">
-		<Icon class="material-icons">add</Icon>
-		<Label>Indsend</Label>
-	</Fab>
-</div>
+{#if active}
+	<div class="fab-pos">
+		<Fab on:click={() => (submitting = true)} extended class="full-width-if-mobile">
+			<Icon class="material-icons">add</Icon>
+			<Label>Indsend</Label>
+		</Fab>
+	</div>
 
-<SubmissionDialog bind:open={submitting} on:submit={submitHandler} />
+	<SubmissionDialog bind:open={submitting} on:submit={submitHandler} />
+{/if}
 
 <style lang="scss">
 	.fab-pos {

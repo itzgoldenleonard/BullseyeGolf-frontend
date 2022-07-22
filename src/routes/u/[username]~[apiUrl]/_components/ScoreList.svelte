@@ -12,7 +12,6 @@
 	afterUpdate(() => {
 		hole.then(() => {
 			loading = true;
-			console.log('changed');
 		});
 	});
 </script>
