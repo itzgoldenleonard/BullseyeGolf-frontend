@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Textfield from '@smui/textfield';
-	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
+	import Accordion from '@smui-extra/accordion';
 	import Chip, { Set, Text } from '@smui/chips';
 	import { onMount } from 'svelte';
+
+	import SingleHole from '../_components/SingleHole.svelte';
 
 	// UI Variables
 	let choices: string[] = [];
@@ -36,15 +37,16 @@
 		];
 	}
 
-	function removeHole(holeNumber: number) {
-        let i: number = holes.findIndex((e) => e.hole_number == holeNumber);
-        if (holes[i].scores.length !== 0) {
-            alert('Du kan ikke fjerne et hul med scorer!');
-            //selected = [...selected, String(holeNumber)];
-            return;
-        }
+	async function removeHole(holeNumber: number) {
+		let i: number = holes.findIndex((e) => e.hole_number == holeNumber);
+		if (holes[i].scores.length !== 0) {
+			alert('Du kan ikke slette et hul med scorer!');
+			await new Promise((r) => setTimeout(r, 0.5));
+			selected = [...selected, String(holeNumber)];
+			return;
+		}
 
-        holes = holes.filter((e) => e.hole_number !== holeNumber);
+		holes = holes.filter((e) => e.hole_number !== holeNumber);
 	}
 
 	onMount(() => {
@@ -67,25 +69,15 @@
 	<h1>Valgte huller</h1>
 	<Accordion multiple>
 		{#each holes as hole}
-			<Panel>
-				<Header>Hul {hole.hole_number}</Header>
-				<Content>
-					<div class="hide-file-ui">
-						<Textfield variant="filled" bind:value={hole.hole_sponsor} label="Hul sponsor" />
-						<Textfield variant="filled" bind:value={hole.hole_text} label="Hul tekst" />
-						<Textfield variant="filled" value="" label="Hul billede" type="file" />
-					</div>
-				</Content>
-			</Panel>
+			<SingleHole bind:hole />
 		{/each}
 	</Accordion>
-
-    <button on:click={() => selected = [...selected, String(5)]}>Add hole 5</button>
-    <button on:click={() => selected = [...selected, String(6)]}>Add hole 6</button>
 </article>
 
 <style lang="scss">
 	article {
 		padding: 10px;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 </style>
