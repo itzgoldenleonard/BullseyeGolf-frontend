@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let tournament: Tournament;
+	export let tournament: Tournament;
 
 	import { displayScore } from '$lib/displayScore';
 

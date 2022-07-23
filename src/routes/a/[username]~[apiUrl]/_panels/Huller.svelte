@@ -24,17 +24,15 @@
 	}
 
 	function addHole(holeNumber: number) {
-		holes = [
-			...holes,
-			{
-				hole_number: holeNumber,
-				hole_text: '',
-				hole_image: '',
-				game_mode: '',
-				hole_sponsor: '',
-				scores: []
-			}
-		];
+		holes.push({
+			hole_number: holeNumber,
+			hole_text: '',
+			hole_image: '',
+			game_mode: '',
+			hole_sponsor: '',
+			scores: []
+		});
+		holes = holes.sort((a, b) => a.hole_number - b.hole_number);
 	}
 
 	async function removeHole(holeNumber: number) {

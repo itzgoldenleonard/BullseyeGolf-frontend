@@ -23,9 +23,25 @@
 	<Content>
 		<article>
 			<div class="hide-file-ui">
-				<Textfield variant="filled" bind:value={hole.hole_text} style="flex-grow: 1;" label="Hul tekst" />
-				<Textfield variant="filled" bind:value={hole.hole_sponsor} style="flex-grow: 1;" label="Hul sponsor" />
-				<Textfield variant="filled" bind:files label="Hul billede" style="flex-grow: 1;" type="file" />
+				<Textfield
+					variant="filled"
+					bind:value={hole.hole_text}
+					style="flex-grow: 1;"
+					label="Hul tekst"
+				/>
+				<Textfield
+					variant="filled"
+					bind:value={hole.hole_sponsor}
+					style="flex-grow: 1;"
+					label="Hul sponsor"
+				/>
+				<Textfield
+					variant="filled"
+					bind:files
+					label="Hul billede"
+					style="flex-grow: 1;"
+					type="file"
+				/>
 			</div>
 
 			<ScoreList bind:scores={hole.scores} />
@@ -45,24 +61,23 @@
 		grid-template-columns: 1fr auto;
 		gap: 10px;
 
-        @media only screen and (max-width: 480px) {
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
-
-        }
+		@media only screen and (max-width: 480px) {
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr;
+		}
 
 		div {
-            display: flex;
-            gap: 10px;
+			display: flex;
+			gap: 10px;
 			grid-column: 1 / span 2;
-            @media only screen and (max-width: 480px) {
-                grid-column: unset;
-            }
+			@media only screen and (max-width: 480px) {
+				grid-column: unset;
+			}
 		}
 
 		img {
-            width: 100%;
-            height: 200px;
+			width: 100%;
+			height: 200px;
 		}
 	}
 </style>
