@@ -3,7 +3,7 @@
 	import List, { Item, Text, Separator, Subheader } from '@smui/list';
 	import { H6 } from '@smui/common/elements';
 	import { createEventDispatcher } from 'svelte';
-    import Button, { Label } from '@smui/button';
+    import Button, { Label, Icon } from '@smui/button';
 
 	export let open: boolean;
 	export let tournamentList: Promise<ShortTournament[]>;
@@ -72,6 +72,7 @@
 	</Content>
 
     <Button on:click={createTournament} touch variant="raised">
+        <Icon class="material-icons">add</Icon>
         <Label>Ny Turnering</Label>
     </Button>
 </Drawer>

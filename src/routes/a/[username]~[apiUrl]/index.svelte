@@ -139,7 +139,7 @@
 		</Row>
 	</TopAppBar>
 
-	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
+	<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box; overflow-y: scroll;">
 		{#if activeTab === 'Turnering' && activeTournament !== null}
 			<Turnering bind:tournament={activeTournament} />
 		{:else if activeTab === 'Huller' && activeTournament !== null}
@@ -174,6 +174,7 @@
     #dont-print {
         height: 100%;
         width: 100%;
+        overflow: clip;
 
         @media only print {
             display: none;

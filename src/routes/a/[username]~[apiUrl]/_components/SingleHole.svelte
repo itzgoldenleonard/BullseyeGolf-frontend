@@ -23,17 +23,17 @@
 	<Content>
 		<article>
 			<div class="hide-file-ui">
-				<Textfield variant="filled" bind:value={hole.hole_text} label="Hul tekst" />
-				<Textfield variant="filled" bind:value={hole.hole_sponsor} label="Hul sponsor" />
-				<Textfield variant="filled" bind:files label="Hul billede" type="file" />
+				<Textfield variant="filled" bind:value={hole.hole_text} style="flex-grow: 1;" label="Hul tekst" />
+				<Textfield variant="filled" bind:value={hole.hole_sponsor} style="flex-grow: 1;" label="Hul sponsor" />
+				<Textfield variant="filled" bind:files label="Hul billede" style="flex-grow: 1;" type="file" />
 			</div>
+
+			<ScoreList bind:scores={hole.scores} />
 
 			<img
 				alt={`Hul ${hole.hole_number} billede`}
 				src={hole.hole_image ? hole.hole_image : '/default-header/small.webp'}
 			/>
-
-			<ScoreList bind:scores={hole.scores} />
 		</article>
 	</Content>
 </Panel>
@@ -42,15 +42,27 @@
 	article {
 		display: grid;
 		grid-template-rows: auto auto;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr auto;
 		gap: 10px;
 
+        @media only screen and (max-width: 480px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+
+        }
+
 		div {
+            display: flex;
+            gap: 10px;
 			grid-column: 1 / span 2;
+            @media only screen and (max-width: 480px) {
+                grid-column: unset;
+            }
 		}
 
 		img {
-			width: 100%;
+            width: 100%;
+            height: 200px;
 		}
 	}
 </style>
