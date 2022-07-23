@@ -9,6 +9,11 @@ export function toISOTs(timestamp: number): string {
 }
 
 export function toUNIXTs(timestamp: string): number {
-	var date = new Date(timestamp);
+	let date = new Date(timestamp);
 	return Math.floor(date.getTime() / 1000);
+}
+
+export function toLocaleTs(timestamp: number): string {
+	let date = new Date(timestamp * 1000);
+	return date.toLocaleString();
 }
