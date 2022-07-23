@@ -8,7 +8,7 @@
 	import type { MenuComponentDev } from '@smui/menu';
 	import Menu from '@smui/menu';
 	let menu: MenuComponentDev;
-    import List, { Item, Separator, Text } from '@smui/list';
+    import List, { Item, Separator, Text, Graphic } from '@smui/list';
 
 	import type { TopAppBarComponentDev } from '@smui/top-app-bar';
 	let topAppBar: TopAppBarComponentDev;
@@ -25,11 +25,13 @@
 	let activeTournament: Tournament = null;
 	let activeTab = '';
 	$: fabExited = !activeTournament;
+    let selectedTournament = '';
 
 	let tournamentList = getTournamentList(baseUrl);
 
 	import { getTournamentList, getTournament, postTournament, deleteTournament } from './scripts/api';
     import { generateID } from './scripts/misc';
+    import Print from './_components/Print.svelte';
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
 		activeTab = '';
@@ -69,6 +71,20 @@
 		fabExited = true;
     }
 
+    function duplicateCurrentTournament() {
+        if (
+			!fabExited &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
+
+		activeTournament.tournament_id = generateID();
+        selectedTournament = activeTournament.tournament_id;
+		activeTournament.tournament_name += ' (kopi)';
+    }
+
     function createTournament() {
         activeTournament 
 		activeTab = '';
@@ -86,7 +102,8 @@
     }
 </script>
 
-<Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick} on:createTournament={createTournament} >
+<div id="dont-print">
+<Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick} active={selectedTournament} on:createTournament={createTournament} >
 	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
@@ -99,22 +116,22 @@
 					</Tab>
 				</TabBar>
 			</Section>
-			<Section align="end" toolbar>
+			<Section align="start" toolbar>
                 <IconButton class="material-icons" aria-label="More" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
 				<Menu bind:this={menu}>
 					<List>
-						<Item on:SMUI:action={() => (alert('Cut'))}>
-							<Text>Cut</Text>
+                        <Item on:SMUI:action={() => window.print()}>
+                            <Graphic class="material-icons">print</Graphic>
+							<Text>Print</Text>
 						</Item>
-						<Item on:SMUI:action={() => (alert('Copy'))}>
-							<Text>Copy</Text>
-						</Item>
-						<Item on:SMUI:action={() => (alert('Paste'))}>
-							<Text>Paste</Text>
+						<Item on:SMUI:action={duplicateCurrentTournament}>
+                            <Graphic class="material-icons">content_copy</Graphic>
+							<Text>Dupliker</Text>
 						</Item>
 						<Separator />
 						<Item on:SMUI:action={deleteCurrentTournament}>
-                            <Text class="error-text" style="color: red; //tmp">Slet turnering</Text>
+                            <Graphic class="material-icons" style="color: red;">delete</Graphic>
+                            <Text class="error-text" style="color: red; //tmp">Slet</Text>
 						</Item>
 					</List>
 				</Menu>
@@ -139,6 +156,9 @@
 		</div>
 	</AutoAdjust>
 </Drawer>
+</div>
+
+<Print tournament={activeTournament}/>
 
 <style lang="scss">
 	.fab-pos {
@@ -150,4 +170,13 @@
 		display: flex;
 		justify-content: flex-end;
 	}
+
+    #dont-print {
+        height: 100%;
+        width: 100%;
+
+        @media only print {
+            display: none;
+        }
+    }
 </style>

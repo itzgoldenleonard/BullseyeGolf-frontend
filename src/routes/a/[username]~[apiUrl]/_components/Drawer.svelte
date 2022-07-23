@@ -8,7 +8,7 @@
 	export let open: boolean;
 	export let tournamentList: Promise<ShortTournament[]>;
 
-	let active = '';
+	export let active = '';
 
 	const dispatch = createEventDispatcher();
 	function pick(tournamentId: string) {
