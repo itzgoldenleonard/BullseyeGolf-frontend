@@ -3,6 +3,7 @@
 	import List, { Item, Text, Separator, Subheader } from '@smui/list';
 	import { H6 } from '@smui/common/elements';
 	import { createEventDispatcher } from 'svelte';
+    import Button, { Label } from '@smui/button';
 
 	export let open: boolean;
 	export let tournamentList: Promise<ShortTournament[]>;
@@ -14,6 +15,11 @@
 		dispatch('pick', { tournamentId });
 		active = tournamentId;
 	}
+
+    function createTournament() {
+        dispatch('createTournament');
+        active = '';
+    }
 </script>
 
 <Drawer variant="dismissible" bind:open>
@@ -64,6 +70,10 @@
 			{/await}
 		</List>
 	</Content>
+
+    <Button on:click={createTournament} touch variant="raised">
+        <Label>Ny Turnering</Label>
+    </Button>
 </Drawer>
 
 <AppContent style="height: 100%;">

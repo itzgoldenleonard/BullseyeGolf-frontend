@@ -29,6 +29,7 @@
 	let tournamentList = getTournamentList(baseUrl);
 
 	import { getTournamentList, getTournament, postTournament, deleteTournament } from './scripts/api';
+    import { generateID } from './scripts/misc';
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
 		activeTab = '';
@@ -67,9 +68,25 @@
         activeTournament = null;
 		fabExited = true;
     }
+
+    function createTournament() {
+        activeTournament 
+		activeTab = '';
+        let now = Math.floor(Date.now() / 1000);
+        activeTournament = {
+            tournament_id: generateID(),
+            tournament_name: '',
+            tournament_image: '',
+            tournament_sponsor: '',
+            holes: [],
+            t_start: now,
+            t_end: now + 86400
+        };
+		activeTab = 'Turnering';
+    }
 </script>
 
-<Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick}>
+<Drawer bind:open={drawerOpen} {tournamentList} on:pick={pick} on:createTournament={createTournament} >
 	<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 		<Row>
 			<Section>
