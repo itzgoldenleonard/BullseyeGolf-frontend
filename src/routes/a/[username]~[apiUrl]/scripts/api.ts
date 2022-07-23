@@ -18,3 +18,18 @@ export async function getTournament(baseUrl: string, tournament_id: string): Pro
 		throw new Error(error);
 	}
 }
+
+export async function postTournament(
+	baseUrl: string,
+	tournament: Tournament,
+	apiKey: string
+): Promise<void> {
+	try {
+		const request_url: string = `${baseUrl}`;
+		const response = await axios.post(request_url, tournament, {
+			headers: { 'X-API-KEY': apiKey }
+		});
+	} catch (error) {
+		throw new Error(error);
+	}
+}

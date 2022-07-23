@@ -23,13 +23,28 @@
 
 	let tournamentList = getTournamentList(baseUrl);
 
-	import { getTournamentList, getTournament } from './scripts/api';
+	import { getTournamentList, getTournament, postTournament } from './scripts/api';
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
 		activeTab = '';
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
 		activeTab = 'Turnering';
 		await new Promise((r) => setTimeout(r, 1));
+		fabExited = true;
+	}
+
+	async function submit() {
+		if (activeTournament.t_end < activeTournament.t_start)
+			return alert('Slut tidspunktet må ikke være før start tidspunktet');
+
+		try {
+			await postTournament(baseUrl, activeTournament, String($page.url.searchParams.get('apiKey')));
+		} catch (e) {
+			alert(e);
+			return;
+		}
+
+		tournamentList = getTournamentList(baseUrl);
 		fabExited = true;
 	}
 </script>
@@ -41,11 +56,14 @@
 				<IconButton class="material-icons" on:click={() => (drawerOpen = !drawerOpen)}
 					>menu</IconButton
 				>
-				<TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
-					<Tab {tab} minWidth>
-						<Label>{tab}</Label>
-					</Tab>
-				</TabBar>
+                <TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
+                    <Tab {tab} minWidth>
+                        <Label>{tab}</Label>
+                    </Tab>
+                </TabBar>
+			</Section>
+			<Section align="end" toolbar>
+				<IconButton class="material-icons" aria-label="More">print</IconButton>
 			</Section>
 		</Row>
 	</TopAppBar>
@@ -60,12 +78,7 @@
 		{/if}
 
 		<div class="fab-pos">
-			<Fab
-				on:click={() => (fabExited = true)}
-				extended
-				exited={fabExited}
-				class="full-width-if-mobile"
-			>
+			<Fab on:click={submit} extended exited={fabExited} class="full-width-if-mobile">
 				<Icon class="material-icons">save</Icon>
 				<FabLabel>Gem</FabLabel>
 			</Fab>
