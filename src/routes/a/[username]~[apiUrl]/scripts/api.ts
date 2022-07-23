@@ -33,3 +33,16 @@ export async function postTournament(
 		throw new Error(error);
 	}
 }
+
+export async function deleteTournament(
+	baseUrl: string,
+	tournament_id: string,
+	apiKey: string
+): Promise<void> {
+	try {
+		const request_url: string = `${baseUrl}/${tournament_id}`;
+		const response = await axios.delete(request_url, { headers: { 'X-API-KEY': apiKey } });
+	} catch (error) {
+		throw new Error(error);
+	}
+}
