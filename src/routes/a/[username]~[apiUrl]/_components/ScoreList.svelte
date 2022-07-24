@@ -4,7 +4,6 @@
 	// SMUI Components
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 	import IconButton from '@smui/icon-button';
-	import Tooltip, { Wrapper } from '@smui/tooltip';
 	// Variables
 	export let scores: Score[];
 	// Functions
@@ -22,6 +21,7 @@
 		<Row>
 			<Cell>Nr.</Cell>
 			<Cell style="width: 100%">Navn</Cell>
+			<Cell>Indsendt</Cell>
 			<Cell>Score</Cell>
 			<Cell checkbox />
 		</Row>
@@ -29,19 +29,17 @@
 
 	<Body>
 		{#each scores as score, i}
-			<Wrapper>
-				<Row>
-					<Cell style="font-size: 1.5rem" class={`score-${i}`}>{i + 1}.</Cell>
-					<Cell>{score.player_name}</Cell>
-					<Cell>{displayScore(score.player_score)}m</Cell>
-					<Cell checkbox
-						><IconButton class="material-icons" on:click$preventDefault={() => removeScore(i)}
-							>delete</IconButton
-						></Cell
-					>
-				</Row>
-				<Tooltip>{toLocaleTs(score.t)}</Tooltip>
-			</Wrapper>
+            <Row>
+                <Cell style="font-size: 1.5rem" class={`score-${i}`}>{i + 1}.</Cell>
+                <Cell>{score.player_name}</Cell>
+                <Cell>{toLocaleTs(score.t)}</Cell>
+                <Cell>{displayScore(score.player_score)}m</Cell>
+                <Cell checkbox
+                    ><IconButton class="material-icons" on:click$preventDefault={() => removeScore(i)}
+                        >delete</IconButton
+                    ></Cell
+                >
+            </Row>
 		{:else}
 			<Row>
 				<Cell colspan={4}>Der er ingen noteringer endnu</Cell>
