@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Drawer, { AppContent, Content, Header, Title } from '@smui/drawer';
+	import Drawer, { AppContent, Content, Header, Title, Scrim } from '@smui/drawer';
 	import List, { Item, Text, Separator, Subheader, Meta, Graphic } from '@smui/list';
 	import { H6 } from '@smui/common/elements';
 	import { createEventDispatcher } from 'svelte';
@@ -11,11 +11,13 @@
 	export let tournamentList: Promise<ShortTournament[]>;
 
 	export let active = '';
+    export let modal = false;
 
 	const dispatch = createEventDispatcher();
 	function forwardPick(e: CustomEvent<{ tournamentId: string }>) {
 		dispatch('pick', e.detail);
 		active = e.detail.tournamentId;
+        if (modal) open = false;
 	}
 
 	function createTournament() {
@@ -37,7 +39,7 @@
 	}
 </script>
 
-<Drawer variant="dismissible" bind:open>
+<Drawer variant={modal ? 'modal' : 'dismissible'} bind:open>
 	<Header>
 		<Title>Turneringer</Title>
 	</Header>
@@ -98,6 +100,9 @@
 	</Button>
 </Drawer>
 
+{#if modal}
+    <Scrim />
+{/if}
 <AppContent style="height: 100%;">
 	<slot />
 </AppContent>

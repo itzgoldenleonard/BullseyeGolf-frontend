@@ -26,6 +26,7 @@
 	let activeTab = '';
 	$: fabExited = !activeTournament;
 	let selectedTournament = '';
+    let mobile = false;
 
 	let tournamentList = getTournamentList(baseUrl);
 
@@ -37,6 +38,7 @@
 	} from './scripts/api';
 	import { generateID } from './scripts/misc';
 	import Print from './_components/Print.svelte';
+    import { onMount } from 'svelte';
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
 		activeTab = '';
@@ -128,11 +130,18 @@
 			deleteTournamentById(e.detail.tournamentId);
 		}
 	}
+
+    onMount(() => {
+        mobile = window.matchMedia('(max-width: 480px)').matches;
+    });
 </script>
+
+{@debug mobile}
 
 <div id="dont-print">
 	<Drawer
 		bind:open={drawerOpen}
+        modal={mobile}
 		{tournamentList}
 		on:pick={pick}
 		active={selectedTournament}
@@ -153,27 +162,27 @@
 						</Tab>
 					</TabBar>
 				</Section>
-				<Section align="start" toolbar>
+				<Section align="end" toolbar>
 					<IconButton class="material-icons" aria-label="More" on:click={() => menu.setOpen(true)}
-						>more_vert</IconButton
-					>
-					<Menu bind:this={menu}>
-						<List>
-							<Item on:SMUI:action={() => window.print()}>
-								<Graphic class="material-icons">print</Graphic>
-								<Text>Print</Text>
-							</Item>
-							<Item on:SMUI:action={duplicateCurrentTournament}>
-								<Graphic class="material-icons">content_copy</Graphic>
-								<Text>Dupliker</Text>
-							</Item>
-							<Separator />
-							<Item on:SMUI:action={deleteCurrentTournament}>
-								<Graphic class="material-icons" style="color: red;">delete</Graphic>
-								<Text class="error-text" style="color: red; //tmp">Slet</Text>
-							</Item>
-						</List>
-					</Menu>
+						>more_vert
+						<Menu bind:this={menu}>
+							<List>
+								<Item on:SMUI:action={() => window.print()}>
+									<Graphic class="material-icons">print</Graphic>
+									<Text>Print</Text>
+								</Item>
+								<Item on:SMUI:action={duplicateCurrentTournament}>
+									<Graphic class="material-icons">content_copy</Graphic>
+									<Text>Dupliker</Text>
+								</Item>
+								<Separator />
+								<Item on:SMUI:action={deleteCurrentTournament}>
+									<Graphic class="material-icons" style="color: red;">delete</Graphic>
+									<Text class="error-text" style="color: red; //tmp">Slet</Text>
+								</Item>
+							</List>
+						</Menu>
+					</IconButton>
 				</Section>
 			</Row>
 		</TopAppBar>
