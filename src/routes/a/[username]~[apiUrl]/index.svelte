@@ -16,9 +16,9 @@
 	import TopAppBar, { Row, Section, AutoAdjust } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
 
-	import Tutorial from './_panels/Tutorial.svelte';
-	import Turnering from './_panels/Turnering.svelte';
-	import Huller from './_panels/Huller.svelte';
+	import Tutorial from './_tabs/Tutorial.svelte';
+	import Turnering from './_tabs/Turnering.svelte';
+	import Huller from './_tabs/Huller.svelte';
 	import Drawer from './_components/Drawer.svelte';
 
 	let baseUrl = `https://${$page.params.apiUrl}/${$page.params.username}`;
