@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { fabExited } from './scripts/stores.ts';
 
 	import Tab, { Label } from '@smui/tab';
 	import TabBar from '@smui/tab-bar';
@@ -24,7 +25,6 @@
 	let drawerOpen = true;
 	let activeTournament: Tournament = null;
 	let activeTab = '';
-	$: fabExited = !activeTournament;
 	let selectedTournament = '';
 	let mobile = false;
 
@@ -42,7 +42,7 @@
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
 		if (
-			!fabExited &&
+			!$fabExited &&
 			!confirm(
 				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
 			)
@@ -52,8 +52,6 @@
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
 		selectedTournament = e.detail.tournamentId;
 		activeTab = 'Turnering';
-		await new Promise((r) => setTimeout(r, 1));
-		fabExited = true;
 	}
 
 	async function submit() {
@@ -68,7 +66,7 @@
 		}
 
 		tournamentList = getTournamentList(baseUrl);
-		fabExited = true;
+		$fabExited = true;
 	}
 
 	async function deleteTournamentById(tournamentId: string): Promise<number> {
@@ -88,12 +86,12 @@
 	async function deleteCurrentTournament() {
 		if ((await deleteTournamentById(activeTournament.tournament_id)) !== 0) return;
 		activeTournament = null;
-		fabExited = true;
+		$fabExited = true;
 	}
 
 	function duplicateCurrentTournament() {
 		if (
-			!fabExited &&
+			!$fabExited &&
 			!confirm(
 				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
 			)
@@ -107,7 +105,7 @@
 
 	function createTournament() {
 		if (
-			!fabExited &&
+			!$fabExited &&
 			!confirm(
 				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
 			)
@@ -152,15 +150,13 @@
 	});
 
 	function beforeunload(event) {
-		if (!fabExited) {
+		if (!$fabExited) {
 			event.preventDefault();
 		}
 		event.returnValue = '';
 		return '...';
 	}
 </script>
-
-{@debug activeTournament}
 
 <svelte:window on:beforeunload={beforeunload} />
 <div id="dont-print">
@@ -217,7 +213,7 @@
 		</TopAppBar>
 
 		<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-			<form on:submit|preventDefault={submit}>
+			<form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
 				{#if activeTab === 'Turnering' && activeTournament !== null}
 					<Turnering bind:tournament={activeTournament} />
 				{:else if activeTab === 'Huller' && activeTournament !== null}
@@ -226,8 +222,8 @@
 					<Tutorial />
 				{/if}
 
-				<div class="fab-pos" class:non-interactive={fabExited}>
-					<Fab extended exited={fabExited} class="full-width-if-mobile">
+				<div class="fab-pos" class:non-interactive={$fabExited}>
+					<Fab extended exited={$fabExited} class="full-width-if-mobile">
 						<Icon class="material-icons">save</Icon>
 						<FabLabel>Gem</FabLabel>
 					</Fab>
