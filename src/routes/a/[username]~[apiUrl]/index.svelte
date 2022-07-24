@@ -52,7 +52,7 @@
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
 		selectedTournament = e.detail.tournamentId;
 		activeTab = 'Turnering';
-        $fabExited = true;
+		$fabExited = true;
 	}
 
 	async function submit() {

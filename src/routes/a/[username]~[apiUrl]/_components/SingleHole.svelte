@@ -28,12 +28,14 @@
 					bind:value={hole.hole_text}
 					style="flex-grow: 1;"
 					label="Hul tekst"
+					input$maxlength={40}
 				/>
 				<Textfield
 					variant="filled"
 					bind:value={hole.hole_sponsor}
 					style="flex-grow: 1;"
 					label="Hul sponsor"
+					input$maxlength={40}
 				/>
 				<Textfield
 					variant="filled"
@@ -41,6 +43,7 @@
 					label="Hul billede"
 					style="flex-grow: 1;"
 					type="file"
+					input$accept="image/*"
 				/>
 			</div>
 

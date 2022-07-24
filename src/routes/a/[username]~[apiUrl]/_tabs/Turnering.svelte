@@ -22,6 +22,7 @@
 			bind:value={tournament.tournament_name}
 			label="Turneringens navn"
 			required
+			input$maxlength={40}
 			style="flex-grow: 1;"
 		/>
 		<Textfield
@@ -29,13 +30,14 @@
 			bind:value={tournament.tournament_sponsor}
 			label="Sponsor"
 			style="flex-grow: 1;"
+			input$maxlength={40}
 		/>
 		<Textfield
 			variant="filled"
 			bind:files
-			label$placeholder="Tryk for at vælge et billede"
 			label="Billede"
 			type="file"
+			input$accept="image/*"
 			style="flex-grow:1;"
 		/>
 	</div>

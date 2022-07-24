@@ -29,17 +29,17 @@
 
 	<Body>
 		{#each scores as score, i}
-            <Row>
-                <Cell style="font-size: 1.5rem" class={`score-${i}`}>{i + 1}.</Cell>
-                <Cell>{score.player_name}</Cell>
-                <Cell>{toLocaleTs(score.t)}</Cell>
-                <Cell>{displayScore(score.player_score)}m</Cell>
-                <Cell checkbox
-                    ><IconButton class="material-icons" on:click$preventDefault={() => removeScore(i)}
-                        >delete</IconButton
-                    ></Cell
-                >
-            </Row>
+			<Row>
+				<Cell style="font-size: 1.5rem" class={`score-${i}`}>{i + 1}.</Cell>
+				<Cell>{score.player_name}</Cell>
+				<Cell>{toLocaleTs(score.t)}</Cell>
+				<Cell>{displayScore(score.player_score)}m</Cell>
+				<Cell checkbox
+					><IconButton class="material-icons" on:click$preventDefault={() => removeScore(i)}
+						>delete</IconButton
+					></Cell
+				>
+			</Row>
 		{:else}
 			<Row>
 				<Cell colspan={4}>Der er ingen noteringer endnu</Cell>
