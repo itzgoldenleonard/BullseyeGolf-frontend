@@ -213,24 +213,22 @@
 			</Row>
 		</TopAppBar>
 
-		<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
-			<form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
-				{#if activeTab === 'Turnering' && activeTournament !== null}
-					<Turnering bind:tournament={activeTournament} />
-				{:else if activeTab === 'Huller' && activeTournament !== null}
-					<Huller bind:holes={activeTournament.holes} />
-				{:else}
-					<Tutorial />
-				{/if}
+        <form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
+            {#if activeTab === 'Turnering' && activeTournament !== null}
+                <Turnering bind:tournament={activeTournament} />
+            {:else if activeTab === 'Huller' && activeTournament !== null}
+                <Huller bind:holes={activeTournament.holes} />
+            {:else}
+                <Tutorial />
+            {/if}
 
-				<div class="fab-pos" class:non-interactive={$fabExited}>
-					<Fab extended exited={$fabExited} class="full-width-if-mobile">
-						<Icon class="material-icons">save</Icon>
-						<FabLabel>Gem</FabLabel>
-					</Fab>
-				</div>
-			</form>
-		</AutoAdjust>
+            <div class="fab-pos" class:non-interactive={$fabExited}>
+                <Fab extended exited={$fabExited} class="full-width-if-mobile">
+                    <Icon class="material-icons">save</Icon>
+                    <FabLabel>Gem</FabLabel>
+                </Fab>
+            </div>
+        </form>
 	</Drawer>
 </div>
 

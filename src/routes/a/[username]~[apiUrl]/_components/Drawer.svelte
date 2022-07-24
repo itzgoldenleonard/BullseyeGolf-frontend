@@ -91,10 +91,10 @@
 		</List>
 	</Content>
 
-	<Button on:click={createTournament} touch variant="raised">
-		<Icon class="material-icons">add</Icon>
-		<Label>Ny Turnering</Label>
-	</Button>
+    <Button on:click={createTournament} touch variant="raised" style="margin-inline: 10px;">
+        <Icon class="material-icons">add</Icon>
+        <Label>Ny Turnering</Label>
+    </Button>
 </Drawer>
 
 {#if modal}

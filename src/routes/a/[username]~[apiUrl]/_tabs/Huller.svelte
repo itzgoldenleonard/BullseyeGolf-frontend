@@ -66,7 +66,7 @@
 	</Set>
 
 	<h1>Valgte huller</h1>
-	<Accordion multiple>
+	<Accordion>
 		{#each holes as hole}
 			<SingleHole bind:hole />
 		{/each}
@@ -78,5 +78,6 @@
 		padding: 10px;
 		overflow-x: hidden;
 		overflow-y: auto;
+        margin-bottom: 48px;
 	}
 </style>
