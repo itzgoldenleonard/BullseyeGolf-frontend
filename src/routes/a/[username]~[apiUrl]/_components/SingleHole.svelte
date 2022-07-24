@@ -81,7 +81,7 @@
 		img {
 			width: 100%;
 			height: 200px;
-            object-fit: cover;
+			object-fit: cover;
 		}
 	}
 </style>

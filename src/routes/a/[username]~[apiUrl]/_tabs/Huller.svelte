@@ -57,27 +57,24 @@
 	});
 </script>
 
-<article>
-	<h1>Vælg huller</h1>
-	<Set chips={choices} let:chip filter bind:selected>
-		<Chip {chip} touch on:click={() => chipClick(Number(chip))}>
-			<Text>{chip}</Text>
-		</Chip>
-	</Set>
+<h1>Vælg huller</h1>
+<Set chips={choices} let:chip filter bind:selected>
+	<Chip {chip} touch on:click={() => chipClick(Number(chip))}>
+		<Text>{chip}</Text>
+	</Chip>
+</Set>
 
-	<h1>Valgte huller</h1>
-	<Accordion>
-		{#each holes as hole}
-			<SingleHole bind:hole />
-		{/each}
-	</Accordion>
-</article>
+<h1>Valgte huller</h1>
+<Accordion>
+	{#each holes as hole}
+		<SingleHole bind:hole />
+	{/each}
+</Accordion>
 
 <style lang="scss">
 	article {
-		padding: 10px;
 		overflow-x: hidden;
 		overflow-y: auto;
-        margin-bottom: 48px;
+		margin-bottom: 48px;
 	}
 </style>

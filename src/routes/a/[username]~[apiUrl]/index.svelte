@@ -213,22 +213,22 @@
 			</Row>
 		</TopAppBar>
 
-        <form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
-            {#if activeTab === 'Turnering' && activeTournament !== null}
-                <Turnering bind:tournament={activeTournament} />
-            {:else if activeTab === 'Huller' && activeTournament !== null}
-                <Huller bind:holes={activeTournament.holes} />
-            {:else}
-                <Tutorial />
-            {/if}
+		<form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
+			{#if activeTab === 'Turnering' && activeTournament !== null}
+				<Turnering bind:tournament={activeTournament} />
+			{:else if activeTab === 'Huller' && activeTournament !== null}
+				<Huller bind:holes={activeTournament.holes} />
+			{:else}
+				<Tutorial />
+			{/if}
 
-            <div class="fab-pos" class:non-interactive={$fabExited}>
-                <Fab extended exited={$fabExited} class="full-width-if-mobile">
-                    <Icon class="material-icons">save</Icon>
-                    <FabLabel>Gem</FabLabel>
-                </Fab>
-            </div>
-        </form>
+			<div class="fab-pos" class:non-interactive={$fabExited}>
+				<Fab extended exited={$fabExited} class="full-width-if-mobile">
+					<Icon class="material-icons">save</Icon>
+					<FabLabel>Gem</FabLabel>
+				</Fab>
+			</div>
+		</form>
 	</Drawer>
 </div>
 
@@ -260,7 +260,9 @@
 	}
 
 	form {
-		height: 100%;
+		height: calc(100% - 48px);
+		box-sizing: border-box;
 		overflow-y: scroll;
+		padding: 10px;
 	}
 </style>
