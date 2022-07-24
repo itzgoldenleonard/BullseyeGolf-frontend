@@ -22,6 +22,19 @@
 		dispatch('createTournament');
 		active = '';
 	}
+
+	function forwardPrint(e: CustomEvent<{ tournamentId: string }>) {
+		dispatch('print', e.detail);
+		active = e.detail.tournamentId;
+	}
+
+	function forwardDuplicate(e: CustomEvent<{ tournamentId: string }>) {
+		dispatch('duplicate', e.detail);
+	}
+
+	function forwardDelete(e: CustomEvent<{ tournamentId: string }>) {
+		dispatch('delete', e.detail);
+	}
 </script>
 
 <Drawer variant="dismissible" bind:open>
@@ -34,7 +47,14 @@
 			<Subheader component={H6}>Aktive</Subheader>
 			{#await tournamentList then tournamentList}
 				{#each tournamentList.filter((e) => e.active) as tournament}
-					<DrawerItem {tournament} {active} on:pick={forwardPick} />
+					<DrawerItem
+						{tournament}
+						{active}
+						on:pick={forwardPick}
+						on:print={forwardPrint}
+						on:duplicate={forwardDuplicate}
+						on:delete={forwardDelete}
+					/>
 				{/each}
 			{/await}
 
@@ -43,7 +63,14 @@
 
 			{#await tournamentList then tournamentList}
 				{#each tournamentList.filter((e) => !e.active && Date.now() < e.t_start * 1000) as tournament}
-					<DrawerItem {tournament} {active} on:pick={forwardPick} />
+					<DrawerItem
+						{tournament}
+						{active}
+						on:pick={forwardPick}
+						on:print={forwardPrint}
+						on:duplicate={forwardDuplicate}
+						on:delete={forwardDelete}
+					/>
 				{/each}
 			{/await}
 
@@ -52,7 +79,14 @@
 
 			{#await tournamentList then tournamentList}
 				{#each tournamentList.filter((e) => !e.active && e.t_end * 1000 < Date.now()) as tournament}
-					<DrawerItem {tournament} {active} on:pick={forwardPick} />
+					<DrawerItem
+						{tournament}
+						{active}
+						on:pick={forwardPick}
+						on:print={forwardPrint}
+						on:duplicate={forwardDuplicate}
+						on:delete={forwardDelete}
+					/>
 				{/each}
 			{/await}
 		</List>

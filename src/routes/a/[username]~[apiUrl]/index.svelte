@@ -61,21 +61,22 @@
 		fabExited = true;
 	}
 
-	async function deleteCurrentTournament() {
-		if (!confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!')) return;
+	async function deleteTournamentById(tournamentId: string): Promise<number> {
+		if (!confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!')) return -1;
 
 		try {
-			await deleteTournament(
-				baseUrl,
-				activeTournament.tournament_id,
-				String($page.url.searchParams.get('apiKey'))
-			);
+			await deleteTournament(baseUrl, tournamentId, String($page.url.searchParams.get('apiKey')));
 		} catch (e) {
 			alert(e);
-			return;
+			return -1;
 		}
 
 		tournamentList = getTournamentList(baseUrl);
+		return 0;
+	}
+
+	async function deleteCurrentTournament() {
+		if ((await deleteTournamentById(activeTournament.tournament_id)) !== 0) return;
 		activeTournament = null;
 		fabExited = true;
 	}
@@ -109,6 +110,24 @@
 		};
 		activeTab = 'Turnering';
 	}
+
+	async function print(e: CustomEvent<{ tournamentId: string }>) {
+		await pick(e);
+		window.print();
+	}
+
+	async function duplicateTournament(e: CustomEvent<{ tournamentId: string }>) {
+		await pick(e);
+		duplicateCurrentTournament();
+	}
+
+	function deleteTournamentWithEvent(e: CustomEvent<{ tournamentId: string }>) {
+		if (activeTournament.tournament_id === e.detail.tournamentId) {
+			deleteCurrentTournament();
+		} else {
+			deleteTournamentById(e.detail.tournamentId);
+		}
+	}
 </script>
 
 <div id="dont-print">
@@ -118,6 +137,9 @@
 		on:pick={pick}
 		active={selectedTournament}
 		on:createTournament={createTournament}
+		on:print={print}
+		on:duplicate={duplicateTournament}
+		on:delete={deleteTournamentWithEvent}
 	>
 		<TopAppBar bind:this={topAppBar} variant="fixed" dense>
 			<Row>

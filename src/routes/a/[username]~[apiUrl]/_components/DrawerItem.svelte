@@ -1,6 +1,6 @@
 <script lang="ts">
 	import List, { Item, Text, Separator, Subheader, Meta, Graphic } from '@smui/list';
-    import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import Dialog, { Title, Content } from '@smui/dialog';
 
 	export let tournament: ShortTournament;
@@ -16,17 +16,17 @@
 
 	function print(tournamentId: string) {
 		dispatch('print', { tournamentId });
-        open = false;
+		open = false;
 	}
 
 	function duplicate(tournamentId: string) {
 		dispatch('duplicate', { tournamentId });
-        open = false;
+		open = false;
 	}
 
 	function remove(tournamentId: string) {
-		dispatch('remove', { tournamentId });
-        open = false;
+		dispatch('delete', { tournamentId });
+		open = false;
 	}
 </script>
 
@@ -39,22 +39,22 @@
 </Item>
 
 <Dialog bind:open selection>
-    <Title>{tournament.tournament_name}</Title>
-    <Content>
-        <List>
-            <Item on:SMUI:action={() => print(tournament.tournament_id)}>
-                <Graphic class="material-icons">print</Graphic>
-                <Text>Print</Text>
-            </Item>
-            <Item on:SMUI:action={() => duplicate(tournament.tournament_id)}>
-                <Graphic class="material-icons">content_copy</Graphic>
-                <Text>Dupliker</Text>
-            </Item>
-            <Separator />
-            <Item on:SMUI:action={() => remove(tournament.tournament_id)}>
-                <Graphic class="material-icons" style="color: red;">delete</Graphic>
-                <Text class="error-text" style="color: red; //tmp">Slet</Text>
-            </Item>
-        </List>
-    </Content>
+	<Title>{tournament.tournament_name}</Title>
+	<Content>
+		<List>
+			<Item on:SMUI:action={() => print(tournament.tournament_id)}>
+				<Graphic class="material-icons">print</Graphic>
+				<Text>Print</Text>
+			</Item>
+			<Item on:SMUI:action={() => duplicate(tournament.tournament_id)}>
+				<Graphic class="material-icons">content_copy</Graphic>
+				<Text>Dupliker</Text>
+			</Item>
+			<Separator />
+			<Item on:SMUI:action={() => remove(tournament.tournament_id)}>
+				<Graphic class="material-icons" style="color: red;">delete</Graphic>
+				<Text class="error-text" style="color: red; //tmp">Slet</Text>
+			</Item>
+		</List>
+	</Content>
 </Dialog>
