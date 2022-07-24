@@ -26,7 +26,7 @@
 	let activeTab = '';
 	$: fabExited = !activeTournament;
 	let selectedTournament = '';
-    let mobile = false;
+	let mobile = false;
 
 	let tournamentList = getTournamentList(baseUrl);
 
@@ -38,11 +38,19 @@
 	} from './scripts/api';
 	import { generateID } from './scripts/misc';
 	import Print from './_components/Print.svelte';
-    import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	async function pick(e: CustomEvent<{ tournamentId: string }>) {
+		if (
+			!fabExited &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
 		activeTab = '';
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
+        selectedTournament = e.detail.tournamentId;
 		activeTab = 'Turnering';
 		await new Promise((r) => setTimeout(r, 1));
 		fabExited = true;
@@ -98,7 +106,13 @@
 	}
 
 	function createTournament() {
-		activeTournament;
+		if (
+			!fabExited &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		)
+			return;
 		activeTab = '';
 		let now = Math.floor(Date.now() / 1000);
 		activeTournament = {
@@ -110,6 +124,7 @@
 			t_start: now,
 			t_end: now + 86400
 		};
+        selectedTournament = activeTournament.tournament_id;
 		activeTab = 'Turnering';
 	}
 
@@ -131,17 +146,25 @@
 		}
 	}
 
-    onMount(() => {
-        mobile = window.matchMedia('(max-width: 480px)').matches;
-    });
+	onMount(() => {
+		mobile = window.matchMedia('(max-width: 480px)').matches;
+		if (mobile) drawerOpen = false;
+	});
+
+	function beforeunload(event) {
+		if (!fabExited) {
+			event.preventDefault();
+		}
+		event.returnValue = '';
+		return '...';
+	}
 </script>
 
-{@debug mobile}
-
+<svelte:window on:beforeunload={beforeunload} />
 <div id="dont-print">
 	<Drawer
 		bind:open={drawerOpen}
-        modal={mobile}
+		modal={mobile}
 		{tournamentList}
 		on:pick={pick}
 		active={selectedTournament}
@@ -150,20 +173,24 @@
 		on:duplicate={duplicateTournament}
 		on:delete={deleteTournamentWithEvent}
 	>
-		<TopAppBar bind:this={topAppBar} variant="fixed" dense>
+		<TopAppBar bind:this={topAppBar} variant="static" dense>
 			<Row>
 				<Section>
 					<IconButton class="material-icons" on:click={() => (drawerOpen = !drawerOpen)}
 						>menu</IconButton
 					>
 					<TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
-						<Tab {tab} minWidth>
+						<Tab disabled={!activeTournament} {tab} minWidth>
 							<Label>{tab}</Label>
 						</Tab>
 					</TabBar>
 				</Section>
 				<Section align="end" toolbar>
-					<IconButton class="material-icons" aria-label="More" on:click={() => menu.setOpen(true)}
+					<IconButton
+						disabled={!activeTournament}
+						class="material-icons"
+						aria-label="More"
+						on:click={() => menu.setOpen(true)}
 						>more_vert
 						<Menu bind:this={menu}>
 							<List>
@@ -196,7 +223,7 @@
 				<Tutorial />
 			{/if}
 
-			<div class="fab-pos">
+			<div class="fab-pos" class:non-interactive={fabExited}>
 				<Fab on:click={submit} extended exited={fabExited} class="full-width-if-mobile">
 					<Icon class="material-icons">save</Icon>
 					<FabLabel>Gem</FabLabel>
@@ -217,6 +244,10 @@
 		box-sizing: border-box;
 		display: flex;
 		justify-content: flex-end;
+	}
+
+	.non-interactive {
+		pointer-events: none;
 	}
 
 	#dont-print {

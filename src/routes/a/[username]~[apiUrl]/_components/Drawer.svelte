@@ -11,23 +11,20 @@
 	export let tournamentList: Promise<ShortTournament[]>;
 
 	export let active = '';
-    export let modal = false;
+	export let modal = false;
 
 	const dispatch = createEventDispatcher();
 	function forwardPick(e: CustomEvent<{ tournamentId: string }>) {
 		dispatch('pick', e.detail);
-		active = e.detail.tournamentId;
-        if (modal) open = false;
+		if (modal) open = false;
 	}
 
 	function createTournament() {
 		dispatch('createTournament');
-		active = '';
 	}
 
 	function forwardPrint(e: CustomEvent<{ tournamentId: string }>) {
 		dispatch('print', e.detail);
-		active = e.detail.tournamentId;
 	}
 
 	function forwardDuplicate(e: CustomEvent<{ tournamentId: string }>) {
@@ -101,7 +98,7 @@
 </Drawer>
 
 {#if modal}
-    <Scrim />
+	<Scrim />
 {/if}
 <AppContent style="height: 100%;">
 	<slot />
