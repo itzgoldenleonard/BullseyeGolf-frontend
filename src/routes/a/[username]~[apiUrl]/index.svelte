@@ -50,7 +50,7 @@
 			return;
 		activeTab = '';
 		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
-        selectedTournament = e.detail.tournamentId;
+		selectedTournament = e.detail.tournamentId;
 		activeTab = 'Turnering';
 		await new Promise((r) => setTimeout(r, 1));
 		fabExited = true;
@@ -124,7 +124,7 @@
 			t_start: now,
 			t_end: now + 86400
 		};
-        selectedTournament = activeTournament.tournament_id;
+		selectedTournament = activeTournament.tournament_id;
 		activeTab = 'Turnering';
 	}
 
@@ -159,6 +159,8 @@
 		return '...';
 	}
 </script>
+
+{@debug activeTournament}
 
 <svelte:window on:beforeunload={beforeunload} />
 <div id="dont-print">
@@ -214,21 +216,23 @@
 			</Row>
 		</TopAppBar>
 
-		<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box; overflow-y: scroll;">
-			{#if activeTab === 'Turnering' && activeTournament !== null}
-				<Turnering bind:tournament={activeTournament} />
-			{:else if activeTab === 'Huller' && activeTournament !== null}
-				<Huller bind:holes={activeTournament.holes} />
-			{:else}
-				<Tutorial />
-			{/if}
+		<AutoAdjust {topAppBar} style="height: 100%; box-sizing: border-box;">
+			<form on:submit|preventDefault={submit}>
+				{#if activeTab === 'Turnering' && activeTournament !== null}
+					<Turnering bind:tournament={activeTournament} />
+				{:else if activeTab === 'Huller' && activeTournament !== null}
+					<Huller bind:holes={activeTournament.holes} />
+				{:else}
+					<Tutorial />
+				{/if}
 
-			<div class="fab-pos" class:non-interactive={fabExited}>
-				<Fab on:click={submit} extended exited={fabExited} class="full-width-if-mobile">
-					<Icon class="material-icons">save</Icon>
-					<FabLabel>Gem</FabLabel>
-				</Fab>
-			</div>
+				<div class="fab-pos" class:non-interactive={fabExited}>
+					<Fab extended exited={fabExited} class="full-width-if-mobile">
+						<Icon class="material-icons">save</Icon>
+						<FabLabel>Gem</FabLabel>
+					</Fab>
+				</div>
+			</form>
 		</AutoAdjust>
 	</Drawer>
 </div>
@@ -258,5 +262,10 @@
 		@media only print {
 			display: none;
 		}
+	}
+
+	form {
+		height: 100%;
+		overflow-y: scroll;
 	}
 </style>
