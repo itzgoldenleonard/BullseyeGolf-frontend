@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateID } from '../routes/a/[username]~[apiUrl]/scripts/misc';
+	import { generateID } from '../routes/a/[username]~[apiUrl]~old/scripts/misc';
 
 	export let value: string;
 	export let alt: string;

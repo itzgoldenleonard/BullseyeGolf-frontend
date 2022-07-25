@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { activeTournament } from '../../persistence/stores';
+	export let tournament: Tournament;
+
 	import { displayScore } from '$lib/displayScore';
 
-	$: table = createTable($activeTournament);
+	$: table = createTable(tournament);
 
 	function calculateLargestHole(holes: Hole[]) {
 		let longest: Number = 0;
@@ -30,14 +31,14 @@
 	}
 </script>
 
-{#if $activeTournament !== null}
+{#if tournament !== null}
 	<main>
 		<h1>
-			{$activeTournament.tournament_name}
+			{tournament.tournament_name}
 		</h1>
 
 		<div class="triplet">
-			{#each $activeTournament.holes as hole}
+			{#each tournament.holes as hole}
 				<table>
 					<caption>
 						<h2>Hul {hole.hole_number}</h2>

@@ -18,3 +18,28 @@
 	background: linear-gradient(150deg, hsl(25, 64%, 65%) 0%, 40%, hsl(20, 67%, 38%)) no-repeat;
 	background-size: 10px 100%;
 }
+
+.mdc-tab--active .mdc-tab__text-label {
+	color: white !important;
+}
+
+.mdc-tab.mdc-tab .mdc-tab__text-label {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.mdc-tab-indicator.mdc-tab-indicator .mdc-tab-indicator__content--underline {
+	border-color: white;
+}
+
+.mdc-tab.mdc-tab .mdc-tab__ripple::before,
+.mdc-tab .mdc-tab__ripple::after {
+	background-color: white;
+}
+
+.hide-file-ui input[type='file']::file-selector-button {
+	display: none;
+}
+
+.hide-file-ui :not(.mdc-text-field--label-floating) input[type='file'] {
+	color: transparent;
+}
