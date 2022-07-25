@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Stores
-	import { fabExited } from '../scripts/stores';
+	import { saved } from '../scripts/stores';
 	// SMUI Components
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 	import IconButton from '@smui/icon-button';
@@ -12,7 +12,7 @@
 
 	function removeScore(index: number) {
 		scores = scores.filter((e, i) => i !== index); // Removes the element at index and assigns to the array (to update the UI) at the same time
-		$fabExited = false;
+		$saved = false;
 	}
 </script>
 

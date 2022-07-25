@@ -1,35 +1,25 @@
 <script lang="ts">
+	// Stores
 	import { page } from '$app/stores';
-	import { fabExited } from './scripts/stores.ts';
-
-	import Tab, { Label } from '@smui/tab';
-	import TabBar from '@smui/tab-bar';
-	import Fab, { Icon, Label as FabLabel } from '@smui/fab';
-
-	import type { MenuComponentDev } from '@smui/menu';
-	import Menu from '@smui/menu';
-	let menu: MenuComponentDev;
-	import List, { Item, Separator, Text, Graphic } from '@smui/list';
-
-	import type { TopAppBarComponentDev } from '@smui/top-app-bar';
-	let topAppBar: TopAppBarComponentDev;
-	import TopAppBar, { Row, Section, AutoAdjust } from '@smui/top-app-bar';
+	import { saved } from './scripts/stores';
+	// SMUI Components
+	import TopAppBar, { Row, Section } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
-
+	import TabBar from '@smui/tab-bar';
+	import Tab, { Label } from '@smui/tab';
+	import Menu from '@smui/menu';
+	import type { MenuComponentDev } from '@smui/menu';
+	import List, { Item, Separator, Text, Graphic } from '@smui/list';
+	import Fab, { Icon, Label as FabLabel } from '@smui/fab';
+	// Custom Components
+	// Tabs
 	import Tutorial from './_tabs/Tutorial.svelte';
 	import Turnering from './_tabs/Turnering.svelte';
 	import Huller from './_tabs/Huller.svelte';
+	// Other
 	import Drawer from './_components/Drawer.svelte';
-
-	let baseUrl = `https://${$page.params.apiUrl}/${$page.params.username}`;
-	let drawerOpen = true;
-	let activeTournament: Tournament = null;
-	let activeTab = '';
-	let selectedTournament = '';
-	let mobile = false;
-
-	let tournamentList = getTournamentList(baseUrl);
-
+	import Print from './_components/Print.svelte';
+	// Functions
 	import {
 		getTournamentList,
 		getTournament,
@@ -37,37 +27,52 @@
 		deleteTournament
 	} from './scripts/api';
 	import { generateID } from './scripts/misc';
-	import Print from './_components/Print.svelte';
 	import { onMount } from 'svelte';
 
-	async function pick(e: CustomEvent<{ tournamentId: string }>) {
-		if (
-			!$fabExited &&
+	// UI Variables
+	let menu: MenuComponentDev;
+	let drawerOpen = true;
+	let activeTab = '';
+	let activeTournamentId = '';
+	let mobile = false;
+
+	// Variables
+	let baseUrl = `https://${$page.params.apiUrl}/${$page.params.username}`;
+	let tournament: Tournament = null;
+	let tournamentList = getTournamentList(baseUrl);
+
+	function confirmLeave(): boolean {
+		// Returns true if you cancel the confirmation
+		return (
+			!$saved &&
 			!confirm(
 				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
 			)
-		)
-			return;
+		);
+	}
+
+	async function pick(e: CustomEvent<{ tournamentId: string }>) {
+		if (confirmLeave()) return;
 		activeTab = '';
-		activeTournament = await getTournament(baseUrl, e.detail.tournamentId);
-		selectedTournament = e.detail.tournamentId;
+		tournament = await getTournament(baseUrl, e.detail.tournamentId);
+		activeTournamentId = e.detail.tournamentId;
 		activeTab = 'Turnering';
-		$fabExited = true;
+		$saved = true;
 	}
 
 	async function submit() {
-		if (activeTournament.t_end < activeTournament.t_start)
+		if (tournament.t_end < tournament.t_start)
 			return alert('Slut tidspunktet må ikke være før start tidspunktet');
 
 		try {
-			await postTournament(baseUrl, activeTournament, String($page.url.searchParams.get('apiKey')));
+			await postTournament(baseUrl, tournament, String($page.url.searchParams.get('apiKey')));
 		} catch (e) {
 			alert(e);
 			return;
 		}
 
 		tournamentList = getTournamentList(baseUrl);
-		$fabExited = true;
+		$saved = true;
 	}
 
 	async function deleteTournamentById(tournamentId: string): Promise<number> {
@@ -85,36 +90,24 @@
 	}
 
 	async function deleteCurrentTournament() {
-		if ((await deleteTournamentById(activeTournament.tournament_id)) !== 0) return;
-		activeTournament = null;
-		$fabExited = true;
+		if ((await deleteTournamentById(tournament.tournament_id)) !== 0) return;
+		tournament = null;
+		$saved = true;
 	}
 
 	function duplicateCurrentTournament() {
-		if (
-			!$fabExited &&
-			!confirm(
-				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
-			)
-		)
-			return;
-
-		activeTournament.tournament_id = generateID();
-		selectedTournament = activeTournament.tournament_id;
-		activeTournament.tournament_name += ' (kopi)';
+		if (confirmLeave()) return;
+		tournament.tournament_id = generateID();
+		activeTournamentId = tournament.tournament_id;
+		tournament.tournament_name += ' (kopi)';
+		// $saved = false // I have to test if it already does this
 	}
 
 	function createTournament() {
-		if (
-			!$fabExited &&
-			!confirm(
-				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
-			)
-		)
-			return;
+		if (confirmLeave()) return;
 		activeTab = '';
 		let now = Math.floor(Date.now() / 1000);
-		activeTournament = {
+		tournament = {
 			tournament_id: generateID(),
 			tournament_name: '',
 			tournament_image: '',
@@ -123,8 +116,9 @@
 			t_start: now,
 			t_end: now + 86400
 		};
-		selectedTournament = activeTournament.tournament_id;
+		activeTournamentId = tournament.tournament_id;
 		activeTab = 'Turnering';
+		// $saved = false // I have to test if it already does this
 	}
 
 	async function print(e: CustomEvent<{ tournamentId: string }>) {
@@ -138,7 +132,7 @@
 	}
 
 	function deleteTournamentWithEvent(e: CustomEvent<{ tournamentId: string }>) {
-		if (activeTournament.tournament_id === e.detail.tournamentId) {
+		if (tournament.tournament_id === e.detail.tournamentId) {
 			deleteCurrentTournament();
 		} else {
 			deleteTournamentById(e.detail.tournamentId);
@@ -151,7 +145,7 @@
 	});
 
 	function beforeunload(event) {
-		if (!$fabExited) {
+		if (!$saved) {
 			event.preventDefault();
 		}
 		event.returnValue = '';
@@ -166,27 +160,27 @@
 		modal={mobile}
 		{tournamentList}
 		on:pick={pick}
-		active={selectedTournament}
+		active={activeTournamentId}
 		on:createTournament={createTournament}
 		on:print={print}
 		on:duplicate={duplicateTournament}
 		on:delete={deleteTournamentWithEvent}
 	>
-		<TopAppBar bind:this={topAppBar} variant="static" dense>
+		<TopAppBar variant="static" dense>
 			<Row>
 				<Section>
 					<IconButton class="material-icons" on:click={() => (drawerOpen = !drawerOpen)}
 						>menu</IconButton
 					>
 					<TabBar tabs={['Turnering', 'Huller']} let:tab bind:active={activeTab}>
-						<Tab disabled={!activeTournament} {tab} minWidth>
+						<Tab disabled={!tournament} {tab} minWidth>
 							<Label>{tab}</Label>
 						</Tab>
 					</TabBar>
 				</Section>
 				<Section align="end" toolbar>
 					<IconButton
-						disabled={!activeTournament}
+						disabled={!tournament}
 						class="material-icons"
 						aria-label="More"
 						on:click={() => menu.setOpen(true)}
@@ -213,17 +207,17 @@
 			</Row>
 		</TopAppBar>
 
-		<form on:submit|preventDefault={submit} on:change={() => ($fabExited = false)}>
-			{#if activeTab === 'Turnering' && activeTournament !== null}
-				<Turnering bind:tournament={activeTournament} />
-			{:else if activeTab === 'Huller' && activeTournament !== null}
-				<Huller bind:holes={activeTournament.holes} />
+		<form on:submit|preventDefault={submit} on:change={() => ($saved = false)}>
+			{#if activeTab === 'Turnering' && tournament !== null}
+				<Turnering bind:tournament />
+			{:else if activeTab === 'Huller' && tournament !== null}
+				<Huller bind:holes={tournament.holes} />
 			{:else}
 				<Tutorial />
 			{/if}
 
-			<div class="fab-pos" class:non-interactive={$fabExited}>
-				<Fab extended exited={$fabExited} class="full-width-if-mobile">
+			<div class="fab-pos" class:non-interactive={$saved}>
+				<Fab extended exited={$saved} class="full-width-if-mobile">
 					<Icon class="material-icons">save</Icon>
 					<FabLabel>Gem</FabLabel>
 				</Fab>
@@ -232,7 +226,7 @@
 	</Drawer>
 </div>
 
-<Print tournament={activeTournament} />
+<Print {tournament} />
 
 <style lang="scss">
 	.fab-pos {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fabExited } from '../scripts/stores';
+	import { saved } from '../scripts/stores';
 	import Accordion from '@smui-extra/accordion';
 	import Chip, { Set, Text } from '@smui/chips';
 	import { onMount } from 'svelte';
@@ -34,7 +34,7 @@
 			scores: []
 		});
 		holes = holes.sort((a, b) => a.hole_number - b.hole_number);
-		$fabExited = false;
+		$saved = false;
 	}
 
 	async function removeHole(holeNumber: number) {
@@ -47,7 +47,7 @@
 		}
 
 		holes = holes.filter((e) => e.hole_number !== holeNumber);
-		$fabExited = false;
+		$saved = false;
 	}
 
 	onMount(() => {
@@ -72,6 +72,12 @@
 </Accordion>
 
 <style lang="scss">
+	@use '@material/typography/index' as typography;
+
+	h1 {
+		@include typography.typography('headline4');
+	}
+
 	article {
 		overflow-x: hidden;
 		overflow-y: auto;
