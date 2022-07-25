@@ -24,7 +24,7 @@
 		getTournamentList,
 		getTournament,
 		postTournament,
-		deleteTournament
+		deleteTournament as deleteApi
 	} from './scripts/api';
 	import { generateID } from './scripts/misc';
 	import { onMount } from 'svelte';
@@ -41,69 +41,8 @@
 	let tournament: Tournament = null;
 	let tournamentList = getTournamentList(baseUrl);
 
-	function confirmLeave(): boolean {
-		// Returns true if you cancel the confirmation
-		return (
-			!$saved &&
-			!confirm(
-				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
-			)
-		);
-	}
-
-	async function pick(e: CustomEvent<{ tournamentId: string }>) {
-		if (confirmLeave()) return;
-		activeTab = '';
-		tournament = await getTournament(baseUrl, e.detail.tournamentId);
-		activeTournamentId = e.detail.tournamentId;
-		activeTab = 'Turnering';
-		$saved = true;
-	}
-
-	async function submit() {
-		if (tournament.t_end < tournament.t_start)
-			return alert('Slut tidspunktet må ikke være før start tidspunktet');
-
-		try {
-			await postTournament(baseUrl, tournament, String($page.url.searchParams.get('apiKey')));
-		} catch (e) {
-			alert(e);
-			return;
-		}
-
-		tournamentList = getTournamentList(baseUrl);
-		$saved = true;
-	}
-
-	async function deleteTournamentById(tournamentId: string): Promise<number> {
-		if (!confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!')) return -1;
-
-		try {
-			await deleteTournament(baseUrl, tournamentId, String($page.url.searchParams.get('apiKey')));
-		} catch (e) {
-			alert(e);
-			return -1;
-		}
-
-		tournamentList = getTournamentList(baseUrl);
-		return 0;
-	}
-
-	async function deleteCurrentTournament() {
-		if ((await deleteTournamentById(tournament.tournament_id)) !== 0) return;
-		tournament = null;
-		$saved = true;
-	}
-
-	function duplicateCurrentTournament() {
-		if (confirmLeave()) return;
-		tournament.tournament_id = generateID();
-		activeTournamentId = tournament.tournament_id;
-		tournament.tournament_name += ' (kopi)';
-		// $saved = false // I have to test if it already does this
-	}
-
-	function createTournament() {
+	// Functions
+	async function createTournament() {
 		if (confirmLeave()) return;
 		activeTab = '';
 		let now = Math.floor(Date.now() / 1000);
@@ -117,34 +56,106 @@
 			t_end: now + 86400
 		};
 		activeTournamentId = tournament.tournament_id;
+		await new Promise((r) => setTimeout(r, 0.1));
 		activeTab = 'Turnering';
-		// $saved = false // I have to test if it already does this
+		$saved = false;
+	}
+	// Duplication
+	function duplicateActiveTournament() {
+		if (confirmLeave()) return;
+		tournament.tournament_id = generateID();
+		activeTournamentId = tournament.tournament_id;
+		tournament.tournament_name += ' (kopi)';
+		$saved = false;
 	}
 
-	async function print(e: CustomEvent<{ tournamentId: string }>) {
+	async function duplicateTournamentByEvent(e: CustomEvent<{ tournamentId: string }>) {
+		await pick(e);
+		duplicateActiveTournament();
+	}
+
+	async function pick(e: CustomEvent<{ tournamentId: string }>) {
+		if (confirmLeave()) return;
+		activeTab = '';
+
+		try {
+			tournament = await getTournament(baseUrl, e.detail.tournamentId);
+		} catch (e) {
+			alert(e);
+			return;
+		}
+
+		activeTournamentId = e.detail.tournamentId;
+		activeTab = 'Turnering';
+		$saved = true;
+	}
+
+	async function save() {
+		if (tournament.t_end < tournament.t_start)
+			return alert('Slut tidspunktet må ikke være før start tidspunktet');
+
+		try {
+			await postTournament(baseUrl, tournament, String($page.url.searchParams.get('apiKey')));
+		} catch (e) {
+			alert(e);
+			return;
+		}
+
+		tournamentList = getTournamentList(baseUrl);
+		$saved = true;
+	}
+	// Deletion
+	async function deleteWrapper(tournamentId: string): Promise<boolean> {
+		if (!confirm('Er du sikker på at du vil slette turneringen? Du kan ikke fortryde!'))
+			return false;
+
+		try {
+			await deleteApi(baseUrl, tournamentId, String($page.url.searchParams.get('apiKey')));
+		} catch (e) {
+			alert(e);
+			return false;
+		}
+
+		tournamentList = getTournamentList(baseUrl);
+		return true;
+	}
+
+	async function deleteActiveTournament() {
+		if (!(await deleteWrapper(tournament.tournament_id))) return;
+		tournament = null;
+		$saved = true;
+	}
+
+	function deleteTournamentByEvent(e: CustomEvent<{ tournamentId: string }>) {
+		if (tournament !== null && tournament.tournament_id === e.detail.tournamentId) {
+			deleteActiveTournament();
+		} else {
+			deleteWrapper(e.detail.tournamentId);
+		}
+	}
+
+	async function printByEvent(e: CustomEvent<{ tournamentId: string }>) {
 		await pick(e);
 		window.print();
 	}
 
-	async function duplicateTournament(e: CustomEvent<{ tournamentId: string }>) {
-		await pick(e);
-		duplicateCurrentTournament();
+	function confirmLeave(): boolean {
+		// Returns true if you cancel the confirmation
+		return (
+			!$saved &&
+			!confirm(
+				'Er du sikker på at du vil ændre turnering?\nDine ugemte ændringer vil blive slettet'
+			)
+		);
 	}
 
-	function deleteTournamentWithEvent(e: CustomEvent<{ tournamentId: string }>) {
-		if (tournament.tournament_id === e.detail.tournamentId) {
-			deleteCurrentTournament();
-		} else {
-			deleteTournamentById(e.detail.tournamentId);
-		}
-	}
-
+	// Lifecycle
 	onMount(() => {
 		mobile = window.matchMedia('(max-width: 480px)').matches;
 		if (mobile) drawerOpen = false;
 	});
 
-	function beforeunload(event) {
+	function beforeunload(event: any) {
 		if (!$saved) {
 			event.preventDefault();
 		}
@@ -162,9 +173,9 @@
 		on:pick={pick}
 		active={activeTournamentId}
 		on:createTournament={createTournament}
-		on:print={print}
-		on:duplicate={duplicateTournament}
-		on:delete={deleteTournamentWithEvent}
+		on:print={printByEvent}
+		on:duplicate={duplicateTournamentByEvent}
+		on:delete={deleteTournamentByEvent}
 	>
 		<TopAppBar variant="static" dense>
 			<Row>
@@ -191,14 +202,14 @@
 									<Graphic class="material-icons">print</Graphic>
 									<Text>Print</Text>
 								</Item>
-								<Item on:SMUI:action={duplicateCurrentTournament}>
+								<Item on:SMUI:action={duplicateActiveTournament}>
 									<Graphic class="material-icons">content_copy</Graphic>
 									<Text>Dupliker</Text>
 								</Item>
 								<Separator />
-								<Item on:SMUI:action={deleteCurrentTournament}>
-									<Graphic class="material-icons" style="color: red;">delete</Graphic>
-									<Text class="error-text" style="color: red; //tmp">Slet</Text>
+								<Item on:SMUI:action={deleteActiveTournament}>
+									<Graphic class="material-icons error-text">delete</Graphic>
+									<Text class="error-text">Slet</Text>
 								</Item>
 							</List>
 						</Menu>
@@ -207,7 +218,7 @@
 			</Row>
 		</TopAppBar>
 
-		<form on:submit|preventDefault={submit} on:change={() => ($saved = false)}>
+		<form on:submit|preventDefault={save} on:change={() => ($saved = false)}>
 			{#if activeTab === 'Turnering' && tournament !== null}
 				<Turnering bind:tournament />
 			{:else if activeTab === 'Huller' && tournament !== null}
@@ -216,7 +227,7 @@
 				<Tutorial />
 			{/if}
 
-			<div class="fab-pos" class:non-interactive={$saved}>
+			<div class="fab-pos full-width-if-mobile" class:non-interactive={$saved}>
 				<Fab extended exited={$saved} class="full-width-if-mobile">
 					<Icon class="material-icons">save</Icon>
 					<FabLabel>Gem</FabLabel>
@@ -229,20 +240,6 @@
 <Print {tournament} />
 
 <style lang="scss">
-	.fab-pos {
-		position: absolute;
-		bottom: 0;
-		padding: 10px;
-		width: 100%;
-		box-sizing: border-box;
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	.non-interactive {
-		pointer-events: none;
-	}
-
 	#dont-print {
 		height: 100%;
 		width: 100%;
@@ -258,5 +255,17 @@
 		box-sizing: border-box;
 		overflow-y: scroll;
 		padding: 10px;
+
+		.fab-pos {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+
+		.non-interactive {
+			pointer-events: none;
+		}
 	}
 </style>

@@ -18,6 +18,10 @@ body {
 	color: theme.$on-surface;
 }
 
+.error-text {
+	color: theme.$error !important;
+}
+
 .mdc-chip__checkmark-path {
 	stroke: white;
 }
