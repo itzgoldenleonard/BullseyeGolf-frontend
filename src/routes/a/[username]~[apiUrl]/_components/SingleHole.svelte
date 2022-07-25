@@ -21,67 +21,54 @@
 <Panel>
 	<Header>Hul {hole.hole_number}</Header>
 	<Content>
-		<article>
-			<div class="hide-file-ui">
-				<Textfield
-					variant="filled"
-					bind:value={hole.hole_text}
-					style="flex-grow: 1;"
-					label="Hul tekst"
-					input$maxlength={40}
-				/>
-				<Textfield
-					variant="filled"
-					bind:value={hole.hole_sponsor}
-					style="flex-grow: 1;"
-					label="Hul sponsor"
-					input$maxlength={40}
-				/>
-				<Textfield
-					variant="filled"
-					bind:files
-					label="Hul billede"
-					style="flex-grow: 1;"
-					type="file"
-					input$accept="image/*"
-				/>
-			</div>
+		<div class="hide-file-ui">
+			<Textfield
+				variant="filled"
+				bind:value={hole.hole_text}
+				style="flex-grow: 1;"
+				label="Hul tekst"
+				input$maxlength={40}
+			/>
+			<Textfield
+				variant="filled"
+				bind:value={hole.hole_sponsor}
+				style="flex-grow: 1;"
+				label="Hul sponsor"
+				input$maxlength={40}
+			/>
+			<Textfield
+				variant="filled"
+				bind:files
+				label="Hul billede"
+				style="flex-grow: 1;"
+				type="file"
+				input$accept="image/*"
+			/>
+		</div>
 
+		<div>
 			<ScoreList bind:scores={hole.scores} />
 
 			<img
 				alt={`Hul ${hole.hole_number} billede`}
 				src={hole.hole_image ? hole.hole_image : '/default-header/small.webp'}
 			/>
-		</article>
+		</div>
 	</Content>
 </Panel>
 
 <style lang="scss">
-	article {
-		display: grid;
-		grid-template-rows: auto auto;
-		grid-template-columns: 1fr auto;
+	div {
+		display: flex;
 		gap: 10px;
+		margin-bottom: 10px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 
-		@media only screen and (max-width: 480px) {
-			grid-template-columns: 1fr;
-			grid-template-rows: 1fr;
-		}
-
-		div {
-			display: flex;
-			gap: 10px;
-			grid-column: 1 / span 2;
-			@media only screen and (max-width: 480px) {
-				grid-column: unset;
-			}
-		}
-
-		img {
-			width: 100%;
-			height: 200px;
-			object-fit: cover;
-		}
+	img {
+		max-width: 100%;
+		height: 200px;
+		object-fit: cover;
 	}
 </style>

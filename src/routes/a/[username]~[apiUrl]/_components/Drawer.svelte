@@ -1,38 +1,39 @@
 <script lang="ts">
-	import Drawer, { AppContent, Content, Header, Title, Scrim } from '@smui/drawer';
-	import List, { Item, Text, Separator, Subheader, Meta, Graphic } from '@smui/list';
+	// SMUI Components
+	import Drawer, { Header, Title, Content, Scrim, AppContent } from '@smui/drawer';
+	import List, { Subheader, Separator } from '@smui/list';
 	import { H6 } from '@smui/common/elements';
-	import { createEventDispatcher } from 'svelte';
 	import Button, { Label, Icon } from '@smui/button';
-
+	// Custom Components
 	import DrawerItem from './DrawerItem.svelte';
+	// Functions
+	import { createEventDispatcher } from 'svelte';
 
+	// UI Variables
 	export let open: boolean;
-	export let tournamentList: Promise<ShortTournament[]>;
-
 	export let active = '';
 	export let modal = false;
 
+	// Variables
+	export let tournamentList: Promise<ShortTournament[]>;
+
+	// Functions
 	const dispatch = createEventDispatcher();
+	function createTournament() {
+		dispatch('createTournament');
+	}
+	function forwardDuplicate(e: CustomEvent<{ tournamentId: string }>) {
+		dispatch('duplicate', e.detail);
+	}
 	function forwardPick(e: CustomEvent<{ tournamentId: string }>) {
 		dispatch('pick', e.detail);
 		if (modal) open = false;
 	}
-
-	function createTournament() {
-		dispatch('createTournament');
-	}
-
-	function forwardPrint(e: CustomEvent<{ tournamentId: string }>) {
-		dispatch('print', e.detail);
-	}
-
-	function forwardDuplicate(e: CustomEvent<{ tournamentId: string }>) {
-		dispatch('duplicate', e.detail);
-	}
-
 	function forwardDelete(e: CustomEvent<{ tournamentId: string }>) {
 		dispatch('delete', e.detail);
+	}
+	function forwardPrint(e: CustomEvent<{ tournamentId: string }>) {
+		dispatch('print', e.detail);
 	}
 </script>
 
@@ -97,9 +98,7 @@
 	</Button>
 </Drawer>
 
-{#if modal}
-	<Scrim />
-{/if}
+{#if modal} <Scrim /> {/if}
 <AppContent style="height: 100%;">
 	<slot />
 </AppContent>

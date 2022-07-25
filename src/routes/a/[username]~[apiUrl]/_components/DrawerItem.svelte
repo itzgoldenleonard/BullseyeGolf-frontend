@@ -1,31 +1,32 @@
 <script lang="ts">
-	import List, { Item, Text, Separator, Subheader, Meta, Graphic } from '@smui/list';
-	import { createEventDispatcher } from 'svelte';
+	// SMUI Components
+	import List, { Item, Text, Separator, Meta, Graphic } from '@smui/list';
 	import Dialog, { Title, Content } from '@smui/dialog';
+	// Functions
+	import { createEventDispatcher } from 'svelte';
 
-	export let tournament: ShortTournament;
+	// UI Variables
+	let open = false;
 	export let active: string;
 
-	let open = false;
+	// Variables
+	export let tournament: ShortTournament;
 
+	// Functions
 	const dispatch = createEventDispatcher();
-
-	function pick(tournamentId: string) {
-		dispatch('pick', { tournamentId });
-	}
-
-	function print(tournamentId: string) {
-		dispatch('print', { tournamentId });
-		open = false;
-	}
-
 	function duplicate(tournamentId: string) {
 		dispatch('duplicate', { tournamentId });
 		open = false;
 	}
-
+	function pick(tournamentId: string) {
+		dispatch('pick', { tournamentId });
+	}
 	function remove(tournamentId: string) {
 		dispatch('delete', { tournamentId });
+		open = false;
+	}
+	function print(tournamentId: string) {
+		dispatch('print', { tournamentId });
 		open = false;
 	}
 </script>
@@ -41,7 +42,7 @@
 <Dialog bind:open selection>
 	<Title>{tournament.tournament_name}</Title>
 	<Content>
-		<List>
+		<List style="padding-block: 8px;">
 			<Item on:SMUI:action={() => print(tournament.tournament_id)}>
 				<Graphic class="material-icons">print</Graphic>
 				<Text>Print</Text>
@@ -52,8 +53,8 @@
 			</Item>
 			<Separator />
 			<Item on:SMUI:action={() => remove(tournament.tournament_id)}>
-				<Graphic class="material-icons" style="color: red;">delete</Graphic>
-				<Text class="error-text" style="color: red; //tmp">Slet</Text>
+				<Graphic class="material-icons error-text">delete</Graphic>
+				<Text class="error-text">Slet</Text>
 			</Item>
 		</List>
 	</Content>

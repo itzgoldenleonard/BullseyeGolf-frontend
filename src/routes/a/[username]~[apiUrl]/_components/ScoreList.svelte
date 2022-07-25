@@ -4,19 +4,21 @@
 	// SMUI Components
 	import DataTable, { Head, Body, Row, Cell } from '@smui/data-table';
 	import IconButton from '@smui/icon-button';
-	// Variables
-	export let scores: Score[];
 	// Functions
 	import { displayScore } from '$lib/displayScore';
 	import { toLocaleTs } from '../scripts/timeConversion';
 
+	// Variables
+	export let scores: Score[];
+
+	// Functions
 	function removeScore(index: number) {
 		scores = scores.filter((e, i) => i !== index); // Removes the element at index and assigns to the array (to update the UI) at the same time
 		$saved = false;
 	}
 </script>
 
-<DataTable style="width: 100%; max-height: inherit;">
+<DataTable style="max-width: 100%; flex-grow: 1;">
 	<Head>
 		<Row>
 			<Cell>Nr.</Cell>
