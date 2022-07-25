@@ -1,21 +1,25 @@
 <script lang="ts">
+	// Stores
 	import { saved } from '../scripts/stores';
-	import Accordion from '@smui-extra/accordion';
+	// SMUI Components
 	import Chip, { Set, Text } from '@smui/chips';
+	import Accordion from '@smui-extra/accordion';
+	// Custom Components
+	import SingleHole from '../_components/SingleHole.svelte';
+	// Functions
 	import { onMount } from 'svelte';
 
-	import SingleHole from '../_components/SingleHole.svelte';
-
 	// UI Variables
-	let choices: string[] = [];
+	const choices: string[] = [];
 	for (let i = 1; i <= 18; i++) {
 		choices.push(`${i}`);
-	} // Immutable
+	}
 
+	// Variables
 	export let holes: Hole[];
-
 	let selected: string[] = [];
 
+	// Functions
 	function chipClick(holeNumber: number) {
 		if (selected.includes(String(holeNumber))) {
 			removeHole(holeNumber);
@@ -41,7 +45,7 @@
 		let i: number = holes.findIndex((e) => e.hole_number == holeNumber);
 		if (holes[i].scores.length !== 0) {
 			alert('Du kan ikke slette et hul med scorer!');
-			await new Promise((r) => setTimeout(r, 0.5));
+			await new Promise((r) => setTimeout(r, 0.5)); // If I dont wait here the next line's assignment wont work as intended
 			selected = [...selected, String(holeNumber)];
 			return;
 		}
@@ -50,6 +54,7 @@
 		$saved = false;
 	}
 
+	// Lifecycle
 	onMount(() => {
 		for (let hole of holes) {
 			selected.push(`${hole.hole_number}`);
@@ -76,11 +81,5 @@
 
 	h1 {
 		@include typography.typography('headline4');
-	}
-
-	article {
-		overflow-x: hidden;
-		overflow-y: auto;
-		margin-bottom: 48px;
 	}
 </style>
