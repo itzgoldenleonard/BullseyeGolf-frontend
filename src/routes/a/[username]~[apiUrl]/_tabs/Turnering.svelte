@@ -1,10 +1,14 @@
 <script lang="ts">
+	// SMUI Components
 	import Textfield from '@smui/textfield';
+	// Custom Components
 	import TimePicker from '../_components/TimePicker.svelte';
-	export let tournament: Tournament;
 
+	// Variables
+	export let tournament: Tournament;
 	let files: FileList | null = null;
 
+	// Functions
 	$: if (files != null && files.length) {
 		let reader = new FileReader();
 		reader.readAsDataURL(files[0]);
@@ -60,5 +64,6 @@
 		display: flex;
 		gap: 10px;
 		margin-bottom: 10px;
+		flex-wrap: wrap;
 	}
 </style>

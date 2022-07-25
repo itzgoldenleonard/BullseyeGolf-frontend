@@ -1,15 +1,15 @@
 <script lang="ts">
-    // SMUI Components
+	// SMUI Components
 	import { Panel, Header, Content } from '@smui-extra/accordion';
 	import Textfield from '@smui/textfield';
-    // Custom components
+	// Custom components
 	import ScoreList from '../_components/ScoreList.svelte';
 
-    // Variables
+	// Variables
 	export let hole: Hole;
 	let files: FileList | null = null;
 
-    // Functions
+	// Functions
 	$: if (files != null && files.length) {
 		let reader = new FileReader();
 		reader.readAsDataURL(files[0]);
