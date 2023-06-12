@@ -16,13 +16,14 @@
 	// UI Variables
 	export let open: boolean = false; // Open state of the dialog itself
 
-	let [name, scoreM, scoreCm] = ['', null, null];
+	let [member_no, name, scoreM, scoreCm] = ['', '', null, null];
 	let confirmed = false;
 
 	const dispatch = createEventDispatcher();
 	function submit() {
+        name = member_no ? `${member_no} ${name}` : name;
 		dispatch('submit', { name, scoreM, scoreCm });
-		[name, scoreM, scoreCm] = ['', null, null];
+		[member_no, name, scoreM, scoreCm] = ['', '', null, null];
 		confirmed = false;
 	}
 </script>
@@ -44,7 +45,18 @@
 				input$minlength={2}
 				style="width: 100%;"
 			>
-				<HelperText slot="helper">evt. medlemsnummer</HelperText>
+			</Textfield>
+
+			<span>Medlemsnummer</span>
+			<Textfield
+				variant="outlined"
+				bind:value={member_no}
+				input$maxlength={8}
+				input$minlength={2}
+                input$pattern={'\\d*'}
+				style="width: 100%;"
+			>
+				<HelperText slot="helper">Ikke påkrævet</HelperText>
 			</Textfield>
 
 			<span>Distance</span>
@@ -75,7 +87,7 @@
 			<FormField>
 				<Checkbox bind:checked={confirmed} />
 				<span slot="label"
-					>Bekræft at <b>'{name}'</b> er
+					>Bekræft at <b>'{member_no ? `${member_no} ${name}` : name}'</b> er
 					<b>{displayScore(scoreM + Math.min(scoreCm, 99) * 0.01)}m</b>
 					fra
 					<b>hul {$page.params.holeNumber}</b></span
