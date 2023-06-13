@@ -51,9 +51,9 @@
 			<Textfield
 				variant="outlined"
 				bind:value={member_no}
-				input$maxlength={8}
+				input$maxlength={11}
 				input$minlength={2}
-                input$pattern={'\\d*'}
+                input$pattern={'\\d*[- ]?\\d*'}
 				style="width: 100%;"
 			>
 				<HelperText slot="helper">Ikke påkrævet</HelperText>
