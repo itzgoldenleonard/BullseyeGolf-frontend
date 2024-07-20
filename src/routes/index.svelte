@@ -60,31 +60,21 @@
 		<li>Du behøver aldrig mere at hente eller sætte papirer ud.</li>
 		<li>Programmet er kompatibelt med alt der har en web browser</li>
 		<li>Tilgængeligt, hurtigt, intuitivt og høj kvalitets program</li>
-        <li>Ingen reklamer, tracking eller dataopsamling</li>
+                <li>Ingen reklamer, tracking eller dataopsamling</li>
 		<li>Frit og open source</li>
 	</ol>
 
-	<h2>Historien bag</h2>
-	<section class="showcase right-aligned">
-        <p>
-            Her kan du se en video om hvordan ideen til bullseyegolf kom og en lille smule om hvad
-            programmet gør og hvordan det ser ud
-        </p>
-        <div class="about-video">
-            <Video
-                url="lbry://@gizel:5/intro-story:2"
-                embedSrc="https://odysee.com/$/embed/intro-story/2fd5516aa1183cb9577e812657bbd186006a3674?r=BSUk1UrcXus6ZC1aDHdLGnra5BFMUcgY"
-                thumbnail="https://spee.ch/d/0be7f2ad23139c03.png"
-            />
-        </div>
-	</section>
-
 	<h2>Kom i gang</h2>
 	<p>
-		Skriv mig en mail for at købe adgang til Bullseyegolf. Du kan få en demo og prøve programmet
-		før du køber det.
+		Du kan selv hoste din egen bullseyegolf API server gratis. Det er lidt teknisk, men hvis du er god med computere
+                kan det sagtens lade sig gøre. Du kan læse hvordan i bullseyegolf server wikien:
 	</p>
-	<p><a href="mailto:design.gizel@gmail.com">Skriv en mail</a></p>
+	<p><a href="https://github.com/itzgoldenleonard/BullseyeGolf-server/wiki/Setting-up-a-production-server">Sådan sætter man en bullseyegolf API server op</a></p>
+        <p>
+                Du kan også selv hoste denne web app, hvis du har lyst til at lave modifikationer. Hvis du ikke vil lave modifikationer kan du
+                bare bruge appen på denne her side. Det er gratis at hoste web appen med cloudflare pages, ligesom denne side.
+        </p>
+        <p><a href="https://github.com/itzgoldenleonard/BullseyeGolf-frontend/wiki">Læs mere om denne frontend app til bullseyegolf</a></p>
 </main>
 
 <Paper>
